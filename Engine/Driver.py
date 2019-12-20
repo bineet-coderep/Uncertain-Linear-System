@@ -90,6 +90,13 @@ class Driver:
         (5,0): [-0.01,0.01],
         (5,8): [-0.01,0.01]
         }
+        linE={
+        (0,9): [-0.01,0.01],
+        (1,9): [-0.1,0.1],
+        (2,9): [-0.001,0.001],
+        (3,9): [-0.01,0.01],
+        (4,9): [-0.01,0.01]
+        }
         IS_C=np.array([0,0,0,0,0,0,0,0,0,0])
         IS_V=np.array([
         [0,1,0,0,0,0,0,0,0,0,0],
@@ -108,7 +115,7 @@ class Driver:
         t=20
         U=[5,5,5,5,5,5,5,5,5,5]
 
-        vrfy=Verify(A,B,E,IS,t,U)
+        vrfy=Verify(A,B,linE,IS,t,U)
         vrfy.plotTime(0,5,0.01)
 
     def coOPVehiclesII():
@@ -148,8 +155,11 @@ class Driver:
         A=Benchmarks.PKPD2.A
         B=Benchmarks.PKPD2.B
         mode='.'
+        linE={
+        (0,4): [-0.01,0.01],
+        }
         E={
-        (0,4): [-1,1],
+        (3,3): [-0.01,0.01],
         }
         IS_C=np.array([0,0,0,0,0])
         IS_V=np.array([
@@ -164,8 +174,8 @@ class Driver:
         t=20
         U=[5,5,5,5,5]
 
-        vrfy=Verify(A,B,E,IS,t,U)
-        vrfy.plotTime(0.1,3,0.01)
+        vrfy=Verify(A,B,linE,IS,t,U)
+        vrfy.plotTime(0,5,0.01)
 
     @staticmethod
     def dcConv():
@@ -215,38 +225,6 @@ class Driver:
         IS=[IS_C,IS_V,IS_r]
         t=20
         U=[5,5,5,5,5,5]
-
-        vrfy=Verify(A,B,E,IS,t,U)
-        vrfy.plotTime(0,10,0.01)
-
-    @staticmethod
-    def holesCXc():
-        A=Benchmarks.HolesCXc.A
-        B=Benchmarks.HolesCXc.B
-        mode='.'
-        E={
-        (0,3): [-0.5,0.5],
-        (1,2): [-0.1,0.1],
-        (3,2): [-0.005,0.005],
-        (4,3): [-0.0045,0.0045]
-        }
-        IS_C=np.array([0,0,0,0,0,0,0,0,0,0])
-        IS_V=np.array([
-        [0,1,0,0,0,0,0,0,0,0,0],
-        [0,0,1,0,0,0,0,0,0,0,0],
-        [0,0,0,1,0,0,0,0,0,0,0],
-        [0,0,0,0,1,0,0,0,0,0,0],
-        [0,0,0,0,0,1,0,0,0,0,0],
-        [0,0,0,0,0,0,1,0,0,0,0],
-        [0,0,0,0,0,0,0,1,0,0,0],
-        [0,0,0,0,0,0,0,0,1,0,0],
-        [0,0,0,0,0,0,0,0,0,1,0],
-        [0,0,0,0,0,0,0,0,0,0,1],
-        ])
-        IS_r=2
-        IS=[IS_C,IS_V,IS_r]
-        t=20
-        U=[5,5,5,5,5,5,5,5,5,5]
 
         vrfy=Verify(A,B,E,IS,t,U)
         vrfy.plotTime(0,10,0.01)
@@ -362,7 +340,7 @@ class Driver:
         U=[5,5,5,5,5,5,5]
 
         vrfy=Verify(A,B,E,IS,t,U)
-        vrfy.plotTime(0,5,0.01)
+        vrfy.plotTime(0,40,0.01)
 
     @staticmethod
     def motorTransmission2():
@@ -387,9 +365,9 @@ class Driver:
         U=[5,5,5,5,5]
 
         vrfy=Verify(A,B,E,IS,t,U)
-        vrfy.plotTime(0,5,0.01)
+        vrfy.plotTime(0,20,0.01)
 
 
 # Write your driver code Where
 
-Driver.coOPVehiclesII()
+Driver.motorTransmission1()

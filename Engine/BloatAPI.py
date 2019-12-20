@@ -160,6 +160,10 @@ class Bloat:
         normE=self.intervalNorm()
         normM=Bloat.spectralNorm(M)
 
+        print("Norm of E: ",normE)
+        print("Norm of M: ", normM)
+        print("")
+
         timeAxis=[]
         fAxis=[]
         t=start
