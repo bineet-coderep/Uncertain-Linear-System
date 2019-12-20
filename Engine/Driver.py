@@ -79,6 +79,71 @@ class Driver:
         vrfy.plotTime(0,5,0.01)
 
     @staticmethod
+    def coOPVehiclesI():
+        A=Benchmarks.CoOPVehiclesI.A
+        B=Benchmarks.CoOPVehiclesI.B
+        mode='.'
+        E={
+        (2,0): [-0.01,0.01],
+        (2,1): [-0.1,0.1],
+        (2,8): [-0.001,0.001],
+        (5,0): [-0.01,0.01],
+        (5,8): [-0.01,0.01]
+        }
+        IS_C=np.array([0,0,0,0,0,0,0,0,0,0])
+        IS_V=np.array([
+        [0,1,0,0,0,0,0,0,0,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0],
+        [0,0,0,1,0,0,0,0,0,0,0],
+        [0,0,0,0,1,0,0,0,0,0,0],
+        [0,0,0,0,0,1,0,0,0,0,0],
+        [0,0,0,0,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,0,1,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0,0],
+        [0,0,0,0,0,0,0,0,0,1,0],
+        [0,0,0,0,0,0,0,0,0,0,1]
+        ])
+        IS_r=2
+        IS=[IS_C,IS_V,IS_r]
+        t=20
+        U=[5,5,5,5,5,5,5,5,5,5]
+
+        vrfy=Verify(A,B,E,IS,t,U)
+        vrfy.plotTime(0,5,0.01)
+
+    def coOPVehiclesII():
+        A=Benchmarks.CoOPVehiclesII.A
+        B=Benchmarks.CoOPVehiclesII.B
+        mode='.'
+        E={
+        (2,0): [-0.01,0.01],
+        (2,1): [-0.1,0.1],
+        (2,8): [-0.001,0.001],
+        (5,0): [-0.01,0.01],
+        (5,8): [-0.01,0.01]
+        }
+        IS_C=np.array([0,0,0,0,0,0,0,0,0,0])
+        IS_V=np.array([
+        [0,1,0,0,0,0,0,0,0,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0],
+        [0,0,0,1,0,0,0,0,0,0,0],
+        [0,0,0,0,1,0,0,0,0,0,0],
+        [0,0,0,0,0,1,0,0,0,0,0],
+        [0,0,0,0,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,0,1,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0,0],
+        [0,0,0,0,0,0,0,0,0,1,0],
+        [0,0,0,0,0,0,0,0,0,0,1]
+        ])
+        IS_r=2
+        IS=[IS_C,IS_V,IS_r]
+        t=20
+        U=[5,5,5,5,5,5,5,5,5,5]
+
+        vrfy=Verify(A,B,E,IS,t,U)
+        vrfy.plotTime(0,5,0.01)
+
+    @staticmethod
     def pkpd2():
         A=Benchmarks.PKPD2.A
         B=Benchmarks.PKPD2.B
@@ -327,4 +392,4 @@ class Driver:
 
 # Write your driver code Where
 
-Driver.flightEnvelope()
+Driver.coOPVehiclesII()
