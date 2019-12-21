@@ -17,7 +17,7 @@ class Verify:
     reachable set of a Perturbed Linear Dynamical System
     '''
 
-    def __init__(self,matA,matB,matE,initset,t,U):
+    def __init__(self,matA,matB,matE,initset,t,U,m):
         self.A=matA # Matrix A of the Dynamical System
         self.B=matB # Matrix A of the Dynamical System
         self.A_comp=Verify.createMatrix(self.A,self.B,'.')
@@ -54,6 +54,11 @@ class Verify:
         The unsafe condition for a state i is the following:
         state of i >= U[i]
         '''
+        self.method=m
+        '''
+        The method to be used for computation of bloating factor.
+        method choices: 'Kagstrom', 'Loan'.
+        '''
 
     @staticmethod
     def createMatrix(A,B,mode,h=0):
@@ -69,7 +74,7 @@ class Verify:
             n2=0
         n=n1+n2
 
-        C=np.zeros((n,n),dtype=np.float128)
+        C=np.zeros((n,n))
         for i in range(n1):
             for j in range(n1):
                 C[i][j]=A[i][j]
@@ -86,8 +91,12 @@ class Verify:
         return C
 
     def getBloatingFactor(self):
-        bloat=BloatKagstrom(self.A_comp,self.E)
-        bloatFactor=BloatKagstrom.computeBloatingFactor(self.time)
+        if self.method.lower()=='kagstrom':
+            bloat=BloatKagstrom(self.A_comp,self.E)
+        elif self.method.lower()=='loan':
+            bloat=BloatLoan(self.A_comp,self.E)
+
+        bloatFactor=bloat.computeBloatingFactor(self.time)
         return bloatFactor
 
     def computeReachSet(self):
@@ -126,12 +135,44 @@ class Verify:
         Plots the bloating factor with time, upto time tBound
         '''
 
-        bloat=BloatKagstrom(self.A_comp,self.E)
-        #print(bloat.computeBloatingFactor(0.001))
+        if self.method.lower()=='kagstrom':
+            bloat=BloatKagstrom(self.A_comp,self.E)
+        elif self.method.lower()=='loan':
+            bloat=BloatLoan(self.A_comp,self.E)
+
         (plotX,plotY)=bloat.computeBloatingFactorWithTime(start,n,step)
 
         plt.autoscale(enable=True, axis='both', tight=False)
         plt.plot(plotX,plotY)
         plt.xlabel("Time")
         plt.ylabel("Bloating Factor")
+        plt.show()
+
+    def plotTimeCompare(self,start,n,step,methodList):
+        '''
+        Plots the bloating factor with time, upto time tBound.
+        Comparing all the techniques mentioned in methodList
+        in the same plot.
+        '''
+
+
+
+        plotX=[]
+        plotY=[]
+        i=1
+        for m in methodList:
+            if m.lower()=='kagstrom':
+                bloat=BloatKagstrom(self.A_comp,self.E)
+            elif m.lower()=='loan':
+                bloat=BloatLoan(self.A_comp,self.E)
+            (plotX,plotY)=bloat.computeBloatingFactorWithTime(start,n,step)
+            plotY=list(filter(lambda x: math.inf!=x,plotY))
+            plotX=plotX[:len(plotY)]
+            plt.plot(plotX,plotY,label=m)
+            i=i+1
+
+        plt.autoscale(enable=True, axis='both', tight=False)
+        plt.xlabel("Time")
+        plt.ylabel("Bloating Factor")
+        plt.legend(loc='best')
         plt.show()

@@ -5,6 +5,8 @@ Email: ghosh.bineet22@gmail.com
 Most the functions are based on the paper:
 - 'Bounds and Perturbation Bounds for the Matrix Exponential'
 by Bo Kagstrom
+- 'The Sensitivity of the Matrix Exponential'
+by Chales Van Loan
 - 'Norms of Interval Matrices'
 by Raena Farhadsefat, Jirı Rohn and Taher Lotf
 
@@ -23,8 +25,11 @@ import math
 
 
 class BloatKagstrom:
-    '''Neccessary APIs required to bloat the Reachable
-    Set according to the given uncertainty
+    '''
+    Neccessary APIs required to bloat the Reachable
+    Set according to the given uncertainty. Based on the paper
+    'Bounds and Perturbation Bounds for the Matrix Exponential'
+    by Bo Kagstrom.
     '''
     def __init__(self, matA, matE):
         self.A=matA # Matrix A of size n*n, represented as a numpy array.
@@ -179,3 +184,147 @@ class BloatKagstrom:
                 break
 
         return (timeAxis,fAxis)
+
+class BloatLoan:
+    '''
+    Neccessary APIs required to bloat the Reachable
+    Set according to the given uncertainty. Based on the paper
+    'The Sensitivity of the Matrix Exponential'
+    by Chales Van Loan
+    '''
+    def __init__(self, matA, matE):
+        self.A=matA # Matrix A of size n*n, represented as a numpy array.
+        self.E=matE # Matrix E, represents error.
+        '''
+        Following dictionary data-structure has been used to represent
+        the error matrix E:
+        {
+            (i,j): [a,b]
+        }
+        Indicating E[i][j] can pick any value within the range [a,b]
+        '''
+        self.n=self.A.shape[0] # Dimension of the System
+
+    @staticmethod
+    def spectralNorm(matA):
+        # Computes 2-Norm of matrix matA
+        return LA.norm(matA,ord=2)
+
+    def centerifyE(self):
+        '''
+        Break the error matrix to E=[Ac-delta,Ac+delta)
+        '''
+        Ac=np.zeros((self.n,self.n))
+        delta=np.zeros((self.n,self.n))
+        for key in self.E:
+            Ac[key[0]][key[1]]=(self.E[key][0]+self.E[key][1])/2
+            delta[key[0]][key[1]]=self.E[key][1]-Ac[key[0]][key[1]]
+        return (Ac,delta)
+
+    @staticmethod
+    def generateSignBits(n,size,axis):
+        '''
+        generates a list of (+,-1) of size n,
+        based on n's binary interpretation
+        '''
+        s=np.binary_repr(n,size)
+
+        if axis==0:
+            bit=np.zeros((1,size))
+            for i in range(size):
+                if s[i]=='1':
+                    bit[0][i]=1
+                else:
+                    bit[0][i]=-1
+            return bit
+        else:
+            bit=np.zeros((size,1))
+            for i in range(size):
+                if s[i]=='1':
+                    bit[i][0]=1
+                else:
+                    bit[i][0]=-1
+            return bit
+
+    def intervalNorm(self):
+        '''
+        Computes the interval norm of
+        E based on Theorem 7 of the
+        paper 'Norms of Interval Matrices'
+        '''
+        norm=-9999
+        (Ac,delta)=self.centerifyE()
+        for i in range(2**self.n):
+            y=BloatKagstrom.generateSignBits(i,self.n,1)
+            for j in range(2**self.n):
+                z=BloatKagstrom.generateSignBits(j,self.n,0)
+                tmp=BloatKagstrom.spectralNorm(Ac+(np.matmul(y,z)*delta))
+                #print(Ac+(np.matmul(y,z)**delta))
+                if tmp>norm:
+                    norm=tmp
+        return norm
+
+    def computeBloatingFactor(self,t):
+        '''
+        Computes the Relative Error Bound
+        as per Theorem 2 in the paper
+        'The Sensitivity of the Matrix Exponential'
+        '''
+        normE=self.intervalNorm()
+        alphaA=self.computeAlpha()
+        muA=self.computeMu()
+
+        ePow=(muA-alphaA+normE)*t
+        bloatFactor=t*normE*np.exp(ePow)
+
+        return bloatFactor
+
+    def computeBloatingFactorWithTime(self,start,n,step):
+        '''
+        Computes the Relative Error Bound
+        as per Theorem 2 in the paper
+        'The Sensitivity of the Matrix Exponential'
+        with respect to time.
+        '''
+        normE=self.intervalNorm()
+        alphaA=self.computeAlpha()
+        muA=self.computeMu()
+        ePow=(muA-alphaA+normE)
+
+        timeAxis=[]
+        fAxis=[]
+        t=start
+        it=0
+        while True:
+            bloatFactor=t*normE*np.exp(ePow*t)
+            timeAxis.append(t)
+            print("Time ",t,": ",bloatFactor)
+            fAxis.append(bloatFactor)
+            t=t+step
+            it=it+1
+            if (it>n):
+                break
+
+        return (timeAxis,fAxis)
+
+    def computeAlpha(self):
+        '''
+        Computes alpha(A) as per the paper 'The Sensitivity of the Matrix Exponential'
+        by Chales Van Loan
+        '''
+        return max(LA.eig(self.A)[0].real)
+
+    def conjugateFactor(self):
+        '''
+        Returns the following:
+        (A*+(A/2))
+        '''
+        AStar=self.A.conjugate()
+        return (AStar+(self.A/2))
+
+    def computeMu(self):
+        '''
+        Computes mu(A) as per the paper 'The Sensitivity of the Matrix Exponential'
+        by Chales Van Loan
+        '''
+        return (max(LA.eig(self.conjugateFactor())[0]))

@@ -38,8 +38,9 @@ class Driver:
         IS=[IS_C,IS_V,IS_r]
         t=20
         U=[5,5,5,5,5,5,5,5]
+        method='Loan'
 
-        vrfy=Verify(A,B,E,IS,t,U)
+        vrfy=Verify(A,B,E,IS,t,U,method)
         vrfy.plotTime(0.1,10,0.01)
 
     @staticmethod
@@ -74,8 +75,9 @@ class Driver:
         IS=[IS_C,IS_V,IS_r]
         t=20
         U=[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]
+        method='Loan'
 
-        vrfy=Verify(A,B,E,IS,t,U)
+        vrfy=Verify(A,B,E,IS,t,U,method)
         vrfy.plotTime(0,5,0.01)
 
     @staticmethod
@@ -114,8 +116,9 @@ class Driver:
         IS=[IS_C,IS_V,IS_r]
         t=20
         U=[5,5,5,5,5,5,5,5,5,5]
+        method='Loan'
 
-        vrfy=Verify(A,B,linE,IS,t,U)
+        vrfy=Verify(A,B,linE,IS,t,U,method)
         vrfy.plotTime(0,5,0.01)
 
     def coOPVehiclesII():
@@ -146,8 +149,9 @@ class Driver:
         IS=[IS_C,IS_V,IS_r]
         t=20
         U=[5,5,5,5,5,5,5,5,5,5]
+        method='Loan'
 
-        vrfy=Verify(A,B,E,IS,t,U)
+        vrfy=Verify(A,B,E,IS,t,U,method)
         vrfy.plotTime(0,5,0.01)
 
     @staticmethod
@@ -173,9 +177,12 @@ class Driver:
         IS=[IS_C,IS_V,IS_r]
         t=20
         U=[5,5,5,5,5]
+        method='Loan'
 
-        vrfy=Verify(A,B,linE,IS,t,U)
-        vrfy.plotTime(0,5,0.01)
+        vrfy=Verify(A,B,linE,IS,t,U,method)
+
+        #vrfy.plotTime(0,100,1)
+        vrfy.plotTimeCompare(0,2,0.01,['Kagstrom','Loan'])
 
     @staticmethod
     def dcConv():
@@ -195,12 +202,10 @@ class Driver:
         IS=[IS_C,IS_V,IS_r]
         t=20
         U=[5,5,5]
+        method='Loan'
 
-        vrfy=Verify(A,B,E,IS,t,U)
-        vrfy.plotTime(0.50,10
-
-
-        ,0.01)
+        vrfy=Verify(A,B,E,IS,t,U,method)
+        vrfy.plotTime(0.50,10,0.01)
 
     @staticmethod
     def spaceCraftRndzvs():
@@ -225,8 +230,9 @@ class Driver:
         IS=[IS_C,IS_V,IS_r]
         t=20
         U=[5,5,5,5,5,5]
+        method='Loan'
 
-        vrfy=Verify(A,B,E,IS,t,U)
+        vrfy=Verify(A,B,E,IS,t,U,method)
         vrfy.plotTime(0,10,0.01)
 
     @staticmethod
@@ -257,8 +263,9 @@ class Driver:
         IS=[IS_C,IS_V,IS_r]
         t=20
         U=[5,5,5,5,5,5,5,5,5,5]
+        method='Loan'
 
-        vrfy=Verify(A,B,E,IS,t,U)
+        vrfy=Verify(A,B,E,IS,t,U,method)
         vrfy.plotTime(0,5,0.01)
 
     @staticmethod
@@ -280,8 +287,9 @@ class Driver:
         IS=[IS_C,IS_V,IS_r]
         t=20
         U=[5,5]
+        method='Loan'
 
-        vrfy=Verify(A,B,E,IS,t,U)
+        vrfy=Verify(A,B,E,IS,t,U,method)
         vrfy.plotTime(0,15,0.01)
 
     @staticmethod
@@ -311,8 +319,9 @@ class Driver:
         IS=[IS_C,IS_V,IS_r]
         t=20
         U=[5,5,5,5,5,5,5]
+        method='Loan'
 
-        vrfy=Verify(A,B,E,IS,t,U)
+        vrfy=Verify(A,B,E,IS,t,U,method)
         vrfy.plotTime(0,3,0.01)
 
     @staticmethod
@@ -338,8 +347,9 @@ class Driver:
         IS=[IS_C,IS_V,IS_r]
         t=20
         U=[5,5,5,5,5,5,5]
+        method='Loan'
 
-        vrfy=Verify(A,B,E,IS,t,U)
+        vrfy=Verify(A,B,E,IS,t,U,method)
         vrfy.plotTime(0,40,0.01)
 
     @staticmethod
@@ -363,11 +373,12 @@ class Driver:
         IS=[IS_C,IS_V,IS_r]
         t=20
         U=[5,5,5,5,5]
+        method='loan'
 
-        vrfy=Verify(A,B,E,IS,t,U)
+        vrfy=Verify(A,B,E,IS,t,U,method)
         vrfy.plotTime(0,20,0.01)
 
 
 # Write your driver code Where
 
-Driver.motorTransmission1()
+Driver.pkpd2()
