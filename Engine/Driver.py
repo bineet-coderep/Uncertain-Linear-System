@@ -119,6 +119,7 @@ class Driver:
         method='Loan'
 
         vrfy=Verify(A,B,linE,IS,t,U,method)
+        #vrfy.plotTime(0,200,1)
         vrfy.plotTimeCompare(0,10,0.01,['Kagstrom','Loan'])
 
     def coOPVehiclesII():
@@ -181,7 +182,7 @@ class Driver:
 
         vrfy=Verify(A,B,linE,IS,t,U,method)
 
-        vrfy.plotTime(0,200,1)
+        vrfy.plotTime(0,10,0.1)
         #vrfy.plotTimeCompare(0,5,0.01,['Kagstrom','Loan'])
 
     @staticmethod
@@ -205,7 +206,8 @@ class Driver:
         method='Loan'
 
         vrfy=Verify(A,B,E,IS,t,U,method)
-        vrfy.plotTime(0,50,0.05)
+        vrfy.plotTimeCompare(0,35,0.01,['Kagstrom','Loan'])
+        #vrfy.plotTime(0,20,0.05)
 
     @staticmethod
     def spaceCraftRndzvs():
@@ -233,7 +235,8 @@ class Driver:
         method='Loan'
 
         vrfy=Verify(A,B,E,IS,t,U,method)
-        vrfy.plotTime(0,10,1)
+        #vrfy.plotTime(0,30,0.01)
+        vrfy.plotTimeCompare(0,10,0.01,['Kagstrom','Loan'])
 
     @staticmethod
     def holesCXc():
@@ -266,7 +269,7 @@ class Driver:
         method='Loan'
 
         vrfy=Verify(A,B,E,IS,t,U,method)
-        vrfy.plotTime(0,5,0.01)
+        vrfy.plotTime(0,50,0.01)
 
     @staticmethod
     def holesPDp():
@@ -350,7 +353,8 @@ class Driver:
         method='Loan'
 
         vrfy=Verify(A,B,E,IS,t,U,method)
-        vrfy.plotTime(0,40,0.01)
+        #vrfy.plotTime(0,20,0.1)
+        vrfy.plotTimeCompare(0,100,0.01,['Kagstrom','Loan'])
 
     @staticmethod
     def motorTransmission2():
@@ -381,4 +385,4 @@ class Driver:
 
 # Write your driver code Where
 
-Driver.spaceCraftRndzvs()
+Driver.motorTransmission1()
