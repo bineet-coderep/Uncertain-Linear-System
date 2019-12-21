@@ -22,7 +22,7 @@ import scipy.linalg as SLA
 import math
 
 
-class Bloat:
+class BloatKagstrom:
     '''Neccessary APIs required to bloat the Reachable
     Set according to the given uncertainty
     '''
@@ -102,10 +102,10 @@ class Bloat:
         norm=-9999
         (Ac,delta)=self.centerifyE()
         for i in range(2**self.n):
-            y=Bloat.generateSignBits(i,self.n,1)
+            y=BloatKagstrom.generateSignBits(i,self.n,1)
             for j in range(2**self.n):
-                z=Bloat.generateSignBits(j,self.n,0)
-                tmp=Bloat.spectralNorm(Ac+(np.matmul(y,z)*delta))
+                z=BloatKagstrom.generateSignBits(j,self.n,0)
+                tmp=BloatKagstrom.spectralNorm(Ac+(np.matmul(y,z)*delta))
                 #print(Ac+(np.matmul(y,z)**delta))
                 if tmp>norm:
                     norm=tmp
@@ -142,9 +142,9 @@ class Bloat:
         '''
         (Q,lam,M)=self.decompose()
         normE=self.intervalNorm()
-        normM=Bloat.spectralNorm(M)
+        normM=BloatKagstrom.spectralNorm(M)
 
-        bloatFactor=Bloat.computeP(normM*t,self.n)*(np.exp(Bloat.computeP(normM*t,self.n)*normE*t)-1)
+        bloatFactor=BloatKagstrom.computeP(normM*t,self.n)*(np.exp(BloatKagstrom.computeP(normM*t,self.n)*normE*t)-1)
 
         return bloatFactor
 
@@ -158,7 +158,7 @@ class Bloat:
         '''
         (Q,lam,M)=self.decompose()
         normE=self.intervalNorm()
-        normM=Bloat.spectralNorm(M)
+        normM=BloatKagstrom.spectralNorm(M)
 
         print("Norm of E: ",normE)
         print("Norm of M: ", normM)
@@ -169,7 +169,7 @@ class Bloat:
         t=start
         it=0
         while True:
-            bloatFactor=Bloat.computeP(normM*t,self.n)*(np.exp(Bloat.computeP(normM*t,self.n)*normE*t)-1)
+            bloatFactor=BloatKagstrom.computeP(normM*t,self.n)*(np.exp(BloatKagstrom.computeP(normM*t,self.n)*normE*t)-1)
             timeAxis.append(t)
             print("Time ",t,": ",bloatFactor)
             fAxis.append(bloatFactor)

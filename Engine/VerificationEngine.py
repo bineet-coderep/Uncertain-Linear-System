@@ -86,8 +86,8 @@ class Verify:
         return C
 
     def getBloatingFactor(self):
-        bloat=Bloat(self.A_comp,self.E)
-        bloatFactor=bloat.computeBloatingFactor(self.time)
+        bloat=BloatKagstrom(self.A_comp,self.E)
+        bloatFactor=BloatKagstrom.computeBloatingFactor(self.time)
         return bloatFactor
 
     def computeReachSet(self):
@@ -126,7 +126,7 @@ class Verify:
         Plots the bloating factor with time, upto time tBound
         '''
 
-        bloat=Bloat(self.A_comp,self.E)
+        bloat=BloatKagstrom(self.A_comp,self.E)
         #print(bloat.computeBloatingFactor(0.001))
         (plotX,plotY)=bloat.computeBloatingFactorWithTime(start,n,step)
 
