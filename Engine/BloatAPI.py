@@ -319,7 +319,7 @@ class BloatLoan:
         Returns the following:
         (A*+(A/2))
         '''
-        AStar=self.A.conjugate()
+        AStar=self.A.conjugate().transpose()
         return (AStar+(self.A/2))
 
     def computeMu(self):

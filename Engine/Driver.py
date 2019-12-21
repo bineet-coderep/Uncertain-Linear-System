@@ -41,7 +41,7 @@ class Driver:
         method='Loan'
 
         vrfy=Verify(A,B,E,IS,t,U,method)
-        vrfy.plotTime(0.1,10,0.01)
+        vrfy.plotTime(0,10,0.1)
 
     @staticmethod
     def flightEnvelope():
@@ -119,7 +119,7 @@ class Driver:
         method='Loan'
 
         vrfy=Verify(A,B,linE,IS,t,U,method)
-        vrfy.plotTime(0,5,0.01)
+        vrfy.plotTimeCompare(0,10,0.01,['Kagstrom','Loan'])
 
     def coOPVehiclesII():
         A=Benchmarks.CoOPVehiclesII.A
@@ -181,8 +181,8 @@ class Driver:
 
         vrfy=Verify(A,B,linE,IS,t,U,method)
 
-        #vrfy.plotTime(0,100,1)
-        vrfy.plotTimeCompare(0,2,0.01,['Kagstrom','Loan'])
+        vrfy.plotTime(0,200,1)
+        #vrfy.plotTimeCompare(0,5,0.01,['Kagstrom','Loan'])
 
     @staticmethod
     def dcConv():
@@ -205,7 +205,7 @@ class Driver:
         method='Loan'
 
         vrfy=Verify(A,B,E,IS,t,U,method)
-        vrfy.plotTime(0.50,10,0.01)
+        vrfy.plotTime(0,50,0.05)
 
     @staticmethod
     def spaceCraftRndzvs():
@@ -233,7 +233,7 @@ class Driver:
         method='Loan'
 
         vrfy=Verify(A,B,E,IS,t,U,method)
-        vrfy.plotTime(0,10,0.01)
+        vrfy.plotTime(0,10,1)
 
     @staticmethod
     def holesCXc():
@@ -381,4 +381,4 @@ class Driver:
 
 # Write your driver code Where
 
-Driver.pkpd2()
+Driver.spaceCraftRndzvs()
