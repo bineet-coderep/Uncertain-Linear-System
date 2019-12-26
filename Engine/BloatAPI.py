@@ -45,11 +45,6 @@ class BloatKagstrom:
         self.n=self.A.shape[0] # Dimension of the System
 
     @staticmethod
-    def spectralNorm(matA):
-        # Computes 2-Norm of matrix matA
-        return LA.norm(matA,ord=2)
-
-    @staticmethod
     def computeP(x,n):
         '''
         compute p_{n-1}(x) according to the paper
@@ -62,58 +57,13 @@ class BloatKagstrom:
             s=s+(xk/k_fact)
         return s
 
-    def centerifyE(self):
-        '''
-        Break the error matrix to E=[Ac-delta,Ac+delta)
-        '''
-        Ac=np.zeros((self.n,self.n))
-        delta=np.zeros((self.n,self.n))
-        for key in self.E:
-            Ac[key[0]][key[1]]=(self.E[key][0]+self.E[key][1])/2
-            delta[key[0]][key[1]]=self.E[key][1]-Ac[key[0]][key[1]]
-        return (Ac,delta)
-
-    @staticmethod
-    def generateSignBits(n,size,axis):
-        '''
-        generates a list of (+,-1) of size n,
-        based on n's binary interpretation
-        '''
-        s=np.binary_repr(n,size)
-
-        if axis==0:
-            bit=np.zeros((1,size))
-            for i in range(size):
-                if s[i]=='1':
-                    bit[0][i]=1
-                else:
-                    bit[0][i]=-1
-            return bit
-        else:
-            bit=np.zeros((size,1))
-            for i in range(size):
-                if s[i]=='1':
-                    bit[i][0]=1
-                else:
-                    bit[i][0]=-1
-            return bit
-
-    def intervalNorm(self):
+    def intervalNorm(self,p='slow'):
         '''
         Computes the interval norm of
-        E based on Theorem 7 of the
+        E based on Theorem 7/10 of the
         paper 'Norms of Interval Matrices'
         '''
-        norm=-9999
-        (Ac,delta)=self.centerifyE()
-        for i in range(2**self.n):
-            y=BloatKagstrom.generateSignBits(i,self.n,1)
-            for j in range(2**self.n):
-                z=BloatKagstrom.generateSignBits(j,self.n,0)
-                tmp=BloatKagstrom.spectralNorm(Ac+(np.matmul(y,z)*delta))
-                #print(Ac+(np.matmul(y,z)**delta))
-                if tmp>norm:
-                    norm=tmp
+        norm=IntervalNorm(self.E,self.n,p).getNorm()
         return norm
 
     def decompose(self):
@@ -139,22 +89,22 @@ class BloatKagstrom:
         return (Q,lam,T)
 
 
-    def computeBloatingFactor(self,t):
+    def computeBloatingFactor(self,t,p='slow'):
         '''
         Computes the Relative Error Bound
         as per 4.14 (Table 4.1) in the paper
         'Bounds and Perturbation Bounds for the Matrix Exponential'
         '''
         (Q,lam,M)=self.decompose()
-        normE=self.intervalNorm()
-        normM=BloatKagstrom.spectralNorm(M)
+        normE=self.intervalNorm(p)
+        normM=IntervalNorm.spectralNorm(M)
 
         bloatFactor=BloatKagstrom.computeP(normM*t,self.n)*(np.exp(BloatKagstrom.computeP(normM*t,self.n)*normE*t)-1)
 
         return bloatFactor
 
 
-    def computeBloatingFactorWithTime(self,start,n,step):
+    def computeBloatingFactorWithTime(self,start,n,step,p='slow'):
         '''
         Computes the Relative Error Bound
         as per 4.14 (Table 4.1) in the paper
@@ -162,8 +112,8 @@ class BloatKagstrom:
         with respect to time.
         '''
         (Q,lam,M)=self.decompose()
-        normE=self.intervalNorm()
-        normM=BloatKagstrom.spectralNorm(M)
+        normE=self.intervalNorm(p)
+        normM=IntervalNorm.spectralNorm(M)
 
         print("Norm of E: ",normE)
         print("Norm of M: ", normM)
@@ -185,6 +135,7 @@ class BloatKagstrom:
 
         return (timeAxis,fAxis)
 
+
 class BloatLoan:
     '''
     Neccessary APIs required to bloat the Reachable
@@ -192,6 +143,7 @@ class BloatLoan:
     'The Sensitivity of the Matrix Exponential'
     by Chales Van Loan
     '''
+
     def __init__(self, matA, matE):
         self.A=matA # Matrix A of size n*n, represented as a numpy array.
         self.E=matE # Matrix E, represents error.
@@ -205,72 +157,22 @@ class BloatLoan:
         '''
         self.n=self.A.shape[0] # Dimension of the System
 
-    @staticmethod
-    def spectralNorm(matA):
-        # Computes 2-Norm of matrix matA
-        return LA.norm(matA,ord=2)
-
-    def centerifyE(self):
-        '''
-        Break the error matrix to E=[Ac-delta,Ac+delta)
-        '''
-        Ac=np.zeros((self.n,self.n))
-        delta=np.zeros((self.n,self.n))
-        for key in self.E:
-            Ac[key[0]][key[1]]=(self.E[key][0]+self.E[key][1])/2
-            delta[key[0]][key[1]]=self.E[key][1]-Ac[key[0]][key[1]]
-        return (Ac,delta)
-
-    @staticmethod
-    def generateSignBits(n,size,axis):
-        '''
-        generates a list of (+,-1) of size n,
-        based on n's binary interpretation
-        '''
-        s=np.binary_repr(n,size)
-
-        if axis==0:
-            bit=np.zeros((1,size))
-            for i in range(size):
-                if s[i]=='1':
-                    bit[0][i]=1
-                else:
-                    bit[0][i]=-1
-            return bit
-        else:
-            bit=np.zeros((size,1))
-            for i in range(size):
-                if s[i]=='1':
-                    bit[i][0]=1
-                else:
-                    bit[i][0]=-1
-            return bit
-
-    def intervalNorm(self):
+    def intervalNorm(self,p='slow'):
         '''
         Computes the interval norm of
         E based on Theorem 7 of the
         paper 'Norms of Interval Matrices'
         '''
-        norm=-9999
-        (Ac,delta)=self.centerifyE()
-        for i in range(2**self.n):
-            y=BloatKagstrom.generateSignBits(i,self.n,1)
-            for j in range(2**self.n):
-                z=BloatKagstrom.generateSignBits(j,self.n,0)
-                tmp=BloatKagstrom.spectralNorm(Ac+(np.matmul(y,z)*delta))
-                #print(Ac+(np.matmul(y,z)**delta))
-                if tmp>norm:
-                    norm=tmp
+        norm=IntervalNorm(self.E,self.n,p).getNorm()
         return norm
 
-    def computeBloatingFactor(self,t):
+    def computeBloatingFactor(self,t,p='slow'):
         '''
         Computes the Relative Error Bound
         as per Theorem 2 in the paper
         'The Sensitivity of the Matrix Exponential'
         '''
-        normE=self.intervalNorm()
+        normE=self.intervalNorm(p)
         alphaA=self.computeAlpha()
         muA=self.computeMu()
 
@@ -279,14 +181,14 @@ class BloatLoan:
 
         return bloatFactor
 
-    def computeBloatingFactorWithTime(self,start,n,step):
+    def computeBloatingFactorWithTime(self,start,n,step,p='slow'):
         '''
         Computes the Relative Error Bound
         as per Theorem 2 in the paper
         'The Sensitivity of the Matrix Exponential'
         with respect to time.
         '''
-        normE=self.intervalNorm()
+        normE=self.intervalNorm(p)
         alphaA=self.computeAlpha()
         muA=self.computeMu()
         ePow=(muA-alphaA+normE)
@@ -328,3 +230,96 @@ class BloatLoan:
         by Chales Van Loan
         '''
         return (max(LA.eig(self.conjugateFactor())[0]))
+
+
+class IntervalNorm:
+    '''
+    Computes Norm-2 of a Interval Matrix
+    based on the paper 'Norms of Interval Matrices'
+    by Raena Farhadsefat, Jirı Rohn and Taher Lotf
+    '''
+
+    def __init__(self,matrix,s,p='slow'):
+        self.A=matrix
+        self.pace=p
+        self.n=s
+
+    def getNorm(self):
+        '''
+        Return: Norm2 by default,
+        Frobenius Norm if fast method is wanted
+        '''
+        if self.pace.lower() == 'slow':
+            return self.intervalNorm2()
+        else:
+            return self.frobeniusNorm()
+
+    def centerify(self):
+        '''
+        Break the error matrix to A=[Ac-delta,Ac+delta)
+        '''
+        Ac=np.zeros((self.n,self.n))
+        delta=np.zeros((self.n,self.n))
+        for key in self.A:
+            Ac[key[0]][key[1]]=(self.A[key][0]+self.A[key][1])/2
+            delta[key[0]][key[1]]=self.A[key][1]-Ac[key[0]][key[1]]
+        return (Ac,delta)
+
+    @staticmethod
+    def generateSignBits(n,size,axis):
+        '''
+        generates a list of (+,-1) of size n,
+        based on n's binary interpretation
+        '''
+        s=np.binary_repr(n,size)
+
+        if axis==0:
+            bit=np.zeros((1,size))
+            for i in range(size):
+                if s[i]=='1':
+                    bit[0][i]=1
+                else:
+                    bit[0][i]=-1
+            return bit
+        else:
+            bit=np.zeros((size,1))
+            for i in range(size):
+                if s[i]=='1':
+                    bit[i][0]=1
+                else:
+                    bit[i][0]=-1
+            return bit
+
+    def intervalNorm2(self):
+        '''
+        Computes the interval norm of
+        A based on Theorem 7 of the
+        paper 'Norms of Interval Matrices'
+        '''
+        #print("SLOW")
+        norm=-9999
+        (Ac,delta)=self.centerify()
+        for i in range(2**self.n):
+            y=IntervalNorm.generateSignBits(i,self.n,1)
+            for j in range(2**self.n):
+                z=IntervalNorm.generateSignBits(j,self.n,0)
+                tmp=IntervalNorm.spectralNorm(Ac+(np.matmul(y,z)*delta))
+                if tmp>norm:
+                    norm=tmp
+        return norm
+
+    @staticmethod
+    def spectralNorm(matA):
+        # Computes 2-Norm of matrix matA
+        return LA.norm(matA,ord=2)
+
+    def frobeniusNorm(self):
+        '''
+        Computes the interval norm of
+        A based on Theorem 10 of the
+        paper 'Norms of Interval Matrices'
+        '''
+        #print("FAST")
+        (Ac,delta)=self.centerify()
+        Ac=abs(Ac)
+        return LA.norm(Ac+delta,ord='fro')

@@ -78,7 +78,8 @@ class Driver:
         method='Loan'
 
         vrfy=Verify(A,B,E,IS,t,U,method)
-        vrfy.plotTime(0,5,0.01)
+        #vrfy.comparePace()
+        vrfy.plotTime(0,50,0.01,'fast')
 
     @staticmethod
     def coOPVehiclesI():
@@ -354,7 +355,9 @@ class Driver:
 
         vrfy=Verify(A,B,E,IS,t,U,method)
         #vrfy.plotTime(0,20,0.1)
+        vrfy.comparePace(['Kagstrom','Loan'])
         vrfy.plotTimeCompare(0,100,0.01,['Kagstrom','Loan'])
+
 
     @staticmethod
     def motorTransmission2():
@@ -385,4 +388,4 @@ class Driver:
 
 # Write your driver code Where
 
-Driver.motorTransmission1()
+Driver.flightEnvelope()

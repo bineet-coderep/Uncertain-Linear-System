@@ -90,23 +90,23 @@ class Verify:
 
         return C
 
-    def getBloatingFactor(self):
+    def getBloatingFactor(self,p='slow'):
         if self.method.lower()=='kagstrom':
             bloat=BloatKagstrom(self.A_comp,self.E)
         elif self.method.lower()=='loan':
             bloat=BloatLoan(self.A_comp,self.E)
 
-        bloatFactor=bloat.computeBloatingFactor(self.time)
+        bloatFactor=bloat.computeBloatingFactor(self.time,p)
         return bloatFactor
 
-    def computeReachSet(self):
-        bloatFactor=self.getBloatingFactor()
+    def computeReachSet(self,p='slow'):
+        bloatFactor=self.getBloatingFactor(p)
         reach=ReachSet(self.A_comp,self.initSet,self.time,bloatFactor)
         starReachSet=reach.bloatReachSet(reach.starReachSet())
         return starReachSet
 
-    def computePerturbFreeReachSet(self):
-        bloatFactor=self.getBloatingFactor()
+    def computePerturbFreeReachSet(self,p='slow'):
+        bloatFactor=self.getBloatingFactor(p)
         reach=ReachSet(self.A_comp,self.initSet,self.time,bloatFactor)
         starReachSet=reach.starReachSet()
         return starReachSet
@@ -130,7 +130,7 @@ class Verify:
         result=ReachSet.isSafe(reachSet,self.Unsafe)
         print("Safety Staus: ",result)
 
-    def plotTime(self,start,n,step):
+    def plotTime(self,start,n,step,p='slow'):
         '''
         Plots the bloating factor with time, upto time tBound
         '''
@@ -140,7 +140,7 @@ class Verify:
         elif self.method.lower()=='loan':
             bloat=BloatLoan(self.A_comp,self.E)
 
-        (plotX,plotY)=bloat.computeBloatingFactorWithTime(start,n,step)
+        (plotX,plotY)=bloat.computeBloatingFactorWithTime(start,n,step,p)
 
         plt.autoscale(enable=True, axis='both', tight=False)
         plt.plot(plotX,plotY)
@@ -148,14 +148,12 @@ class Verify:
         plt.ylabel("Bloating Factor")
         plt.show()
 
-    def plotTimeCompare(self,start,n,step,methodList):
+    def plotTimeCompare(self,start,n,step,methodList,p='slow'):
         '''
         Plots the bloating factor with time, upto time tBound.
         Comparing all the techniques mentioned in methodList
         in the same plot.
         '''
-
-
 
         plotX=[]
         plotY=[]
@@ -165,7 +163,7 @@ class Verify:
                 bloat=BloatKagstrom(self.A_comp,self.E)
             elif m.lower()=='loan':
                 bloat=BloatLoan(self.A_comp,self.E)
-            (plotX,plotY)=bloat.computeBloatingFactorWithTime(start,n,step)
+            (plotX,plotY)=bloat.computeBloatingFactorWithTime(start,n,step,p)
             plotY=list(filter(lambda x: math.inf!=x,plotY))
             plotX=plotX[:len(plotY)]
             plt.plot(plotX,plotY,label=m)
@@ -176,3 +174,19 @@ class Verify:
         plt.ylabel("Bloating Factor")
         plt.legend(loc='best')
         plt.show()
+
+    def comparePace(self):
+        '''
+        Plots the bloating factor with time, upto time tBound.
+        Comparing the fast and slow techniques mentioned in methodList
+        in the same plot.
+        '''
+
+        print("==== Bloating Factor as Per Pace ====")
+        bloat=BloatLoan(self.A_comp,self.E)
+        bFast=bloat.intervalNorm('fast')
+        #bSlow=bloat.intervalNorm('slow')
+        print("Error Matrix Norm (Fast): ",bFast)
+        print("Error Matrix Norm (Slow): ",bSlow)
+        print("Relative Difference: ",(bFast-bSlow)/bSlow)
+        print("----")
