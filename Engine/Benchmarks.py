@@ -1,3 +1,11 @@
+'''
+Author: Bineet Ghosh, under supervision of Dr. Sridhar Duggirala
+Email: ghosh.bineet22@gmail.com
+
+Benchmarks are taken from ARCH Workshop: https://cps-vo.org/group/ARCH/benchmarks
+
+'''
+
 import numpy as np
 import math
 
