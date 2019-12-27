@@ -9,18 +9,20 @@ Documentation: Not yet available. (TODO)
 
 from BloatAPI import *
 from ReachSetAPI import *
+from EigenDecomposition import *
 import matplotlib.pyplot as plt
 
-class Verify:
+class VerifyBloat:
     '''
     This class provides all the neccessary APIs to compute
     reachable set of a Perturbed Linear Dynamical System
+    based on bloating approaches
     '''
 
     def __init__(self,matA,matB,matE,initset,t,U,m):
         self.A=matA # Matrix A of the Dynamical System
         self.B=matB # Matrix A of the Dynamical System
-        self.A_comp=Verify.createMatrix(self.A,self.B,'.')
+        self.A_comp=VerifyBloat.createMatrix(self.A,self.B,'.')
         self.E=matE # Matrix E, represents error.
         '''
         Following dictionary data-structure has been used to represent
@@ -101,13 +103,13 @@ class Verify:
 
     def computeReachSet(self,p='slow'):
         bloatFactor=self.getBloatingFactor(p)
-        reach=ReachSet(self.A_comp,self.initSet,self.time,bloatFactor)
+        reach=ReachSetBloat(self.A_comp,self.initSet,self.time,bloatFactor)
         starReachSet=reach.bloatReachSet(reach.starReachSet())
         return starReachSet
 
     def computePerturbFreeReachSet(self,p='slow'):
         bloatFactor=self.getBloatingFactor(p)
-        reach=ReachSet(self.A_comp,self.initSet,self.time,bloatFactor)
+        reach=ReachSetBloat(self.A_comp,self.initSet,self.time,bloatFactor)
         starReachSet=reach.starReachSet()
         return starReachSet
 
@@ -122,12 +124,12 @@ class Verify:
 
     def isSafe(self):
         reachSet=self.computeReachSet()
-        result=ReachSet.isSafe(reachSet,self.Unsafe)
+        result=ReachSetBloat.isSafe(reachSet,self.Unsafe)
         print("Safety Staus: ",result)
 
     def isSafePerturbFree(self):
         reachSet=self.computePerturbFreeReachSet()
-        result=ReachSet.isSafe(reachSet,self.Unsafe)
+        result=ReachSetBloat.isSafe(reachSet,self.Unsafe)
         print("Safety Staus: ",result)
 
     def plotTime(self,start,n,step,p='slow'):
@@ -190,3 +192,77 @@ class Verify:
         print("Error Matrix Norm (Slow): ",bSlow)
         print("Relative Difference: ",(bFast-bSlow)/bSlow)
         print("----")
+
+class VerifyDecomp:
+    '''
+    This class provides all the neccessary APIs to compute
+    reachable set of a Perturbed Linear Dynamical System
+    based on eigenvalues and eigenvectors decomposition
+    '''
+    #IMPORTANT: Need Change in ReachSet class
+
+    def __init__(self,matA,matB,B,C,P,initset,t,U):
+        self.A=matA # Matrix A of the Dynamical System
+        self.B=matB # Matrix A of the Dynamical System
+        self.A_comp=VerifyDecomp.createMatrix(self.A,self.B,'.')
+        self.b=B
+        self.C=C
+        self.q=P
+        '''
+        A_pert=A+Bq^TC
+        Please refer to corrollary 2.4 for details
+        '''
+        self.n=self.A_comp.shape[0]
+        self.initialSet=initset # Initial Set.
+        '''
+        Initial Set is represented using a list of following list
+        [C,V,r].
+        Where C is the center, V is the matrix of basis vectors with
+        first column as 0, r is the radius of the sphere.
+        '''
+        self.n=0 # Dimension of the System
+        self.time=t # Time upto which Verification is to be performed
+        self.Unsafe=U # Unsafe set, list of numbers
+        '''
+        The unsafe condition for a state i is the following:
+        state of i >= U[i]
+        '''
+
+    @staticmethod
+    def createMatrix(A,B,mode,h=0):
+        ''' Creates a single matrix based on
+        . or +.
+        In case of . a roungh approximation is
+        done'''
+
+        n1=np.size(A,0)
+        if (np.size(B)>0):
+            n2=np.size(B,1)
+        else:
+            n2=0
+        n=n1+n2
+
+        C=np.zeros((n,n))
+        for i in range(n1):
+            for j in range(n1):
+                C[i][j]=A[i][j]
+        for i in range(n1):
+            j2=0
+            for j in range(n1,n1+n2):
+                C[i][j]=B[i][j2]
+                j2=j2+1
+
+        if mode=='+':
+            for i in range(n1,n1+n2):
+                C[i][i]=1
+
+        return C
+
+    def computeReachSet(self):
+        reach=ReachSetDecomp(self.A_comp,self.initialSet,self.time,self.b,self.q,self.C)
+        return reach.reachSet()
+
+    def isSafe(self):
+        reach=ReachSetDecomp(self.A_comp,self.initialSet,self.T,self.b,self.q,self.c)
+        result=reach.isSafe(self.Unsafe)
+        print("Safety Staus: ",result)

@@ -10,6 +10,7 @@ by Chales Van Loan
 - 'Norms of Interval Matrices'
 by Raena Farhadsefat, Jirı Rohn and Taher Lotf
 
+
 - Linear Dynamical System: dot{x} = (A+E)x; where E is the perturbation.
 - Given a perturbation, the bloating factor according to which e^{At} is to be
 bloated to accomodate e^{(A+B)t} is computed.
@@ -22,7 +23,6 @@ import numpy as np
 import numpy.linalg as LA
 import scipy.linalg as SLA
 import math
-
 
 class BloatKagstrom:
     '''

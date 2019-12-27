@@ -10,7 +10,7 @@ Documentation: Not yet available. (TODO)
 from VerificationEngine import *
 from Benchmarks import *
 
-class Driver:
+class DriverBloat:
 
     @staticmethod
     def illustExample():
@@ -40,7 +40,7 @@ class Driver:
         U=[5,5,5,5,5,5,5,5]
         method='Loan'
 
-        vrfy=Verify(A,B,E,IS,t,U,method)
+        vrfy=VerifyBloat(A,B,E,IS,t,U,method)
         vrfy.plotTime(0,10,0.1)
 
     @staticmethod
@@ -77,9 +77,9 @@ class Driver:
         U=[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]
         method='Loan'
 
-        vrfy=Verify(A,B,E,IS,t,U,method)
+        vrfy=VerifyBloat(A,B,E,IS,t,U,method)
         #vrfy.comparePace()
-        vrfy.plotTime(0,50,0.01,'fast')
+        vrfy.plotTimeCompare(0,10,0.01,['Kagstrom','Loan'],'fast')
 
     @staticmethod
     def coOPVehiclesI():
@@ -119,7 +119,7 @@ class Driver:
         U=[5,5,5,5,5,5,5,5,5,5]
         method='Loan'
 
-        vrfy=Verify(A,B,linE,IS,t,U,method)
+        vrfy=VerifyBloat(A,B,linE,IS,t,U,method)
         #vrfy.plotTime(0,200,1)
         vrfy.plotTimeCompare(0,10,0.01,['Kagstrom','Loan'])
 
@@ -153,7 +153,7 @@ class Driver:
         U=[5,5,5,5,5,5,5,5,5,5]
         method='Loan'
 
-        vrfy=Verify(A,B,E,IS,t,U,method)
+        vrfy=VerifyBloat(A,B,E,IS,t,U,method)
         vrfy.plotTime(0,5,0.01)
 
     @staticmethod
@@ -181,7 +181,7 @@ class Driver:
         U=[5,5,5,5,5]
         method='Loan'
 
-        vrfy=Verify(A,B,linE,IS,t,U,method)
+        vrfy=VerifyBloat(A,B,linE,IS,t,U,method)
 
         vrfy.plotTime(0,10,0.1)
         #vrfy.plotTimeCompare(0,5,0.01,['Kagstrom','Loan'])
@@ -206,7 +206,7 @@ class Driver:
         U=[5,5,5]
         method='Loan'
 
-        vrfy=Verify(A,B,E,IS,t,U,method)
+        vrfy=VerifyBloat(A,B,E,IS,t,U,method)
         vrfy.plotTimeCompare(0,35,0.01,['Kagstrom','Loan'])
         #vrfy.plotTime(0,20,0.05)
 
@@ -235,7 +235,7 @@ class Driver:
         U=[5,5,5,5,5,5]
         method='Loan'
 
-        vrfy=Verify(A,B,E,IS,t,U,method)
+        vrfy=VerifyBloat(A,B,E,IS,t,U,method)
         #vrfy.plotTime(0,30,0.01)
         vrfy.plotTimeCompare(0,10,0.01,['Kagstrom','Loan'])
 
@@ -269,7 +269,7 @@ class Driver:
         U=[5,5,5,5,5,5,5,5,5,5]
         method='Loan'
 
-        vrfy=Verify(A,B,E,IS,t,U,method)
+        vrfy=VerifyBloat(A,B,E,IS,t,U,method)
         vrfy.plotTime(0,50,0.01)
 
     @staticmethod
@@ -293,7 +293,7 @@ class Driver:
         U=[5,5]
         method='Loan'
 
-        vrfy=Verify(A,B,E,IS,t,U,method)
+        vrfy=VerifyBloat(A,B,E,IS,t,U,method)
         vrfy.plotTime(0,15,0.01)
 
     @staticmethod
@@ -325,7 +325,7 @@ class Driver:
         U=[5,5,5,5,5,5,5]
         method='Loan'
 
-        vrfy=Verify(A,B,E,IS,t,U,method)
+        vrfy=VerifyBloat(A,B,E,IS,t,U,method)
         vrfy.plotTime(0,3,0.01)
 
     @staticmethod
@@ -353,7 +353,7 @@ class Driver:
         U=[5,5,5,5,5,5,5]
         method='Loan'
 
-        vrfy=Verify(A,B,E,IS,t,U,method)
+        vrfy=VerifyBloat(A,B,E,IS,t,U,method)
         #vrfy.plotTime(0,20,0.1)
         vrfy.comparePace(['Kagstrom','Loan'])
         vrfy.plotTimeCompare(0,100,0.01,['Kagstrom','Loan'])
@@ -382,10 +382,52 @@ class Driver:
         U=[5,5,5,5,5]
         method='loan'
 
-        vrfy=Verify(A,B,E,IS,t,U,method)
+        vrfy=VerifyBloat(A,B,E,IS,t,U,method)
         vrfy.plotTime(0,20,0.01)
+
+class DriverBloat:
+
+    @staticmethod
+    def illustExample():
+        A=Benchmarks.IllustExample.A
+        B=Benchmarks.IllustExample.B
+        b=np.array([
+        [0],
+        [0],
+        [1],
+        [0],
+        [0],
+        [1],
+        [0],
+        [0]
+        ])
+        q=np.array([[mpi(2,3),0,mpi(2,3),0,0,mpi(2,3),0,0]])
+        C=np.array([
+        [1,0,0,0,1,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [1,0,0,0,1,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,1,0,0,0,0],
+        [0,1,0,0,0,0,0,0],
+        [0,0,0,0,1,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        ])
+        IS=np.array([
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        ])
+        U=np.array([5,5,5,5,5,5,5,5])
+        t=20
+        vrfy=VerifyDecomp(A,B,b,C,q,IS,t,U)
+
 
 
 # Write your driver code Where
 
-Driver.flightEnvelope()
+DriverBloat.illustExample()

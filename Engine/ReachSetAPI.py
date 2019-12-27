@@ -3,7 +3,8 @@ Author: Bineet Ghosh, under supervision of Dr. Sridhar Duggirala
 Email: ghosh.bineet22@gmail.com
 
 - Linear Dynamical System: dot{x} = (A+E)x; where E is the perturbation.
-- The Reachable Set is represented using Generalized Stars according to
+- Class ReachSet: Using Eigenvalue and vector decomposition
+- Class ReachSetBloat: The Reachable Set is represented using Generalized Stars according to
 the paper 'Parsimonious, Simulation based Verification of Linear Systems'
 by Parasara Sridhar Duggirala and Mahesh Viswanathan.
 
@@ -14,9 +15,12 @@ Documentation: Not yet available. (TODO)
 import numpy as np
 import scipy.linalg as LA
 from gurobipy import *
+from EigenDecomposition import *
+
+TAYLOR_PRECISION=100
 
 
-class ReachSet:
+class ReachSetBloat:
     '''
     Compute Reachable Set and bloat it with a given factor
 
@@ -123,5 +127,59 @@ class ReachSet:
 
             print("------------------------------")
         #------------------------------------------------------------------------------------
+
+        return True
+
+class ReachSetDecomp:
+    '''
+    Compute Reachable Set using Eigenvalue and Eigenvector
+    decomposition
+
+    '''
+    def __init__(self, A, initSet, t, B, P, C):
+        '''
+        A_pert=A+BPC
+        Please refer to corrollary 2.4 for details
+        '''
+        self.A=A
+        self.b=B
+        self.C=C
+        self.q=P
+        self.n=A.shape[0] # Dimension of the System
+        self.initialSet=initSet # Initial Set.
+        '''
+        Initial Set is represented using a list of following list
+        as a row vector (numpy array)
+        '''
+        self.T=t # Time T, upto which ReachSet is to be calculated
+
+    @staticmethod
+    def computeSigEAt(matA,t):
+        l=matA.shape[0]
+        A=np.zeros((l,l),dtype=object)
+        for i in range(l):
+            A[i]=matA[i]
+        S=np.zeros((l,l),dtype=object)
+        for i in range(l):
+            trm=((A*t)**i)/factorial(i)
+            S=S+trm
+        return trm
+
+    def reachSet(self):
+        (eval,evects)=EigenDecompose(self.A,self.b,self.q,self.C).decompose()
+        eSig=ReachSetDecomp.computeSigEAt(eval,self.T)
+        evectsInv=IntervalMatrix(evects).inverse()
+        rSet=np.matmul(np.matmul(evects,eSig),evectsInv)
+        return rSet
+
+    def isSafe(self,U):
+        range=np.matmul(self.reachSet,self.initialSet)
+        '''
+        Unsafe Condition:
+            startSet>=U
+        '''
+        for i in range(self.n):
+            if float(nstr(range[i]).split(',')[1][:-1]) >= U[i]:
+                return False
 
         return True
