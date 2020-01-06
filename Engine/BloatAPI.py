@@ -208,7 +208,6 @@ class BloatKagstrom:
 
         a=Matrix(A)
         (s,j)=a.jordan_form()
-        print("Starting....")
         S=np.array(s)
         J=np.array(j)
         S=S.astype('float')
