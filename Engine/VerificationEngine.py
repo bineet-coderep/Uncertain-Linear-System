@@ -93,8 +93,10 @@ class VerifyBloat:
         return C
 
     def getBloatingFactor(self,p='slow'):
-        if self.method.lower()=='kagstrom':
+        if self.method.lower()=='kagstrom1':
             bloat=BloatKagstrom(self.A_comp,self.E)
+        elif self.method.lower()=='kagstrom2':
+            bloat=BloatLoan(self.A_comp,self.E)
         elif self.method.lower()=='loan':
             bloat=BloatLoan(self.A_comp,self.E)
 
@@ -137,12 +139,16 @@ class VerifyBloat:
         Plots the bloating factor with time, upto time tBound
         '''
 
-        if self.method.lower()=='kagstrom':
+        if self.method.lower()=='kagstrom1':
             bloat=BloatKagstrom(self.A_comp,self.E)
+            (plotX,plotY)=bloat.computeBloatingFactorWithTime(start,n,step,p)
+        elif self.method.lower()=='kagstrom2':
+            bloat=BloatKagstrom(self.A_comp,self.E)
+            (plotX,plotY)=bloat.computeBloatingFactor2WithTime(start,n,step,p)
         elif self.method.lower()=='loan':
             bloat=BloatLoan(self.A_comp,self.E)
+            (plotX,plotY)=bloat.computeBloatingFactorWithTime(start,n,step,p)
 
-        (plotX,plotY)=bloat.computeBloatingFactorWithTime(start,n,step,p)
 
         plt.autoscale(enable=True, axis='both', tight=False)
         plt.plot(plotX,plotY)
@@ -161,11 +167,15 @@ class VerifyBloat:
         plotY=[]
         i=1
         for m in methodList:
-            if m.lower()=='kagstrom':
+            if m.lower()=='kagstrom1':
                 bloat=BloatKagstrom(self.A_comp,self.E)
+                (plotX,plotY)=bloat.computeBloatingFactorWithTime(start,n,step,p)
+            elif m.lower()=='kagstrom2':
+                bloat=BloatKagstrom(self.A_comp,self.E)
+                (plotX,plotY)=bloat.computeBloatingFactor2WithTime(start,n,step,p)
             elif m.lower()=='loan':
                 bloat=BloatLoan(self.A_comp,self.E)
-            (plotX,plotY)=bloat.computeBloatingFactorWithTime(start,n,step,p)
+                (plotX,plotY)=bloat.computeBloatingFactorWithTime(start,n,step,p)
             plotY=list(filter(lambda x: math.inf!=x,plotY))
             plotX=plotX[:len(plotY)]
             plt.plot(plotX,plotY,label=m)

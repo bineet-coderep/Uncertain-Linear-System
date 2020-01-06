@@ -38,10 +38,10 @@ class DriverBloat:
         IS=[IS_C,IS_V,IS_r]
         t=20
         U=[5,5,5,5,5,5,5,5]
-        method='Loan'
+        method='Kagstrom2'
 
         vrfy=VerifyBloat(A,B,E,IS,t,U,method)
-        vrfy.plotTime(0,10,0.1)
+        vrfy.plotTimeCompare(0,3,0.01,['Kagstrom1','Kagstrom2'],'fast')
 
     @staticmethod
     def flightEnvelope():
@@ -385,7 +385,7 @@ class DriverBloat:
         vrfy=VerifyBloat(A,B,E,IS,t,U,method)
         vrfy.plotTime(0,20,0.01)
 
-class DriverBloat:
+class DriverDecomp:
 
     @staticmethod
     def illustExample():

@@ -22,7 +22,10 @@ Documentation: Not yet available. (TODO)
 import numpy as np
 import numpy.linalg as LA
 import scipy.linalg as SLA
+from sympy.matrices import *
 import math
+from random import seed
+from random import random
 
 class BloatKagstrom:
     '''
@@ -88,7 +91,6 @@ class BloatKagstrom:
 
         return (Q,lam,T)
 
-
     def computeBloatingFactor(self,t,p='slow'):
         '''
         Computes the Relative Error Bound
@@ -103,7 +105,6 @@ class BloatKagstrom:
 
         return bloatFactor
 
-
     def computeBloatingFactorWithTime(self,start,n,step,p='slow'):
         '''
         Computes the Relative Error Bound
@@ -111,6 +112,7 @@ class BloatKagstrom:
         'Bounds and Perturbation Bounds for the Matrix Exponential'
         with respect to time.
         '''
+
         (Q,lam,M)=self.decompose()
         normE=self.intervalNorm(p)
         normM=IntervalNorm.spectralNorm(M)
@@ -134,6 +136,136 @@ class BloatKagstrom:
                 break
 
         return (timeAxis,fAxis)
+
+    def computeBloatingFactor2(self,t,p='slow'):
+        '''
+        Computes the Relative Error Bound
+        as per 4.12 (Table 4.1) in the paper
+        'Bounds and Perturbation Bounds for the Matrix Exponential'
+        '''
+
+        (S,N,l,ep)=BloatKagstrom.JNFDecomp(self.A)
+        D=BloatKagstrom.getD(l,ep,N)
+        K=BloatKagstrom.computeK(np.matmul(S,D))
+        normE=self.intervalNorm(p)
+        bloat=K*np.exp(ep*t)*(np.exp(K*normE*t)-1)
+        return bloat
+
+
+    def computeBloatingFactor2WithTime(self,start,n,step,p='slow'):
+        '''
+        Computes the Relative Error Bound
+        as per 4.12 (Table 4.1) in the paper
+        'Bounds and Perturbation Bounds for the Matrix Exponential'
+        with respect to time.
+        '''
+
+
+        (S,N,l,ep)=BloatKagstrom.JNFDecomp(self.A)
+        D=BloatKagstrom.getD(l,ep,N)
+        K=BloatKagstrom.computeK(np.matmul(S,D))
+        normE=self.intervalNorm(p)
+
+        timeAxis=[]
+        fAxis=[]
+        t=start
+        it=0
+        while True:
+            bloatFactor=K*np.exp(ep*t)*(np.exp(K*normE*t)-1)
+            timeAxis.append(t)
+            print("Time ",t,": ",bloatFactor)
+            fAxis.append(bloatFactor)
+            t=t+step
+            it=it+1
+            if (it>n):
+                break
+
+        return (timeAxis,fAxis)
+
+    @staticmethod
+    def computeK(S):
+        '''
+        Computes K(S) as given in the paper
+        The Sensitivity of the Matrix Exponential
+        by Kagstrom
+
+        K(S)=||S||*||S^-1||
+        '''
+
+        K=IntervalNorm.spectralNorm(S)*(IntervalNorm.spectralNorm(LA.inv(S)))
+        return K
+
+    @staticmethod
+    def JNFDecomp(A):
+        '''
+        Decomposes the matrix A to Jordan Normal Form
+        A=SJS^-1
+        returns S,N,len,ep
+        Where N: has 1 in the same positions (i,i+1) as J
+        len: countJordanBlocks(J), the length of Jordan Blocks
+        ep: 0 < ep < -alpha(A). alpha(A) is the maximum eigen value (real part) [Yet to implement]
+        '''
+
+        a=Matrix(A)
+        (s,j)=a.jordan_form()
+        print("Starting....")
+        S=np.array(s)
+        J=np.array(j)
+        S=S.astype('float')
+        J=J.astype('float')
+        N=J
+        for i in range(N.shape[0]):
+            N[i][i]=0
+
+        '''seed(1)
+        ep=(100*random())%(-max(LA.eig(A)[0].real))
+        if ep<=0:
+            print("Something went wrong!!")
+            print("Max Eigen value is: ",max(LA.eig(A)[0].real))
+            exit(0)
+        '''
+        ep=0.05
+        print("....Done")
+
+        return (S,N,BloatKagstrom.countJordanBlocks(J),ep)
+
+    @staticmethod
+    def countJordanBlocks(J):
+        '''
+        Counts the lengths of each Jordan Blocks
+        '''
+        n=J.shape[0]
+        l=[]
+        c=0
+        for i in range(n-1):
+            if J[i][i+1]!=1:
+                l.append(c+1)
+                c=0
+            else:
+                c=c+1
+        if sum(l)!=n:
+            l.append(1)
+
+        return l
+
+    @staticmethod
+    def getD(leng,epsilon,N):
+        '''
+        Returns the matrix according to the given length leng
+        as given in the paper The Sensitivity of the Matrix Exponential
+        by Kagstrom
+        '''
+
+        delta=min(1,epsilon/LA.norm(N,ord='fro'))
+        n=sum(leng)
+        D=np.zeros((n,n))
+        ind=0
+        for c in leng:
+            for j in range(c):
+                D[ind][ind]=delta**j
+                ind=ind+1
+
+        return D
 
 
 class BloatLoan:
@@ -323,3 +455,22 @@ class IntervalNorm:
         (Ac,delta)=self.centerify()
         Ac=abs(Ac)
         return LA.norm(Ac+delta,ord='fro')
+
+
+
+# Tester --------------
+
+if False:
+    A=np.array([
+    [1,0,0,1,0],
+    [0,1,0,0,1],
+    [0,0,1,0,0],
+    [1,0,0,1,1],
+    [0,0,0,0,1],
+    ])
+    E={
+    (0,2): [-0.2,0.2],
+    (3,2): [-0.1,0.1]
+    }
+    b=BloatKagstrom(A,E)
+    print(b.computeBloatingFactor2WithTime(0,5,0.01))

@@ -2,7 +2,6 @@
 Author: Bineet Ghosh, under supervision of Dr. Sridhar Duggirala
 Email: ghosh.bineet22@gmail.com
 
-IN PROGRESS
 
 - Guivers Method.
 - Explored scalability of interval arithmetic based method
