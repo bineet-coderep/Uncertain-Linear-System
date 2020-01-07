@@ -163,7 +163,9 @@ class BloatKagstrom:
 
         (S,N,l,ep)=BloatKagstrom.JNFDecomp(self.A)
         D=BloatKagstrom.getD(l,ep,N)
+        print(S,D)
         K=BloatKagstrom.computeK(np.matmul(S,D))
+        print(K)
         normE=self.intervalNorm(p)
 
         timeAxis=[]
@@ -212,19 +214,11 @@ class BloatKagstrom:
         J=np.array(j)
         S=S.astype('float')
         J=J.astype('float')
-        N=J
+        N=np.copy(J)
         for i in range(N.shape[0]):
             N[i][i]=0
 
-        '''seed(1)
-        ep=(100*random())%(-max(LA.eig(A)[0].real))
-        if ep<=0:
-            print("Something went wrong!!")
-            print("Max Eigen value is: ",max(LA.eig(A)[0].real))
-            exit(0)
-        '''
-        ep=0.05
-        print("....Done")
+        ep=BloatKagstrom.getEpsilon(A,J)
 
         return (S,N,BloatKagstrom.countJordanBlocks(J),ep)
 
@@ -255,7 +249,13 @@ class BloatKagstrom:
         by Kagstrom
         '''
 
-        delta=min(1,epsilon/LA.norm(N,ord='fro'))
+        if (epsilon==0):
+            delta=0
+        elif (LA.norm(N,ord='fro')==0):
+            print("Exception!!")
+            delta=0
+        else:
+            delta=min(1,epsilon/LA.norm(N,ord='fro'))
         n=sum(leng)
         D=np.zeros((n,n))
         ind=0
@@ -265,6 +265,51 @@ class BloatKagstrom:
                 ind=ind+1
 
         return D
+
+    @staticmethod
+    def getEpsilon(A,J):
+        '''
+        Returns the proper value of epsilon
+        '''
+
+        n=J.shape[0]
+        l=[]
+        c=0
+        for i in range(n-1):
+            if J[i][i+1]!=1:
+                l.append((J[i-1][i-1],c+1))
+                c=0
+            else:
+                c=c+1
+        sm=0
+        for i in l:
+            sm=sm+i[1]
+
+        if sm!=n:
+            l.append((J[n-1][n-1],1))
+
+        mx=-9999
+        ind=-1
+        for lam in l:
+            r=lam[0].real+(math.cos(math.pi/(lam[1])))
+            if r>mx:
+                ind=lam
+                mx=r
+
+        if ind[1]==1:
+            print("BINGO!!")
+            return 0
+        elif max(LA.eig(A)[0].real)<0:
+            print("NEGATIVE EIGENVALUE!!")
+            return -max(LA.eig(A)[0].real)-0.00001
+        else:
+            print("RANDOM")
+            return 0.05
+
+
+
+
+
 
 
 class BloatLoan:
