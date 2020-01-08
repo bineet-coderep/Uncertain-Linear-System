@@ -458,9 +458,9 @@ class DriverDecomp:
         vP=DriverDecomp.formatize(vrfy.computeReachSet())
         print(vP)
 
-        visP=Visualize(vP,0,1)
-        vis=Visualize(v,0,1)
-        vis.drawCompare(visP)
+        #visP=Visualize(vP,0,1)
+        #vis=Visualize(v,0,1)
+        #vis.drawCompare(visP)
 
 
 

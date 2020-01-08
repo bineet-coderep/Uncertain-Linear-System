@@ -159,13 +159,19 @@ class ReachSetDecomp:
         A=np.zeros((l,l),dtype=object)
         for i in range(l):
             A[i][i]=matA[i]
+        A=A*t
         S=np.zeros((l,l),dtype=object)
-        for i in range(1,TAYLOR_PRECISION):
-            trm=((A*t)**i)/factorial(i)
-            S=S+trm
-            #S[i][i]=np.exp(A[i][i])
-            #print(((A*t)**4)/factorial(4))
+        for i in range(l):
+            S[i][i]=ReachSetDecomp.intervalExp(A[i][i])
+        #print("S: ",S)
         return S
+
+    @staticmethod
+    def intervalExp(a):
+        s=0
+        for i in range(TAYLOR_PRECISION):
+            s=s+(a**i)/factorial(i)
+        return s
 
     def reachSet(self):
         (eval,evects)=EigenDecompose(self.A,self.b,self.q,self.C).decompose()
