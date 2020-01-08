@@ -9,6 +9,7 @@ Documentation: Not yet available. (TODO)
 
 from VerificationEngine import *
 from Benchmarks import *
+from VisualizeAPI import *
 
 class DriverBloat:
 
@@ -388,6 +389,18 @@ class DriverBloat:
 class DriverDecomp:
 
     @staticmethod
+    def formatize(mat):
+        n=mat.shape[0]
+        ret=np.zeros((n,1),dtype=object)
+        for i in range(n):
+            #exit(0)
+            if (isinstance(mat[i][0],int)) or (isinstance(mat[i][0],float)):
+                ret[i][0]=(mat[i][0],mat[i][0])
+            else:
+                ret[i][0]=(float(nstr(mat[i][0]).split(',')[0][1:]),float(nstr(mat[i][0]).split(',')[1][:-1]))
+        return ret
+
+    @staticmethod
     def illustExample():
         A=Benchmarks.IllustExample.A
         B=Benchmarks.IllustExample.B
@@ -401,7 +414,7 @@ class DriverDecomp:
         [0],
         [0]
         ])
-        q=np.array([[mpi(2,3),0,mpi(2,3),0,0,mpi(2,3),0,0]])
+        '''q=np.array([[mpi(2,3),0,mpi(2,3),0,0,mpi(2,3),0,0]])
         C=np.array([
         [1,0,0,0,1,0,0,0],
         [0,0,0,0,0,0,0,0],
@@ -410,6 +423,17 @@ class DriverDecomp:
         [0,0,0,1,0,0,0,0],
         [0,1,0,0,0,0,0,0],
         [0,0,0,0,1,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        ])'''
+        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0,mpi(-0.1,0.1),0,0]])
+        C=np.array([
+        [1,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0],
         ])
         IS=np.array([
@@ -422,14 +446,23 @@ class DriverDecomp:
         [1],
         [1],
         ])
+
+        print(np.matmul(np.matmul(b,q),C))
+        print("\n\n\n\n")
         U=np.array([5,5,5,5,5,5,5,5])
         t=20
         vrfy=VerifyDecomp(A,B,b,C,q,IS,t,U)
-        print(vrfy.computeReachSetPertFree())
+        v=DriverDecomp.formatize(vrfy.computeReachSetPertFree())
+        print(v)
         print("\n\n\n\n")
-        print(vrfy.computeReachSet())
-        print("\n\n\n\n")
-        print(np.matmul(np.matmul(b,q),C))
+        vP=DriverDecomp.formatize(vrfy.computeReachSet())
+        print(vP)
+
+        visP=Visualize(vP,0,1)
+        vis=Visualize(v,0,1)
+        vis.drawCompare(visP)
+
+
 
 
 

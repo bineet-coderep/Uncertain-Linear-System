@@ -28,8 +28,8 @@ class Visualize:
         '''
         plt.axes()
         plt.autoscale(enable=True, axis='both', tight=False)
-        x_interval=self.vectr[self.x]
-        y_interval=self.vectr[self.y]
+        x_interval=(self.vectr[self.x])[0]
+        y_interval=(self.vectr[self.y])[0]
         xy=(x_interval[0],y_interval[0])
         width=x_interval[1]-x_interval[0]
         height=y_interval[1]-y_interval[0]
@@ -55,13 +55,13 @@ class Visualize:
         '''
         plt.axes()
         plt.autoscale(enable=True, axis='both', tight=False)
-        x_interval=self.vectr[self.x]
-        y_interval=self.vectr[self.y]
+        x_interval=(self.vectr[self.x])[0]
+        y_interval=(self.vectr[self.y])[0]
         xy=(x_interval[0],y_interval[0])
         width=x_interval[1]-x_interval[0]
         height=y_interval[1]-y_interval[0]
-        x2_interval=s.vectr[s.x]
-        y2_interval=s.vectr[s.y]
+        x2_interval=(s.vectr[s.x])[0]
+        y2_interval=(s.vectr[s.y])[0]
         xy2=(x2_interval[0],y2_interval[0])
         width2=x2_interval[1]-x2_interval[0]
         height2=y2_interval[1]-y2_interval[0]
@@ -82,22 +82,22 @@ class Visualize:
 
 if False:
     v=np.array([
-    [1,1.2],
-    [1,2],
-    [1,2],
-    [1,2],
+    [(1,1.2)],
+    [(1,2)],
+    [(1,2)],
+    [(1,2)],
     ])
     x=0
     y=2
     vs=Visualize(v,x,y)
 
     v2=np.array([
-    [-1,3],
-    [-1,3],
-    [-1,3],
-    [-1,3],
+    [(-1,3)],
+    [(-1,3)],
+    [(-1,3)],
+    [(-1,3)],
     ])
     x2=0
     y2=2
     vs2=Visualize(v2,x2,y2)
-    vs.drawCompare(vs2)
+    vs2.drawCompare(vs)

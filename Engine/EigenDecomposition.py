@@ -45,7 +45,7 @@ class IntervalMatrix:
         ret=np.zeros((n,n),dtype=object)
         for i in range(n):
             for j in range(n):
-                if type(mat[i][j]) is int:
+                if (isinstance(mat[i][0],int)) or (isinstance(mat[i][0],float)):
                     ret[i][j]=(mat[i][j],mat[i][j])
                 else:
                     ret[i][j]=(float(nstr(mat[i][j]).split(',')[0][1:]),float(nstr(mat[i][j]).split(',')[1][:-1]))
