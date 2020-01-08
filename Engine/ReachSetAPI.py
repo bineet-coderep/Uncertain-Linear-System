@@ -175,7 +175,7 @@ class ReachSetDecomp:
 
     def reachSet(self):
         (eval,evects)=EigenDecompose(self.A,self.b,self.q,self.C).decompose()
-        #print("eval: ",eval)
+        print("eval: ",eval)
         eSig=ReachSetDecomp.computeSigEAt(eval,self.T)
         #print("eSig: ",eSig)
         evectsInv=IntervalMatrix(evects).inverse()
@@ -185,7 +185,8 @@ class ReachSetDecomp:
 
     def reachSetPertFree(self):
         (eval,evects)=LA.eig(self.A)
-        #print("eval: ",eval)
+        print("eval: ",eval)
+        print("evects: \n",evects)
         l=self.A.shape[0]
         S=np.zeros((l,l),dtype=object)
         for i in range(l):

@@ -250,6 +250,7 @@ class EigenDecompose:
         k2=EigenDecompose.conditionNum(A_EVec) # Computes the Condition Number
         normE=IntervalMatrix(E,pace).getNorm() # Computes Interval Norm of interval matrix E
         distance=k2*normE # Computes the distance according to Bauer-Fike Thorem
+        print("Bauer Fike Distance: ",distance)
         EigenVals=np.zeros(A_EV.shape[0],dtype=object)
         for i in range(A_EV.shape[0]):
             EigenVals[i]=mpi(A_EV[i]-distance,A_EV[i]+distance)
@@ -273,6 +274,7 @@ class EigenDecompose:
             evects[i]=evec
             i=i+1
         evects=evects.transpose()
+        print("evects: \n",evects)
         return (evals,evects)
 
     @staticmethod

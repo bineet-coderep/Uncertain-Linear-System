@@ -113,6 +113,7 @@ class BloatKagstrom:
         with respect to time.
         '''
 
+        print("++++Kagstrom1++++")
         (Q,lam,M)=self.decompose()
         normE=self.intervalNorm(p)
         normM=IntervalNorm.spectralNorm(M)
@@ -151,7 +152,6 @@ class BloatKagstrom:
         bloat=K*np.exp(ep*t)*(np.exp(K*normE*t)-1)
         return bloat
 
-
     def computeBloatingFactor2WithTime(self,start,n,step,p='slow'):
         '''
         Computes the Relative Error Bound
@@ -160,13 +160,15 @@ class BloatKagstrom:
         with respect to time.
         '''
 
-
+        print("++++Kagstrom2++++")
+        print("Start...")
         (S,N,l,ep)=BloatKagstrom.JNFDecomp(self.A)
+        print("...End")
         D=BloatKagstrom.getD(l,ep,N)
-        print(S,D)
         K=BloatKagstrom.computeK(np.matmul(S,D))
-        print(K)
+        print("K(SD): ",K)
         normE=self.intervalNorm(p)
+        #print("Norm E: ",normE)
 
         timeAxis=[]
         fAxis=[]
@@ -194,7 +196,9 @@ class BloatKagstrom:
         K(S)=||S||*||S^-1||
         '''
 
+        #S=S.astype('float')
         K=IntervalNorm.spectralNorm(S)*(IntervalNorm.spectralNorm(LA.inv(S)))
+        #print("K(SD): ",K)
         return K
 
     @staticmethod
@@ -210,15 +214,22 @@ class BloatKagstrom:
 
         a=Matrix(A)
         (s,j)=a.jordan_form()
+        #print(s,j)
+        #exit(0)
         S=np.array(s)
         J=np.array(j)
-        S=S.astype('float')
-        J=J.astype('float')
+        S=S.astype('complex')
+        J=J.astype('complex')
+        #print("S: \n",S)
+        #print("J: \n",J)
         N=np.copy(J)
         for i in range(N.shape[0]):
             N[i][i]=0
+        N=N.astype('float')
+        #print("N: \n",N)
 
         ep=BloatKagstrom.getEpsilon(A,J)
+        #print("epsilon: ",ep)
 
         return (S,N,BloatKagstrom.countJordanBlocks(J),ep)
 
@@ -237,7 +248,7 @@ class BloatKagstrom:
             else:
                 c=c+1
         if sum(l)!=n:
-            l.append(1)
+            l.append(c+1)
 
         return l
 
@@ -264,6 +275,9 @@ class BloatKagstrom:
                 D[ind][ind]=delta**j
                 ind=ind+1
 
+        #print("delta: ",delta)
+        #print("D: \n",D)
+
         return D
 
     @staticmethod
@@ -286,7 +300,7 @@ class BloatKagstrom:
             sm=sm+i[1]
 
         if sm!=n:
-            l.append((J[n-1][n-1],1))
+            l.append((J[n-1][n-1],c+1))
 
         mx=-9999
         ind=-1
@@ -305,12 +319,6 @@ class BloatKagstrom:
         else:
             print("RANDOM")
             return 0.05
-
-
-
-
-
-
 
 class BloatLoan:
     '''
@@ -364,6 +372,7 @@ class BloatLoan:
         'The Sensitivity of the Matrix Exponential'
         with respect to time.
         '''
+        print("++++Loan++++")
         normE=self.intervalNorm(p)
         alphaA=self.computeAlpha()
         muA=self.computeMu()
@@ -510,11 +519,15 @@ if False:
     [0,1,0,0,1],
     [0,0,1,0,0],
     [1,0,0,1,1],
-    [0,0,0,0,1],
+    [1,0,0,0,1],
     ])
     E={
     (0,2): [-0.2,0.2],
     (3,2): [-0.1,0.1]
     }
     b=BloatKagstrom(A,E)
-    print(b.computeBloatingFactor2WithTime(0,5,0.01))
+    print("A: \n",A)
+    print("E: \n",E)
+    print()
+    print("-----Kagstrom (4.12) Illustration-------")
+    print(b.computeBloatingFactor2WithTime(0,5,1))
