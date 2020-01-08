@@ -272,6 +272,10 @@ class VerifyDecomp:
         reach=ReachSetDecomp(self.A_comp,self.initialSet,self.time,self.b,self.q,self.C)
         return reach.reachSet()
 
+    def computeReachSetPertFree(self):
+        reach=ReachSetDecomp(self.A_comp,self.initialSet,self.time,self.b,self.q,self.C)
+        return reach.reachSetPertFree()
+
     def isSafe(self):
         reach=ReachSetDecomp(self.A_comp,self.initialSet,self.T,self.b,self.q,self.c)
         result=reach.isSafe(self.Unsafe)

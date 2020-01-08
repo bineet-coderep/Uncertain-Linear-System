@@ -246,6 +246,7 @@ class EigenDecompose:
         '''
         E=np.matmul(np.matmul(self.b,self.q),self.C) # Error Matrix
         (A_EV,A_EVec)=LA.eig(self.A) # Compute the Eigenvalues and Eigenvectors of A
+        #print("A_EV: ",A_EV)
         k2=EigenDecompose.conditionNum(A_EVec) # Computes the Condition Number
         normE=IntervalMatrix(E,pace).getNorm() # Computes Interval Norm of interval matrix E
         distance=k2*normE # Computes the distance according to Bauer-Fike Thorem
@@ -284,6 +285,9 @@ class EigenDecompose:
     @staticmethod
     def conditionNum(V):
         return LA.norm(V,ord=2)*LA.norm(LA.inv(V),ord=2)
+
+    #def decomposeUnperturbed(self):
+
 
 
 

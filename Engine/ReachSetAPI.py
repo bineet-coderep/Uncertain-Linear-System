@@ -158,18 +158,35 @@ class ReachSetDecomp:
         l=matA.shape[0]
         A=np.zeros((l,l),dtype=object)
         for i in range(l):
-            A[i]=matA[i]
+            A[i][i]=matA[i]
         S=np.zeros((l,l),dtype=object)
-        for i in range(l):
+        for i in range(1,TAYLOR_PRECISION):
             trm=((A*t)**i)/factorial(i)
             S=S+trm
-        return trm
+            #S[i][i]=np.exp(A[i][i])
+            #print(((A*t)**4)/factorial(4))
+        return S
 
     def reachSet(self):
         (eval,evects)=EigenDecompose(self.A,self.b,self.q,self.C).decompose()
+        #print("eval: ",eval)
         eSig=ReachSetDecomp.computeSigEAt(eval,self.T)
+        #print("eSig: ",eSig)
         evectsInv=IntervalMatrix(evects).inverse()
         rSet=np.matmul(np.matmul(evects,eSig),evectsInv)
+        rSet=np.matmul(rSet,self.initialSet)
+        return rSet
+
+    def reachSetPertFree(self):
+        (eval,evects)=LA.eig(self.A)
+        #print("eval: ",eval)
+        l=self.A.shape[0]
+        S=np.zeros((l,l),dtype=object)
+        for i in range(l):
+            S[i][i]=np.exp(eval[i])
+        #print("S: ",S )
+        rSet=np.matmul(np.matmul(evects,S),LA.inv(evects))
+        rSet=np.matmul(rSet,self.initialSet)
         return rSet
 
     def isSafe(self,U):

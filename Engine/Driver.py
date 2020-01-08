@@ -425,9 +425,13 @@ class DriverDecomp:
         U=np.array([5,5,5,5,5,5,5,5])
         t=20
         vrfy=VerifyDecomp(A,B,b,C,q,IS,t,U)
+        print(vrfy.computeReachSetPertFree())
+        print("\n\n\n\n")
+        print(vrfy.computeReachSet())
+        print("\n\n\n\n")
+        print(np.matmul(np.matmul(b,q),C))
 
 
 
 # Write your driver code Where
-
-DriverBloat.illustExample()
+DriverDecomp.illustExample()
