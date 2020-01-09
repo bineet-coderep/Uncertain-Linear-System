@@ -14,6 +14,99 @@ from VisualizeAPI import *
 class DriverBloat:
 
     @staticmethod
+    def stableSystem1():
+        A=Benchmarks.StableSystem1.A
+        B=Benchmarks.StableSystem1.B
+        mode='.'
+        E={
+        (0,2): [-0.1,0.1],
+        (2,1): [-1,1],
+        }
+        IS_C=np.array([0,0,0])
+        IS_V=np.array([
+        [0,1,0,0],
+        [0,0,1,0],
+        [0,0,0,1],
+        ])
+        IS_r=2
+        IS=[IS_C,IS_V,IS_r]
+        t=20
+        U=[5,5,5]
+        method='Kagstrom2'
+
+        vrfy=VerifyBloat(A,B,E,IS,t,U,method)
+        #vrfy.plotTime(0,3,0.01)
+        vrfy.plotTimeCompare(0,30,1,['Kagstrom1','Kagstrom2','Loan'],'slow')
+
+    def stableSystem2():
+        A=Benchmarks.StableSystem2.A
+        B=Benchmarks.StableSystem2.B
+        mode='.'
+        E={
+        (0,1): [-0.1,0.1]
+        }
+        IS_C=np.array([0,0])
+        IS_V=np.array([
+        [0,1,0],
+        [0,0,1],
+        ])
+        IS_r=2
+        IS=[IS_C,IS_V,IS_r]
+        t=20
+        U=[5,5]
+        method='Kagstrom2'
+
+        vrfy=VerifyBloat(A,B,E,IS,t,U,method)
+        #vrfy.plotTime(0,3,0.01)
+        vrfy.plotTimeCompare(0,30,0.1,['Kagstrom2','Kagstrom1','Loan'],'slow')
+
+    def stableSystem3():
+        A=Benchmarks.StableSystem3.A
+        B=Benchmarks.StableSystem3.B
+        mode='.'
+        E={
+        (0,1): [-0.1,0.1]
+        }
+        IS_C=np.array([0,0])
+        IS_V=np.array([
+        [0,1,0],
+        [0,0,1],
+        ])
+        IS_r=2
+        IS=[IS_C,IS_V,IS_r]
+        t=20
+        U=[5,5]
+        method='Kagstrom2'
+
+        vrfy=VerifyBloat(A,B,E,IS,t,U,method)
+        #vrfy.plotTime(0,3,0.01)
+        vrfy.plotTimeCompare(0,30,1,['Kagstrom2','Kagstrom1','Loan'],'slow')
+
+    def stableSystem4():
+        A=Benchmarks.StableSystem4.A
+        B=Benchmarks.StableSystem4.B
+        mode='.'
+        E={
+        (0,2): [-0.1,0.1],
+        (2,1): [-1,1],
+        }
+        IS_C=np.array([0,0,0])
+        IS_V=np.array([
+        [0,1,0,0],
+        [0,0,1,0],
+        [0,0,0,1],
+        ])
+        IS_r=2
+        IS=[IS_C,IS_V,IS_r]
+        t=20
+        U=[5,5,5]
+        method='Kagstrom2'
+
+        vrfy=VerifyBloat(A,B,E,IS,t,U,method)
+        #vrfy.plotTime(0,3,0.01)
+        vrfy.plotTimeCompare(0,30,0.1,['Kagstrom2','Kagstrom1','Loan'],'slow')
+
+    @staticmethod
     def illustExample():
         A=Benchmarks.IllustExample.A
         B=Benchmarks.IllustExample.B
@@ -633,4 +726,4 @@ class DriverDecomp:
 
 
 # Write your driver code Where
-DriverDecomp.pkpd2()
+DriverBloat.stableSystem4()

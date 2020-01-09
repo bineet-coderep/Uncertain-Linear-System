@@ -40,6 +40,49 @@ class Benchmarks:
 
         return C
 
+
+    class StableSystem1:
+        # Marginally Stable
+        A=np.array([
+        [0,0,0],
+        [0,0,0],
+        [0,0,-1]
+        ])
+        B=np.array([
+        ])
+        mode='.'
+
+    class StableSystem2:
+        # Asymptotically Stable
+        A=np.array([
+        [-6,3],
+        [-5,2]
+        ])
+        B=np.array([
+        ])
+        mode='.'
+
+    class StableSystem3:
+        # Asymptotically Stable
+        A=np.array([
+        [-3,2],
+        [2,-6]
+        ])
+        B=np.array([
+        ])
+        mode='.'
+
+    class StableSystem4:
+        # Asymptotically Stable
+        A=np.array([
+        [-2,0,0],
+        [0,-3,0],
+        [0,0,-1]
+        ])
+        B=np.array([
+        ])
+        mode='.'
+
     class IllustExample:
         A=np.array([
         [3,0,0,0,0,2,4],
