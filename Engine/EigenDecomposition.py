@@ -274,8 +274,35 @@ class EigenDecompose:
             evects[i]=evec
             i=i+1
         evects=evects.transpose()
+
         print("evects: \n",evects)
+        evects=self.unionEvects(evects)
+        print("")
+        print("evects after union: \n",evects)
         return (evals,evects)
+
+    def unionEvects(self,vec):
+        '''
+        Union the Eigen Vectors obtained from corrollary 2.4(b)
+        and Eigen vectors of A
+        '''
+        evectA=LA.eig(self.A)[1]
+        n=vec.shape[0]
+
+        for i in range(n):
+            for j in range(n):
+                int1=float(nstr(vec[i][j]).split(',')[0][1:])
+                int2=float(nstr(vec[i][j]).split(',')[1][:-1])
+                if (evectA[i][j]>int2):
+                    vec[i][j]=mpi(int1,evectA[i][j])
+                elif (evectA[i][j]<int1):
+                    vec[i][j]=mpi(evectA[i][j],int2)
+
+        return vec
+
+
+
+
 
     @staticmethod
     def getLamdaI(e,n):
