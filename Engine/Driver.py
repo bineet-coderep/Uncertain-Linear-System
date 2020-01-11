@@ -748,6 +748,8 @@ class DriverInterval:
         U=[5,5,5,5,5,5,5,5]
         vrfy=VerifyInterval(A,B,E,IS,t,U)
         print(vrfy.computeReachSet())
+        print("")
+        print(vrfy.computePerturbFreeReachSet())
 
 
 

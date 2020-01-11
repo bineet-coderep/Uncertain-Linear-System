@@ -246,6 +246,6 @@ class ReachSetInterval:
         return rS
 
     def reachSetPertFree(self):
-        eAt=self.compute_eAt(self.A,selft.time)
+        eAt=self.compute_eAt(self.A,self.time)
         rS=np.matmul(eAt,self.initialSet)
         return rS

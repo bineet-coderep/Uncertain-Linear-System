@@ -362,7 +362,7 @@ class VerifyInterval:
         return reachSet
 
     def computePerturbFreeReachSet(self,p='slow'):
-        reach=ReachSetInterval(self.A_comp,self.E,self.initSet,self.time)
+        reach=ReachSetInterval(self.A_comp,self.E,self.initialSet,self.Unsafe,self.time)
         reachSet=reach.reachSetPertFree()
         return reachSet
 
