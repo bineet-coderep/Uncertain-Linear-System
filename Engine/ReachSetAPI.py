@@ -16,6 +16,7 @@ import numpy as np
 import scipy.linalg as LA
 from gurobipy import *
 from EigenDecomposition import *
+import math
 
 TAYLOR_PRECISION=100
 
@@ -207,3 +208,44 @@ class ReachSetDecomp:
                 return False
 
         return True
+
+class ReachSetInterval:
+    '''
+    Computes the reachable set
+    using interval arithmetic.
+    '''
+
+    def __init__(self,A,E,initSet,U,t):
+        self.A=A # Matrix A
+        self.E=E # Error Matrix
+        self.initialSet=initSet # Initial Set
+        self.unsafe=U # Unsafe Set
+        self.time=t # Time
+
+    @staticmethod
+    def compute_eAt(A,t):
+        n=A.shape[0]
+        matA=np.zeros((n,n),dtype=object)
+        matA_i=np.copy(A)
+        matA_i=matA_i*t
+        for i in range(1,TAYLOR_PRECISION):
+            fac=math.factorial(i)
+            matA=matA+(matA_i/fac)
+            matA_i=np.matmul(matA_i,A)
+
+        return matA
+
+    def reachSet(self):
+        n=self.A.shape[0]
+        Er=np.zeros((n,n),dtype=object)
+        for key in self.E:
+            Er[key[0]][key[1]]=mpi(self.E[key][0],self.E[key][1])
+        AE=self.A+Er
+        eAt=self.compute_eAt(AE,self.time)
+        rS=np.matmul(eAt,self.initialSet)
+        return rS
+
+    def reachSetPertFree(self):
+        eAt=self.compute_eAt(self.A,selft.time)
+        rS=np.matmul(eAt,self.initialSet)
+        return rS

@@ -135,8 +135,8 @@ class DriverBloat:
         method='Kagstrom2'
 
         vrfy=VerifyBloat(A,B,E,IS,t,U,method)
-        vrfy.plotTime(0,3,0.01)
-        #vrfy.plotTimeCompare(0,3,0.01,['Kagstrom1','Kagstrom2'],'fast')
+        #vrfy.plotTime(0,3,0.01)
+        vrfy.plotTimeCompare(0,20,1,['Kagstrom1','Kagstrom2','Loan'],'fast')
 
     @staticmethod
     def flightEnvelope():
@@ -274,12 +274,12 @@ class DriverBloat:
         IS=[IS_C,IS_V,IS_r]
         t=20
         U=[5,5,5,5,5]
-        method='Kagstrom2'
+        method='Loan'
 
         vrfy=VerifyBloat(A,B,linE,IS,t,U,method)
 
-        #vrfy.plotTime(0,50,1)
-        vrfy.plotTimeCompare(0,7,0.01,['Kagstrom1','Kagstrom2','Loan'])
+        vrfy.plotTime(0,50,1)
+        #vrfy.plotTimeCompare(0,7,0.01,['Kagstrom1','Kagstrom2','Loan'])
 
     @staticmethod
     def dcConv():
@@ -721,9 +721,41 @@ class DriverDecomp:
         vP=DriverDecomp.formatize(vrfy.computeReachSet())
         print("Reach Set with Pert: \n",vP)
 
+class DriverInterval:
+
+    @staticmethod
+    def illustExample():
+        A=Benchmarks.IllustExample.A
+        B=Benchmarks.IllustExample.B
+        mode='.'
+        E={
+        (0,0): [-2,2],
+        (2,5): [-1,1],
+        (4,6): [-2,2],
+        (5,3): [-3,3]
+        }
+        IS=np.array([
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        ])
+        t=20
+        U=[5,5,5,5,5,5,5,5]
+        vrfy=VerifyInterval(A,B,E,IS,t,U)
+        print(vrfy.computeReachSet())
+
+
+
+
 
 
 
 
 # Write your driver code Where
-DriverDecomp.pkpd2()
+DriverInterval.illustExample()
+DriverBloat.illustExample()

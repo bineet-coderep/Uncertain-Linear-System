@@ -280,3 +280,94 @@ class VerifyDecomp:
         reach=ReachSetDecomp(self.A_comp,self.initialSet,self.T,self.b,self.q,self.c)
         result=reach.isSafe(self.Unsafe)
         print("Safety Staus: ",result)
+
+class VerifyInterval:
+    '''
+    This class provides all the neccessary APIs to compute
+    reachable set of a Perturbed Linear Dynamical System
+    based on Interval Arithmetic
+    '''
+
+    def __init__(self,matA,matB,matE,initset,t,U):
+        self.A=matA # Matrix A of the Dynamical System
+        self.B=matB # Matrix A of the Dynamical System
+        self.A_comp=VerifyBloat.createMatrix(self.A,self.B,'.')
+        self.E=matE # Matrix E, represents error.
+        '''
+        Following dictionary data-structure has been used to represent
+        the error matrix E:
+        {
+            (i,j): [a,b]
+        }
+        Indicating E[i][j] can pick any value within the range [a,b]
+        '''
+        self.n=self.A_comp.shape[0]
+        self.initialSet=initset # Initial Set.
+        '''
+        Initial Set is represented using a list of following list
+        [C,V,r].
+        Where C is the center, V is the matrix of basis vectors with
+        first column as 0, r is the radius of the sphere.
+        '''
+        self.E=matE # Matrix E, represents error.
+        '''
+        Following dictionary data-structure has been used to represent
+        the error matrix E:
+        {
+            (i,j): [a,b]
+        }
+        Indicating E[i][j] can pick any value within the range [a,b]
+        '''
+        self.n=0 # Dimension of the System
+        self.time=t # Time upto which Verification is to be performed
+        self.Unsafe=U # Unsafe set, list of numbers
+        '''
+        The unsafe condition for a state i is the following:
+        state of i >= U[i]
+        '''
+
+    @staticmethod
+    def createMatrix(A,B,mode,h=0):
+        ''' Creates a single matrix based on
+        . or +.
+        In case of . a roungh approximation is
+        done'''
+
+        n1=np.size(A,0)
+        if (np.size(B)>0):
+            n2=np.size(B,1)
+        else:
+            n2=0
+        n=n1+n2
+
+        C=np.zeros((n,n))
+        for i in range(n1):
+            for j in range(n1):
+                C[i][j]=A[i][j]
+        for i in range(n1):
+            j2=0
+            for j in range(n1,n1+n2):
+                C[i][j]=B[i][j2]
+                j2=j2+1
+
+        if mode=='+':
+            for i in range(n1,n1+n2):
+                C[i][i]=1
+
+        return C
+
+    def computeReachSet(self):
+        reach=ReachSetInterval(self.A_comp,self.E,self.initialSet,self.Unsafe,self.time)
+        reachSet=reach.reachSet()
+        return reachSet
+
+    def computePerturbFreeReachSet(self,p='slow'):
+        reach=ReachSetInterval(self.A_comp,self.E,self.initSet,self.time)
+        reachSet=reach.reachSetPertFree()
+        return reachSet
+
+    def isSafe(self):
+        print("Under Construction!!")
+
+    def isSafePerturbFree(self):
+        print("Under Construction!!")
