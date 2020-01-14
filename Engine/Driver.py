@@ -42,9 +42,19 @@ class DriverBloat:
         A=Benchmarks.StableSystem2.A
         B=Benchmarks.StableSystem2.B
         mode='.'
-        E={
+        '''E={
         (0,1): [-0.1,0.1]
-        }
+        }'''
+        b=np.array([
+        [1],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0]])
+        C=np.array([
+        [1,0],
+        [1,0],
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
         IS_C=np.array([0,0])
         IS_V=np.array([
         [0,1,0],
@@ -56,17 +66,28 @@ class DriverBloat:
         U=[5,5]
         method='Kagstrom2'
 
+
         vrfy=VerifyBloat(A,B,E,IS,t,U,method)
         #vrfy.plotTime(0,3,0.01)
-        vrfy.plotTimeCompare(0,30,0.1,['Kagstrom2','Kagstrom1','Loan'],'slow')
+        vrfy.plotTimeCompare(0,t,1,['Kagstrom2','Kagstrom1','Loan'],'slow')
 
     def stableSystem3():
         A=Benchmarks.StableSystem3.A
         B=Benchmarks.StableSystem3.B
         mode='.'
-        E={
+        '''E={
         (0,1): [-0.1,0.1]
-        }
+        }'''
+        b=np.array([
+        [1],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0]])
+        C=np.array([
+        [1,0],
+        [1,0],
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
         IS_C=np.array([0,0])
         IS_V=np.array([
         [0,1,0],
@@ -111,12 +132,34 @@ class DriverBloat:
         A=Benchmarks.IllustExample.A
         B=Benchmarks.IllustExample.B
         mode='.'
-        E={
+        '''E={
         (0,0): [-2,2],
         (2,5): [-1,1],
         (4,6): [-2,2],
         (5,3): [-3,3]
-        }
+        }'''
+        b=np.array([
+        [0],
+        [0],
+        [1],
+        [0],
+        [0],
+        [1],
+        [0],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0,mpi(-0.1,0.1),0,0]])
+        C=np.array([
+        [1,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,1,0],
+        [1,0,0,0,0,0,0,0],
+        [0,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,1,0],
+        [0,1,0,0,0,0,1,0],
+        [0,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,0,0]
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
         IS_C=np.array([0,0,0,0,0,0,0,0])
         IS_V=np.array([
         [0,1,0,0,0,0,0,0,0],
@@ -143,10 +186,48 @@ class DriverBloat:
         A=Benchmarks.FlightEnvelope.A
         B=Benchmarks.FlightEnvelope.B
         mode='.'
-        E={
+        '''E={
         (3,7): [-1,1],
         (4,6): [-1,1],
-        }
+        }'''
+        b=np.array([
+        [0],
+        [0],
+        [1],
+        [0],
+        [0],
+        [0],
+        [0],
+        [0],
+        [0],
+        [0],
+        [1],
+        [0],
+        [0],
+        [1],
+        [0],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0,mpi(-0.1,0.1),0,0,0,mpi(-0.1,0.1),0,0,0,0,0,0]])
+        C=np.array([
+        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+        [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+        [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0]
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
         IS_C=np.array([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
         IS_V=np.array([
         [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -173,15 +254,15 @@ class DriverBloat:
         method='Kagstrom2'
 
         vrfy=VerifyBloat(A,B,E,IS,t,U,method)
-        vrfy.plotTime(0,10,0.01,'fast')
-        #vrfy.plotTimeCompare(0,10,0.01,['Kagstrom1','Kagstrom2','Loan'],'fast')
+        #vrfy.plotTime(0,10,0.01,'fast')
+        vrfy.plotTimeCompare(0,20,1,['Kagstrom1','Kagstrom2','Loan'],'fast')
 
     @staticmethod
     def coOPVehiclesI():
         A=Benchmarks.CoOPVehiclesI.A
         B=Benchmarks.CoOPVehiclesI.B
         mode='.'
-        E={
+        '''E={
         (2,0): [-0.01,0.01],
         (2,1): [-0.1,0.1],
         (2,8): [-0.001,0.001],
@@ -194,41 +275,33 @@ class DriverBloat:
         (2,9): [-0.001,0.001],
         (3,9): [-0.01,0.01],
         (4,9): [-0.01,0.01]
-        }
-        IS_C=np.array([0,0,0,0,0,0,0,0,0,0])
-        IS_V=np.array([
-        [0,1,0,0,0,0,0,0,0,0,0],
-        [0,0,1,0,0,0,0,0,0,0,0],
-        [0,0,0,1,0,0,0,0,0,0,0],
-        [0,0,0,0,1,0,0,0,0,0,0],
-        [0,0,0,0,0,1,0,0,0,0,0],
-        [0,0,0,0,0,0,1,0,0,0,0],
-        [0,0,0,0,0,0,0,1,0,0,0],
-        [0,0,0,0,0,0,0,0,1,0,0],
-        [0,0,0,0,0,0,0,0,0,1,0],
-        [0,0,0,0,0,0,0,0,0,0,1]
+        }'''
+        b=np.array([
+        [0],
+        [0],
+        [1],
+        [0],
+        [0],
+        [0],
+        [1],
+        [0],
+        [1],
+        [0]
         ])
-        IS_r=2
-        IS=[IS_C,IS_V,IS_r]
-        t=20
-        U=[5,5,5,5,5,5,5,5,5,5]
-        method='Kagstrom2'
-
-        vrfy=VerifyBloat(A,B,linE,IS,t,U,method)
-        vrfy.plotTime(0,10,0.01)
-        #vrfy.plotTimeCompare(0,10,0.01,['Kagstrom','Loan'])
-
-    def coOPVehiclesII():
-        A=Benchmarks.CoOPVehiclesII.A
-        B=Benchmarks.CoOPVehiclesII.B
-        mode='.'
-        E={
-        (2,0): [-0.01,0.01],
-        (2,1): [-0.1,0.1],
-        (2,8): [-0.001,0.001],
-        (5,0): [-0.01,0.01],
-        (5,8): [-0.01,0.01]
-        }
+        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0,mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0]])
+        C=np.array([
+        [1,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,1,0,0,0],
+        [0,0,1,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [0,1,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,1,0,0],
+        [0,0,0,1,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [1,0,0,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0]
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
         IS_C=np.array([0,0,0,0,0,0,0,0,0,0])
         IS_V=np.array([
         [0,1,0,0,0,0,0,0,0,0,0],
@@ -249,19 +322,95 @@ class DriverBloat:
         method='Kagstrom2'
 
         vrfy=VerifyBloat(A,B,E,IS,t,U,method)
-        vrfy.plotTimeCompare(0,10,0.01,['Kagstrom1','Loan'])
+        vrfy.plotTime(0,20,1)
+        vrfy.plotTimeCompare(0,20,1,['Kagstrom1','Kagstrom2','Loan'])
+
+    def coOPVehiclesII():
+        A=Benchmarks.CoOPVehiclesII.A
+        B=Benchmarks.CoOPVehiclesII.B
+        mode='.'
+        '''E={
+        (2,0): [-0.01,0.01],
+        (2,1): [-0.1,0.1],
+        (2,8): [-0.001,0.001],
+        (5,0): [-0.01,0.01],
+        (5,8): [-0.01,0.01]
+        }'''
+        b=np.array([
+        [0],
+        [0],
+        [1],
+        [0],
+        [0],
+        [0],
+        [1],
+        [0],
+        [1],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0,mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0]])
+        C=np.array([
+        [1,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,1,0,0,0],
+        [0,0,1,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [0,1,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,1,0,0],
+        [0,0,0,1,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [1,0,0,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0]
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
+        IS_C=np.array([0,0,0,0,0,0,0,0,0,0])
+        IS_V=np.array([
+        [0,1,0,0,0,0,0,0,0,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0],
+        [0,0,0,1,0,0,0,0,0,0,0],
+        [0,0,0,0,1,0,0,0,0,0,0],
+        [0,0,0,0,0,1,0,0,0,0,0],
+        [0,0,0,0,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,0,1,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0,0],
+        [0,0,0,0,0,0,0,0,0,1,0],
+        [0,0,0,0,0,0,0,0,0,0,1]
+        ])
+        IS_r=2
+        IS=[IS_C,IS_V,IS_r]
+        t=20
+        U=[5,5,5,5,5,5,5,5,5,5]
+        method='Kagstrom2'
+
+        vrfy=VerifyBloat(A,B,E,IS,t,U,method)
+        vrfy.plotTimeCompare(0,20,1,['Kagstrom1','Kagstrom2','Loan'])
 
     @staticmethod
     def pkpd2():
         A=Benchmarks.PKPD2.A
         B=Benchmarks.PKPD2.B
         mode='.'
-        linE={
+        '''linE={
         (0,4): [-0.01,0.01],
         }
         E={
         (3,3): [-0.01,0.01],
-        }
+        }'''
+        b=np.array([
+        [0],
+        [1],
+        [1],
+        [0],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0]])
+        C=np.array([
+        [1,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,1,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0]
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
         IS_C=np.array([0,0,0,0,0])
         IS_V=np.array([
         [0,1,0,0,0,0],
@@ -276,10 +425,10 @@ class DriverBloat:
         U=[5,5,5,5,5]
         method='Loan'
 
-        vrfy=VerifyBloat(A,B,linE,IS,t,U,method)
+        vrfy=VerifyBloat(A,B,E,IS,t,U,method)
 
-        vrfy.plotTime(0,50,1)
-        #vrfy.plotTimeCompare(0,7,0.01,['Kagstrom1','Kagstrom2','Loan'])
+        #vrfy.plotTime(0,50,1)
+        vrfy.plotTimeCompare(0,20,1,['Kagstrom1','Kagstrom2','Loan'])
 
     @staticmethod
     def dcConv():
@@ -310,11 +459,29 @@ class DriverBloat:
         A=Benchmarks.SpaceCraftRndzvs.A
         B=Benchmarks.SpaceCraftRndzvs.B
         mode='.'
-        E={
+        '''E={
         (2,0): [-1,1],
         (2,3): [-0.1,0.1],
         (3,2): [-0.5,0.5],
-        }
+        }'''
+        b=np.array([
+        [1],
+        [0],
+        [1],
+        [0],
+        [1],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0,mpi(-0.1,0.1)]])
+        C=np.array([
+        [1,0,0,0,0,0],
+        [0,1,0,0,0,0],
+        [0,0,0,0,0,0],
+        [0,0,0,0,1,0],
+        [0,1,0,0,0,0],
+        [0,0,0,0,0,0]
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
         IS_C=np.array([0,0,0,0,0,0])
         IS_V=np.array([
         [0,1,0,0,0,0,0],
@@ -331,20 +498,46 @@ class DriverBloat:
         method='Kagstrom2'
 
         vrfy=VerifyBloat(A,B,E,IS,t,U,method)
-        vrfy.plotTime(0,30,0.01)
-        #vrfy.plotTimeCompare(0,10,0.01,['Kagstrom','Loan'])
+        #vrfy.plotTime(0,20,1)
+        vrfy.plotTimeCompare(0,20,1,['Kagstrom1','Kagstrom2','Loan'])
 
     @staticmethod
     def holesCXc():
         A=Benchmarks.HolesCXc.A
         B=Benchmarks.HolesCXc.B
         mode='.'
-        E={
+        '''E={
         (0,3): [-0.5,0.5],
         (1,2): [-0.1,0.1],
         (3,2): [-0.005,0.005],
         (4,3): [-0.0045,0.0045]
-        }
+        }'''
+        b=np.array([
+        [0],
+        [0],
+        [1],
+        [0],
+        [0],
+        [0],
+        [1],
+        [0],
+        [1],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0,mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0]])
+        C=np.array([
+        [1,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,1,0,0,0],
+        [0,0,1,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [0,1,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,1,0,0],
+        [0,0,0,1,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [1,0,0,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0]
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
         IS_C=np.array([0,0,0,0,0,0,0,0,0,0])
         IS_V=np.array([
         [0,1,0,0,0,0,0,0,0,0,0],
@@ -365,7 +558,7 @@ class DriverBloat:
         method='Kagstrom2'
 
         vrfy=VerifyBloat(A,B,E,IS,t,U,method)
-        vrfy.plotTimeCompare(0,5,0.01,['Kagstrom1','Loan'])
+        vrfy.plotTimeCompare(0,20,1,['Kagstrom1','Kagstrom2','Loan'])
 
     @staticmethod
     def holesPDp():
@@ -428,10 +621,31 @@ class DriverBloat:
         A=Benchmarks.MotorTransmission1.A
         B=Benchmarks.MotorTransmission1.B
         mode='.'
-        E={
+        '''E={
         (0,6): [-0.1,0.1],
         (1,6): [-1,1]
-        }
+        }'''
+        b=np.array([
+        [1],
+        [0],
+        [1],
+        [0],
+        [1],
+        [1],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0,mpi(-0.1,0.1),0]])
+        C=np.array([
+        [1,0,0,0,0,0,0],
+        [0,1,0,0,0,0,0],
+        [0,0,0,0,0,0,0],
+        [0,0,0,0,1,0,0],
+        [0,1,0,0,0,0,0],
+        [0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0],
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
+
         IS_C=np.array([0,0,0,0,0,0,0])
         IS_V=np.array([
         [0,1,0,0,0,0,0,0],
@@ -451,7 +665,7 @@ class DriverBloat:
         vrfy=VerifyBloat(A,B,E,IS,t,U,method)
         #vrfy.plotTime(0,5,0.1)
         #vrfy.comparePace(['Kagstrom','Loan'])
-        vrfy.plotTimeCompare(0,10,0.1,['Kagstrom1','Loan'])
+        vrfy.plotTimeCompare(0,20,1,['Kagstrom1','Kagstrom2','Loan'])
 
     @staticmethod
     def motorTransmission2():
@@ -507,27 +721,16 @@ class DriverDecomp:
         [0],
         [0]
         ])
-        '''q=np.array([[mpi(2,3),0,mpi(2,3),0,0,mpi(2,3),0,0]])
-        C=np.array([
-        [1,0,0,0,1,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        [1,0,0,0,1,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        [0,0,0,1,0,0,0,0],
-        [0,1,0,0,0,0,0,0],
-        [0,0,0,0,1,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        ])'''
         q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0,mpi(-0.1,0.1),0,0]])
         C=np.array([
+        [1,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,1,0],
         [1,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0],
+        [0,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,1,0],
+        [0,1,0,0,0,0,1,0],
+        [0,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,0,0]
         ])
         IS=np.array([
         [1],
@@ -550,10 +753,6 @@ class DriverDecomp:
         print("\n\n\n\n")
         vP=DriverDecomp.formatize(vrfy.computeReachSet())
         print(vP)
-
-        #visP=Visualize(vP,0,1)
-        #vis=Visualize(v,0,1)
-        #vis.drawCompare(visP)
 
     @staticmethod
     def flightEnvelope():
@@ -627,9 +826,75 @@ class DriverDecomp:
         print(vP)
 
     @staticmethod
-    def coOPVehiclesI():
-        A=Benchmarks.CoOPVehiclesI.A
-        B=Benchmarks.CoOPVehiclesI.B
+    def stableSystem2():
+        A=Benchmarks.StableSystem2.A
+        B=Benchmarks.StableSystem2.B
+        mode='.'
+        '''E={
+        (0,1): [-0.1,0.1]
+        }'''
+        b=np.array([
+        [1],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0]])
+        C=np.array([
+        [1,0],
+        [1,0],
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
+        IS=np.array([
+        [1],
+        [1],
+        ])
+        U=[]
+        print(np.matmul(np.matmul(b,q),C))
+        print("\n\n\n\n")
+        t=20
+        vrfy=VerifyDecomp(A,B,b,C,q,IS,t,U)
+        v=DriverDecomp.formatize(vrfy.computeReachSetPertFree())
+        print(v)
+        print("\n\n\n\n")
+        vP=DriverDecomp.formatize(vrfy.computeReachSet())
+        print(vP)
+
+    @staticmethod
+    def stableSystem3():
+        A=Benchmarks.StableSystem3.A
+        B=Benchmarks.StableSystem3.B
+        mode='.'
+        '''E={
+        (0,1): [-0.1,0.1]
+        }'''
+        b=np.array([
+        [1],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0]])
+        C=np.array([
+        [1,0],
+        [1,0],
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
+        IS=np.array([
+        [1],
+        [1],
+        ])
+        U=[]
+        print(np.matmul(np.matmul(b,q),C))
+        print("\n\n\n\n")
+        t=20
+        vrfy=VerifyDecomp(A,B,b,C,q,IS,t,U)
+        v=DriverDecomp.formatize(vrfy.computeReachSetPertFree())
+        print(v)
+        print("\n\n\n\n")
+        vP=DriverDecomp.formatize(vrfy.computeReachSet())
+        print(vP)
+
+    @staticmethod
+    def coOPVehiclesII():
+        A=Benchmarks.CoOPVehiclesII.A
+        B=Benchmarks.CoOPVehiclesII.B
         mode='.'
         b=np.array([
         [0],
@@ -638,24 +903,25 @@ class DriverDecomp:
         [0],
         [0],
         [0],
-        [0],
         [1],
         [0],
-        [0],
+        [1],
+        [0]
         ])
-        q=np.array([[mpi(-0.1,0.1),0,0,0,0,mpi(-0.1,0.1),0,0,mpi(-0.1,0.1),0]])
+        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0,mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0]])
         C=np.array([
         [1,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,1,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,1,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,1,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [0,1,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,1,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
         [0,0,0,1,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [1,0,0,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0]
         ])
+        E=DriverInterval.bpcToE(b,q,C)
         IS=np.array([
         [1],
         [1],
@@ -675,7 +941,6 @@ class DriverDecomp:
         t=20
         vrfy=VerifyDecomp(A,B,b,C,q,IS,t,U)
         print(vrfy.computeReachSetPertFree())
-        exit(0)
         v=DriverDecomp.formatize(vrfy.computeReachSetPertFree())
         print(v)
         print("\n\n\n\n")
@@ -690,18 +955,18 @@ class DriverDecomp:
         U=[5,5,5,5,5]
         b=np.array([
         [0],
-        [0],
+        [1],
         [1],
         [0],
         [0]
         ])
-        q=np.array([[mpi(-0.1,0.1),0,0,mpi(-0.1,0.1),0]])
+        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0]])
         C=np.array([
+        [1,0,0,0,0],
+        [0,0,0,0,0],
         [0,0,1,0,0],
         [0,0,0,0,0],
-        [0,0,0,0,0],
-        [0,0,0,1,0],
-        [0,1,0,0,0]
+        [0,0,0,0,0]
         ])
         IS=np.array([
         [1],
@@ -721,19 +986,79 @@ class DriverDecomp:
         vP=DriverDecomp.formatize(vrfy.computeReachSet())
         print("Reach Set with Pert: \n",vP)
 
-class DriverInterval:
+    @staticmethod
+    def spaceCraftRndzvs():
+        A=Benchmarks.SpaceCraftRndzvs.A
+        B=Benchmarks.SpaceCraftRndzvs.B
+        mode='.'
+        b=np.array([
+        [1],
+        [0],
+        [1],
+        [0],
+        [1],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0,mpi(-0.1,0.1)]])
+        C=np.array([
+        [1,0,0,0,0,0],
+        [0,1,0,0,0,0],
+        [0,0,0,0,0,0],
+        [0,0,0,0,1,0],
+        [0,1,0,0,0,0],
+        [0,0,0,0,0,0]
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
+        IS=np.array([
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1]
+        ])
+        U=[]
+        print(np.matmul(np.matmul(b,q),C))
+        print("\n\n\n\n")
+        t=20
+        vrfy=VerifyDecomp(A,B,b,C,q,IS,t,U)
+        v=DriverDecomp.formatize(vrfy.computeReachSetPertFree())
+        print(v)
+        print("\n\n\n\n")
+        vP=DriverDecomp.formatize(vrfy.computeReachSet())
+        print(vP)
 
     @staticmethod
-    def illustExample():
-        A=Benchmarks.IllustExample.A
-        B=Benchmarks.IllustExample.B
+    def holesCXc():
+        A=Benchmarks.HolesCXc.A
+        B=Benchmarks.HolesCXc.B
         mode='.'
-        E={
-        (0,0): [-2,2],
-        (2,5): [-1,1],
-        (4,6): [-2,2],
-        (5,3): [-3,3]
-        }
+        b=np.array([
+        [0],
+        [0],
+        [1],
+        [0],
+        [0],
+        [0],
+        [1],
+        [0],
+        [1],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0,mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0]])
+        C=np.array([
+        [1,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,1,0,0,0],
+        [0,0,1,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [0,1,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,1,0,0],
+        [0,0,0,1,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [1,0,0,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0]
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
         IS=np.array([
         [1],
         [1],
@@ -743,9 +1068,505 @@ class DriverInterval:
         [1],
         [1],
         [1],
+        [1],
+        [1]
+        ])
+        U=[]
+        print(np.matmul(np.matmul(b,q),C))
+        print("\n\n\n\n")
+        t=20
+        vrfy=VerifyDecomp(A,B,b,C,q,IS,t,U)
+        v=DriverDecomp.formatize(vrfy.computeReachSetPertFree())
+        print(v)
+        print("\n\n\n\n")
+        vP=DriverDecomp.formatize(vrfy.computeReachSet())
+        print(vP)
+
+    @staticmethod
+    def motorTransmission1():
+        A=Benchmarks.MotorTransmission1.A
+        B=Benchmarks.MotorTransmission1.B
+        mode='.'
+        b=np.array([
+        [1],
+        [0],
+        [1],
+        [0],
+        [1],
+        [1],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0,mpi(-0.1,0.1),0]])
+        C=np.array([
+        [1,0,0,0,0,0,0],
+        [0,1,0,0,0,0,0],
+        [0,0,0,0,0,0,0],
+        [0,0,0,0,1,0,0],
+        [0,1,0,0,0,0,0],
+        [0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0],
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
+        IS=np.array([
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1]
+        ])
+        U=[]
+        print(np.matmul(np.matmul(b,q),C))
+        print("\n\n\n\n")
+        t=20
+        vrfy=VerifyDecomp(A,B,b,C,q,IS,t,U)
+        v=DriverDecomp.formatize(vrfy.computeReachSetPertFree())
+        print(v)
+        print("\n\n\n\n")
+        vP=DriverDecomp.formatize(vrfy.computeReachSet())
+        print(vP)
+
+class DriverInterval:
+
+    @staticmethod
+    def bpcToE(b,q,C):
+        Er=np.matmul(np.matmul(b,q),C)
+        n=Er.shape[0]
+        E={}
+        for i in range(n):
+            for j in range(n):
+                a=float(nstr(Er[i][j]).split(',')[0][1:])
+                b=float(nstr(Er[i][j]).split(',')[1][:-1])
+                if (a!=0 or b!=0):
+                    E[(i,j)]=[a,b]
+        return E
+
+    @staticmethod
+    def illustExample():
+        A=Benchmarks.IllustExample.A
+        B=Benchmarks.IllustExample.B
+        mode='.'
+        '''E={
+        (0,0): [-2,2],
+        (2,5): [-1,1],
+        (4,6): [-2,2],
+        (5,3): [-3,3]
+        }'''
+        b=np.array([
+        [0],
+        [0],
+        [1],
+        [0],
+        [0],
+        [1],
+        [0],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0,mpi(-0.1,0.1),0,0]])
+        C=np.array([
+        [1,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,1,0],
+        [1,0,0,0,0,0,0,0],
+        [0,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,1,0],
+        [0,1,0,0,0,0,1,0],
+        [0,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,0,0]
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
+        IS=np.array([
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1]
         ])
         t=20
         U=[5,5,5,5,5,5,5,5]
+        vrfy=VerifyInterval(A,B,E,IS,t,U)
+        print(vrfy.computeReachSet())
+        print("")
+        print(vrfy.computePerturbFreeReachSet())
+
+    @staticmethod
+    def stableSystem2():
+        A=Benchmarks.StableSystem2.A
+        B=Benchmarks.StableSystem2.B
+        mode='.'
+        '''E={
+        (0,1): [-0.1,0.1]
+        }'''
+        b=np.array([
+        [1],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0]])
+        C=np.array([
+        [1,0],
+        [1,0],
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
+        IS=np.array([
+        [1],
+        [1]
+        ])
+        t=20
+        U=[5,5]
+        vrfy=VerifyInterval(A,B,E,IS,t,U)
+        print(vrfy.computeReachSet())
+        print("")
+        print(vrfy.computePerturbFreeReachSet())
+
+    @staticmethod
+    def stableSystem3():
+        A=Benchmarks.StableSystem3.A
+        B=Benchmarks.StableSystem3.B
+        mode='.'
+        '''E={
+        (0,1): [-0.1,0.1]
+        }'''
+        b=np.array([
+        [1],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0]])
+        C=np.array([
+        [1,0],
+        [1,0],
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
+        IS=np.array([
+        [1],
+        [1]
+        ])
+        t=20
+        U=[5,5]
+        vrfy=VerifyInterval(A,B,E,IS,t,U)
+        print(vrfy.computeReachSet())
+        print("")
+        print(vrfy.computePerturbFreeReachSet())
+
+    @staticmethod
+    def flightEnvelope():
+        A=Benchmarks.FlightEnvelope.A
+        B=Benchmarks.FlightEnvelope.B
+        mode='.'
+        '''E={
+        (0,0): [-2,2],
+        (2,5): [-1,1],
+        (4,6): [-2,2],
+        (5,3): [-3,3]
+        }'''
+        b=np.array([
+        [0],
+        [0],
+        [1],
+        [0],
+        [0],
+        [0],
+        [0],
+        [0],
+        [0],
+        [0],
+        [1],
+        [0],
+        [0],
+        [1],
+        [0],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0,mpi(-0.1,0.1),0,0,0,mpi(-0.1,0.1),0,0,0,0,0,0]])
+        C=np.array([
+        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+        [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+        [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0]
+        ])
+        IS=np.array([
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1]
+        ])
+        U=[]
+        E=DriverInterval.bpcToE(b,q,C)
+        t=20
+        vrfy=VerifyInterval(A,B,E,IS,t,U)
+        print(vrfy.computeReachSet())
+        print("")
+        print(vrfy.computePerturbFreeReachSet())
+
+    @staticmethod
+    def coOPVehiclesII():
+        A=Benchmarks.CoOPVehiclesII.A
+        B=Benchmarks.CoOPVehiclesII.B
+        mode='.'
+        '''E={
+        (0,0): [-2,2],
+        (2,5): [-1,1],
+        (4,6): [-2,2],
+        (5,3): [-3,3]
+        }'''
+        b=np.array([
+        [0],
+        [0],
+        [1],
+        [0],
+        [0],
+        [0],
+        [1],
+        [0],
+        [1],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0,mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0]])
+        C=np.array([
+        [1,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,1,0,0,0],
+        [0,0,1,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [0,1,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,1,0,0],
+        [0,0,0,1,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [1,0,0,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0]
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
+        IS=np.array([
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1]
+        ])
+        U=[]
+        E=DriverInterval.bpcToE(b,q,C)
+        t=20
+        vrfy=VerifyInterval(A,B,E,IS,t,U)
+        print(vrfy.computeReachSet())
+        print("")
+        print(vrfy.computePerturbFreeReachSet())
+
+    @staticmethod
+    def pkpd2():
+        A=Benchmarks.PKPD2.A
+        B=Benchmarks.PKPD2.B
+        mode='.'
+        '''E={
+        (0,0): [-2,2],
+        (2,5): [-1,1],
+        (4,6): [-2,2],
+        (5,3): [-3,3]
+        }'''
+        b=np.array([
+        [0],
+        [1],
+        [1],
+        [0],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0]])
+        C=np.array([
+        [1,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,1,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0]
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
+        IS=np.array([
+        [1],
+        [1],
+        [1],
+        [1],
+        [1]
+        ])
+        U=[]
+        E=DriverInterval.bpcToE(b,q,C)
+        t=20
+        vrfy=VerifyInterval(A,B,E,IS,t,U)
+        print(vrfy.computeReachSet())
+        print("")
+        print(vrfy.computePerturbFreeReachSet())
+
+    @staticmethod
+    def spaceCraftRndzvs():
+        A=Benchmarks.SpaceCraftRndzvs.A
+        B=Benchmarks.SpaceCraftRndzvs.B
+        mode='.'
+        '''E={
+        (0,0): [-2,2],
+        (2,5): [-1,1],
+        (4,6): [-2,2],
+        (5,3): [-3,3]
+        }'''
+        b=np.array([
+        [1],
+        [0],
+        [1],
+        [0],
+        [1],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0,mpi(-0.1,0.1)]])
+        C=np.array([
+        [1,0,0,0,0,0],
+        [0,1,0,0,0,0],
+        [0,0,0,0,0,0],
+        [0,0,0,0,1,0],
+        [0,1,0,0,0,0],
+        [0,0,0,0,0,0]
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
+        IS=np.array([
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1]
+        ])
+        U=[]
+        E=DriverInterval.bpcToE(b,q,C)
+        t=20
+        vrfy=VerifyInterval(A,B,E,IS,t,U)
+        print(vrfy.computeReachSet())
+        print("")
+        print(vrfy.computePerturbFreeReachSet())
+
+    @staticmethod
+    def holesCXc():
+        A=Benchmarks.HolesCXc.A
+        B=Benchmarks.HolesCXc.B
+        mode='.'
+        '''E={
+        (0,0): [-2,2],
+        (2,5): [-1,1],
+        (4,6): [-2,2],
+        (5,3): [-3,3]
+        }'''
+        b=np.array([
+        [0],
+        [0],
+        [1],
+        [0],
+        [0],
+        [0],
+        [1],
+        [0],
+        [1],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0,mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0]])
+        C=np.array([
+        [1,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,1,0,0,0],
+        [0,0,1,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [0,1,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,1,0,0],
+        [0,0,0,1,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [1,0,0,0,0,1,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0]
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
+        IS=np.array([
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1]
+        ])
+        U=[]
+        E=DriverInterval.bpcToE(b,q,C)
+        t=20
+        vrfy=VerifyInterval(A,B,E,IS,t,U)
+        print(vrfy.computeReachSet())
+        print("")
+        print(vrfy.computePerturbFreeReachSet())
+
+    @staticmethod
+    def motorTransmission1():
+        A=Benchmarks.MotorTransmission1.A
+        B=Benchmarks.MotorTransmission1.B
+        mode='.'
+        '''E={
+        (0,0): [-2,2],
+        (2,5): [-1,1],
+        (4,6): [-2,2],
+        (5,3): [-3,3]
+        }'''
+        b=np.array([
+        [1],
+        [0],
+        [1],
+        [0],
+        [1],
+        [1],
+        [0]
+        ])
+        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0,mpi(-0.1,0.1),0]])
+        C=np.array([
+        [1,0,0,0,0,0,0],
+        [0,1,0,0,0,0,0],
+        [0,0,0,0,0,0,0],
+        [0,0,0,0,1,0,0],
+        [0,1,0,0,0,0,0],
+        [0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0],
+        ])
+        E=DriverInterval.bpcToE(b,q,C)
+        IS=np.array([
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1],
+        [1]
+        ])
+        U=[]
+        E=DriverInterval.bpcToE(b,q,C)
+        t=20
         vrfy=VerifyInterval(A,B,E,IS,t,U)
         print(vrfy.computeReachSet())
         print("")
@@ -759,5 +1580,12 @@ class DriverInterval:
 
 
 # Write your driver code Where
-DriverInterval.illustExample()
-DriverBloat.illustExample()
+print("+++++++++Interval+++++++++")
+DriverInterval.motorTransmission1()
+print("**************************")
+print("\n+++++++++Bloat+++++++++")
+DriverBloat.motorTransmission1()
+print("**************************")
+print("\n+++++++++Eigen+++++++++")
+DriverDecomp.motorTransmission1()
+print("**************************")

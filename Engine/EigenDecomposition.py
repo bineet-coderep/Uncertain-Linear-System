@@ -89,8 +89,8 @@ class IntervalMatrix:
         exit()'''
         #special case for 2x2 matrix:
         if len(m) == 2:
-            return np.asarray([[IntervalMatrix.intervalDiv(m[1][1],determinant), IntervalMatrix.intervalDiv((-1*m[0][1][0],-1*m[0][1][1]),determinant)],
-                    [IntervalMatrix.intervalDiv((-1*m[1][0][0],-1*m[1][0][1]),determinant), IntervalMatrix.intervalDiv(m[0][0],determinant)]])
+            return np.asarray([[mpi(IntervalMatrix.intervalDiv(m[1][1],determinant)), mpi(IntervalMatrix.intervalDiv((-1*m[0][1][0],-1*m[0][1][1]),determinant))],
+                    [mpi(IntervalMatrix.intervalDiv((-1*m[1][0][0],-1*m[1][0][1]),determinant)), mpi(IntervalMatrix.intervalDiv(m[0][0],determinant))]])
 
         #find matrix of cofactors
         cofactors = []
@@ -275,10 +275,10 @@ class EigenDecompose:
             i=i+1
         evects=evects.transpose()
 
-        print("evects: \n",evects)
+        #print("evects: \n",evects)
         evects=self.unionEvects(evects)
-        print("")
-        print("evects after union: \n",evects)
+        #print("")
+        #print("evects after union: \n",evects)
         return (evals,evects)
 
     def unionEvects(self,vec):

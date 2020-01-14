@@ -1,0 +1,107 @@
++++++++++Interval+++++++++
+
+[[mpi('-21218380524.155342', '21218398242.466175')]
+ [mpi('-25581360218.535229', '25581371057.665024')]
+ [mpi('-30991674832.324883', '30991680461.749851')]
+ [mpi('20.999999840000001', '20.999999840000001')]
+ [mpi('-1.4026715648569619e+430', '1.4026715648572895e+430')]
+ [mpi('1.0', '1.0')]
+ [mpi('-5245026863.1328907', '5245026865.1328907')]
+ [mpi('1.0', '1.0')]
+ [mpi('-5245026863.1328907', '5245026865.1328907')]
+ [mpi('1.0', '1.0')]]
+
+[[-1.66844363e+02]
+ [ 3.42130004e+00]
+ [ 7.50000019e-02]
+ [ 2.09999998e+01]
+ [ 2.09974531e+01]
+ [ 1.00000000e+00]
+ [ 1.00000000e+00]
+ [ 1.00000000e+00]
+ [ 1.00000000e+00]
+ [ 1.00000000e+00]]
+**************************
+
++++++++++Bloat+++++++++
+++++Kagstrom1++++
+Norm of E:  0.3464101615137755
+Norm of M:  50.01380896353688
+
+Time  0 :  0.0
+/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:130: RuntimeWarning: overflow encountered in exp
+  bloatFactor=BloatKagstrom.computeP(normM*t,self.n)*(np.exp(BloatKagstrom.computeP(normM*t,self.n)*normE*t)-1)
+Time  1 :  inf
+Time  2 :  inf
+Time  3 :  inf
+Time  4 :  inf
+Time  5 :  inf
+Time  6 :  inf
+Time  7 :  inf
+Time  8 :  inf
+Time  9 :  inf
+Time  10 :  inf
+Time  11 :  inf
+Time  12 :  inf
+Time  13 :  inf
+Time  14 :  inf
+Time  15 :  inf
+Time  16 :  inf
+Time  17 :  inf
+Time  18 :  inf
+Time  19 :  inf
+Time  20 :  inf
+++++Kagstrom2++++
+Start...
+/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:228: ComplexWarning: Casting complex values to real discards the imaginary part
+  N=N.astype('float')
+RANDOM
+...End
+K(SD):  2218.6657600345884
+Time  0 :  0.0
+/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:178: RuntimeWarning: overflow encountered in exp
+  bloatFactor=K*np.exp(ep*t)*(np.exp(K*normE*t)-1)
+Time  1 :  inf
+Time  2 :  inf
+Time  3 :  inf
+Time  4 :  inf
+Time  5 :  inf
+Time  6 :  inf
+Time  7 :  inf
+Time  8 :  inf
+Time  9 :  inf
+Time  10 :  inf
+Time  11 :  inf
+Time  12 :  inf
+Time  13 :  inf
+Time  14 :  inf
+Time  15 :  inf
+Time  16 :  inf
+Time  17 :  inf
+Time  18 :  inf
+Time  19 :  inf
+Time  20 :  inf
+++++Loan++++
+Time  0 :  0.0
+Time  1 :  652313.9255008079
+Time  2 :  2456703091750.1094
+Time  3 :  6.939208843787457e+18
+Time  4 :  1.7422670439690728e+25
+Time  5 :  4.101009370495031e+31
+Time  6 :  9.26697591996652e+37
+Time  7 :  2.035873788758198e+44
+Time  8 :  4.381358848187281e+50
+Time  9 :  9.281696728812466e+56
+Time  10 :  1.9420074495960478e+63
+Time  11 :  4.022625511296339e+69
+Time  12 :  8.263503041785943e+75
+Time  13 :  1.685746724159246e+82
+Time  14 :  3.418558645409909e+88
+Time  15 :  6.897191508668699e+94
+Time  16 :  1.3853740081341127e+101
+Time  17 :  2.7718007049292926e+107
+Time  18 :  5.5265182874660725e+113
+Time  19 :  1.0984966432601059e+120
+Time  20 :  2.1774147258301895e+126
+**************************
+

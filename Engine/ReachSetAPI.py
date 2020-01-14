@@ -7,18 +7,20 @@ Email: ghosh.bineet22@gmail.com
 - Class ReachSetBloat: The Reachable Set is represented using Generalized Stars according to
 the paper 'Parsimonious, Simulation based Verification of Linear Systems'
 by Parasara Sridhar Duggirala and Mahesh Viswanathan.
+- Class ReachSetInterval: Comput reachable set e^{At} using interval arithmetic
 
 Documentation: Not yet available. (TODO)
 '''
 
 
 import numpy as np
-import scipy.linalg as LA
+import scipy.linalg as SLA
 from gurobipy import *
 from EigenDecomposition import *
 import math
 
-TAYLOR_PRECISION=100
+TAYLOR_PRECISION=50000
+TAYLOR_EPSILON=0.001
 
 
 class ReachSetBloat:
@@ -176,7 +178,7 @@ class ReachSetDecomp:
 
     def reachSet(self):
         (eval,evects)=EigenDecompose(self.A,self.b,self.q,self.C).decompose()
-        print("eval: ",eval)
+        #print("eval: ",eval)
         eSig=ReachSetDecomp.computeSigEAt(eval,self.T)
         #print("eSig: ",eSig)
         evectsInv=IntervalMatrix(evects).inverse()
@@ -186,13 +188,15 @@ class ReachSetDecomp:
 
     def reachSetPertFree(self):
         (eval,evects)=LA.eig(self.A)
-        print("eval: ",eval)
-        print("evects: \n",evects)
+        #print("eval: ",eval)
+        #print("evects: \n",evects)
         l=self.A.shape[0]
+        D=np.zeros((l,l),dtype=object)
+        for i in range(l):
+            D[i][i]=eval[i]
         S=np.zeros((l,l),dtype=object)
         for i in range(l):
-            S[i][i]=np.exp(eval[i])
-        #print("S: ",S )
+            S[i][i]=np.exp(eval[i]*self.T)
         rSet=np.matmul(np.matmul(evects,S),LA.inv(evects))
         rSet=np.matmul(rSet,self.initialSet)
         return rSet
@@ -223,15 +227,23 @@ class ReachSetInterval:
         self.time=t # Time
 
     @staticmethod
-    def compute_eAt(A,t):
+    def compute_eAt(A,t,IS):
         n=A.shape[0]
-        matA=np.zeros((n,n),dtype=object)
+        #matA=np.zeros((n,n),dtype=object)
+        matA=np.identity(n,dtype=object)
         matA_i=np.copy(A)
         matA_i=matA_i*t
+
         for i in range(1,TAYLOR_PRECISION):
+            if (i%2000==0):
+                print("Iteration: ",i)
             fac=math.factorial(i)
             matA=matA+(matA_i/fac)
-            matA_i=np.matmul(matA_i,A)
+            matA_i=np.matmul(matA_i,A*t)
+            '''if i%20000==0:
+                print("At Iteration ",i)
+                print(np.matmul(matA,IS))
+                print("---------\n")'''
 
         return matA
 
@@ -241,11 +253,13 @@ class ReachSetInterval:
         for key in self.E:
             Er[key[0]][key[1]]=mpi(self.E[key][0],self.E[key][1])
         AE=self.A+Er
-        eAt=self.compute_eAt(AE,self.time)
+        eAt=self.compute_eAt(AE,self.time,self.initialSet)
         rS=np.matmul(eAt,self.initialSet)
         return rS
 
     def reachSetPertFree(self):
-        eAt=self.compute_eAt(self.A,self.time)
+        #print(self.A)
+        eAt=SLA.expm(self.A*self.time)
+        #eAt=self.compute_eAt(self.A,self.time)
         rS=np.matmul(eAt,self.initialSet)
         return rS

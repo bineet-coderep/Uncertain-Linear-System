@@ -1,0 +1,102 @@
+(base) bineet@bineet-lt:~/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine$ python Driver.py 
++++++++++Interval+++++++++
+
+[[mpi('-144.75641732939553', '159.25641732939553')]
+ [mpi('-16.777777777777779', '-16.777777777777779')]
+ [mpi('-572.99866842937558', '739.9986684293757')]
+ [mpi('-156.77777777777777', '-156.77777777777777')]
+ [mpi('-66.181697129959403', '68.181697129959403')]
+ [mpi('-66.181697129959403', '68.181697129959403')]
+ [mpi('1.0', '1.0')]]
+
+[[   7.25      ]
+ [ -16.77777778]
+ [  83.5       ]
+ [-156.77777778]
+ [   1.        ]
+ [   1.        ]
+ [   1.        ]]
+**************************
+
++++++++++Bloat+++++++++
+++++Kagstrom1++++
+Norm of E:  0.20000000000000004
+Norm of M:  1.0
+
+Time  0 :  0.0
+Time  1 :  1.9607172988695398
+Time  2 :  125.68216738084882
+Time  3 :  1146626.3929856794
+Time  4 :  3.3537072258957096e+16
+Time  5 :  4.600227065757809e+41
+Time  6 :  9.081698981439937e+95
+Time  7 :  1.0480641430258171e+203
+/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:130: RuntimeWarning: overflow encountered in exp
+  bloatFactor=BloatKagstrom.computeP(normM*t,self.n)*(np.exp(BloatKagstrom.computeP(normM*t,self.n)*normE*t)-1)
+Time  8 :  inf
+Time  9 :  inf
+Time  10 :  inf
+Time  11 :  inf
+Time  12 :  inf
+Time  13 :  inf
+Time  14 :  inf
+Time  15 :  inf
+Time  16 :  inf
+Time  17 :  inf
+Time  18 :  inf
+Time  19 :  inf
+Time  20 :  inf
+++++Kagstrom2++++
+Start...
+/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:228: ComplexWarning: Casting complex values to real discards the imaginary part
+  N=N.astype('float')
+RANDOM
+...End
+K(SD):  1599.9999999999998
+Time  0 :  0.0
+Time  1 :  1.5851447103600839e+142
+Time  2 :  1.5704273454890962e+281
+/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:178: RuntimeWarning: overflow encountered in exp
+  bloatFactor=K*np.exp(ep*t)*(np.exp(K*normE*t)-1)
+Time  3 :  inf
+Time  4 :  inf
+Time  5 :  inf
+Time  6 :  inf
+Time  7 :  inf
+Time  8 :  inf
+Time  9 :  inf
+Time  10 :  inf
+Time  11 :  inf
+Time  12 :  inf
+Time  13 :  inf
+Time  14 :  inf
+Time  15 :  inf
+Time  16 :  inf
+Time  17 :  inf
+Time  18 :  inf
+Time  19 :  inf
+Time  20 :  inf
+++++Loan++++
+Time  0 :  0.0
+Time  1 :  0.6291655306583336
+Time  2 :  3.958492649685824
+Time  3 :  18.6791034641002
+Time  4 :  78.34832028808344
+Time  5 :  308.08789068900666
+Time  6 :  1163.0296874085334
+Time  7 :  4268.472777623751
+Time  8 :  15346.148229910268
+Time  9 :  54310.879657310245
+Time  10 :  189836.2967784026
+Time  11 :  656911.499204382
+Time  12 :  2254396.7563226516
+Time  13 :  7682938.962325065
+Time  14 :  26028371.21902146
+Time  15 :  87729396.37600563
+Time  16 :  294380331.86797243
+Time  17 :  983949150.361411
+Time  18 :  3277412943.500928
+Time  19 :  10882963839.41688
+Time  20 :  36037819574.53775
+**************************
+

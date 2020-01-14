@@ -1,0 +1,136 @@
+(base) bineet@bineet-lt:~/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine$ python Driver.py 
++++++++++Interval+++++++++
+
+[[mpi('-479.51140314304109', '481.16439223784249')]
+ [mpi('-456.30082626817546', '458.21408623833429')]
+ [mpi('-339.58322276948894', '341.58823859769586')]
+ [mpi('-5.3855166451877522e+342', '5.3855166451939592e+342')]
+ [mpi('1.0', '1.0')]]
+
+[[0.66171209]
+ [0.8270673 ]
+ [0.98491688]
+ [0.66186198]
+ [1.        ]]
+**************************
+
++++++++++Bloat+++++++++
+++++Kagstrom1++++
+Norm of E:  0.2
+Norm of M:  40.000003500482286
+
+Time  0 :  0.0
+/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:130: RuntimeWarning: overflow encountered in exp
+  bloatFactor=BloatKagstrom.computeP(normM*t,self.n)*(np.exp(BloatKagstrom.computeP(normM*t,self.n)*normE*t)-1)
+Time  1 :  inf
+Time  2 :  inf
+Time  3 :  inf
+Time  4 :  inf
+Time  5 :  inf
+Time  6 :  inf
+Time  7 :  inf
+Time  8 :  inf
+Time  9 :  inf
+Time  10 :  inf
+Time  11 :  inf
+Time  12 :  inf
+Time  13 :  inf
+Time  14 :  inf
+Time  15 :  inf
+Time  16 :  inf
+Time  17 :  inf
+Time  18 :  inf
+Time  19 :  inf
+Time  20 :  inf
+++++Kagstrom2++++
+Start...
+/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:228: ComplexWarning: Casting complex values to real discards the imaginary part
+  N=N.astype('float')
+BINGO!!
+...End
+K(SD):  5.293150265724312
+Time  0 :  0.0
+Time  1 :  9.963929391367895
+Time  2 :  38.68415398165539
+Time  3 :  121.46789000764055
+Time  4 :  360.0853468062747
+Time  5 :  1047.8809624955152
+Time  6 :  3030.396472081856
+Time  7 :  8744.837878940447
+Time  8 :  25216.25534554758
+Time  9 :  72693.79060098322
+Time  10 :  209543.96506234712
+Time  11 :  604003.5794746501
+Time  12 :  1741001.6725697527
+Time  13 :  5018307.172216316
+Time  14 :  14464876.522896113
+Time  15 :  41693852.43216883
+Time  16 :  120179184.14832218
+Time  17 :  346406836.45223796
+Time  18 :  998489837.7961411
+Time  19 :  2878066610.623376
+Time  20 :  8295795393.110781
+++++Loan++++
+Time  0 :  0.0
+Time  1 :  13985.247336756329
+Time  2 :  1955871430.7024994
+Time  3 :  205150092879524.78
+Time  4 :  1.912716526719121e+19
+Time  5 :  1.6718633569542719e+24
+Time  6 :  1.4028853536159209e+29
+Time  7 :  1.1444824215668364e+34
+Time  8 :  9.146211278961144e+38
+Time  9 :  7.195051514840725e+43
+Time  10 :  5.5902541686528134e+48
+Time  11 :  4.299959797316843e+53
+Time  12 :  3.280145525650112e+58
+Time  13 :  2.48482251749178e+63
+Time  14 :  1.871200018964985e+68
+Time  15 :  1.4019211650947356e+73
+Time  16 :  1.0456647594924504e+78
+Time  17 :  7.768936405566847e+82
+Time  18 :  5.752085144579089e+87
+Time  19 :  4.245673154253844e+92
+Time  20 :  3.125094167014016e+97
+**************************
+
++++++++++Eigen+++++++++
+Error: 
+ [[mpi('0.0', '0.0') mpi('0.0', '0.0') mpi('0.0', '0.0') mpi('0.0', '0.0')
+  mpi('0.0', '0.0')]
+ [mpi('-0.10000000000000001', '0.10000000000000001') mpi('0.0', '0.0')
+  mpi('-0.10000000000000001', '0.10000000000000001') mpi('0.0', '0.0')
+  mpi('0.0', '0.0')]
+ [mpi('-0.10000000000000001', '0.10000000000000001') mpi('0.0', '0.0')
+  mpi('-0.10000000000000001', '0.10000000000000001') mpi('0.0', '0.0')
+  mpi('0.0', '0.0')]
+ [mpi('0.0', '0.0') mpi('0.0', '0.0') mpi('0.0', '0.0') mpi('0.0', '0.0')
+  mpi('0.0', '0.0')]
+ [mpi('0.0', '0.0') mpi('0.0', '0.0') mpi('0.0', '0.0') mpi('0.0', '0.0')
+  mpi('0.0', '0.0')]]
+
+
+
+
+
+Reach Set without Pert: 
+ [[(0.6617120919581752, 0.6617120919581752)]
+ [(0.8270673001979331, 0.8270673001979331)]
+ [(0.9849168843287063, 0.9849168843287063)]
+ [(0.661861975580802, 0.661861975580802)]
+ [(1.0, 1.0)]]
+
+
+
+
+
+Bauer Fike Distance:  0.5710933495251662
+Reach Set with Pert: 
+ [[(-inf, inf)]
+ [(-inf, inf)]
+ [(-inf, inf)]
+ [(-inf, inf)]
+ [(-inf, inf)]]
+**************************
+(base) bineet@bineet-lt:~/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine$ 
+

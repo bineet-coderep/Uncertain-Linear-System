@@ -1,0 +1,107 @@
++++++++++Interval+++++++++
+[[mpi('-6.398094737463127e+41', '6.398094737463127e+41')]
+ [mpi('-3.2177551080651626e+42', '3.2177551080651626e+42')]
+ [mpi('-1.6182861242428413e+43', '1.6182861242428413e+43')]
+ [mpi('-6.5154313865399732e+41', '6.5154313865399732e+41')]
+ [mpi('-3.2767665196970901e+42', '3.2767665196970901e+42')]
+ [mpi('-4.3873461334067512e+42', '4.3873461334067512e+42')]
+ [mpi('-8.1550665274384351e+42', '8.1550665274384351e+42')]
+ [mpi('-4.4565604359381381e+42', '4.4565604359381381e+42')]
+ [mpi('-1.8715395704725353e+43', '1.8715395704725353e+43')]
+ [mpi('1.0', '1.0')]]
+
+[[ 2.22762355e+00]
+ [ 1.88568042e-05]
+ [ 1.00000889e+00]
+ [ 2.71438194e+00]
+ [-1.12386216e-04]
+ [ 9.99956292e-01]
+ [-4.46792931e-01]
+ [ 3.24614514e-06]
+ [ 9.99958539e-01]
+ [ 1.00000000e+00]]
+**************************
+
++++++++++Bloat+++++++++
+++++Kagstrom1++++
+Norm of E:  0.3464101615137755
+Norm of M:  7.771458016773899
+
+Time  0 :  0.0
+Time  1 :  9.720883511370934e+225
+/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:130: RuntimeWarning: overflow encountered in exp
+  bloatFactor=BloatKagstrom.computeP(normM*t,self.n)*(np.exp(BloatKagstrom.computeP(normM*t,self.n)*normE*t)-1)
+Time  2 :  inf
+Time  3 :  inf
+Time  4 :  inf
+Time  5 :  inf
+Time  6 :  inf
+Time  7 :  inf
+Time  8 :  inf
+Time  9 :  inf
+Time  10 :  inf
+Time  11 :  inf
+Time  12 :  inf
+Time  13 :  inf
+Time  14 :  inf
+Time  15 :  inf
+Time  16 :  inf
+Time  17 :  inf
+Time  18 :  inf
+Time  19 :  inf
+Time  20 :  inf
+++++Kagstrom2++++
+Start...
+/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:228: ComplexWarning: Casting complex values to real discards the imaginary part
+  N=N.astype('float')
+BINGO!!
+...End
+K(SD):  393.6032207133146
+Time  0 :  0.0
+Time  1 :  6.461153969273258e+61
+Time  2 :  1.0606242128557713e+121
+Time  3 :  1.7410569787465605e+180
+Time  4 :  2.8580145224860225e+239
+Time  5 :  4.6915449123449e+298
+/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:178: RuntimeWarning: overflow encountered in exp
+  bloatFactor=K*np.exp(ep*t)*(np.exp(K*normE*t)-1)
+Time  6 :  inf
+Time  7 :  inf
+Time  8 :  inf
+Time  9 :  inf
+Time  10 :  inf
+Time  11 :  inf
+Time  12 :  inf
+Time  13 :  inf
+Time  14 :  inf
+Time  15 :  inf
+Time  16 :  inf
+Time  17 :  inf
+Time  18 :  inf
+Time  19 :  inf
+Time  20 :  inf
+++++Loan++++
+Time  0 :  0.0
+Time  1 :  13.27484261759241
+Time  2 :  1017.4149958637403
+Time  3 :  58482.79921055012
+Time  4 :  2988172.3714021337
+Time  5 :  143137826.0212487
+Time  6 :  6582250721.813792
+Time  7 :  294279472123.6655
+Time  8 :  12888152706305.598
+Time  9 :  555625224206979.94
+Time  10 :  2.3658009509371172e+16
+Time  11 :  9.972628593255374e+17
+Time  12 :  4.16904865756902e+19
+Time  13 :  1.730763899414533e+21
+Time  14 :  7.14268124360759e+22
+Time  15 :  2.932670364832914e+24
+Time  16 :  1.1987558293266672e+26
+Time  17 :  4.88088335314685e+27
+Time  18 :  1.9804358087854e+29
+Time  19 :  8.010887338785821e+30
+Time  20 :  3.2314376200724665e+32
+**************************
+
+
