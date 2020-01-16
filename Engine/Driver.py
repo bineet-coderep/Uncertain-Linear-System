@@ -13,6 +13,61 @@ from VisualizeAPI import *
 
 class DriverBloat:
 
+
+    @staticmethod
+    def createMatrix(A,B,mode,h=0):
+        ''' Creates a single matrix based on
+        . or +.
+        In case of . a roungh approximation is
+        done'''
+
+        n1=np.size(A,0)
+        if (np.size(B)>0):
+            n2=np.size(B,1)
+        else:
+            n2=0
+        n=n1+n2
+
+        C=np.zeros((n,n))
+        for i in range(n1):
+            for j in range(n1):
+                C[i][j]=A[i][j]
+        for i in range(n1):
+            j2=0
+            for j in range(n1,n1+n2):
+                C[i][j]=B[i][j2]
+                j2=j2+1
+
+        if mode=='+':
+            for i in range(n1,n1+n2):
+                C[i][i]=1
+
+        return C
+
+    @staticmethod
+    def bpcP2E(A,B,mode,h,b,p,c):
+        '''
+        Given error matrices B, P, C in percent error,
+        converts it into E dictionary with absolute value.
+
+        [0.9,1.1] means +-10% ([90%,110%]) perturbation.
+        '''
+        E={}
+        conA=DriverBloat.createMatrix(A,B,mode,h)
+        n=conA.shape[0]
+        ErP=np.matmul(np.matmul(b,p),c)
+
+        for i in range(n):
+            for j in range(n):
+                a=float(nstr(ErP[i][j]).split(',')[0][1:])
+                b=float(nstr(ErP[i][j]).split(',')[1][:-1])
+                if b>a:
+                    i1=conA[i][j]*a
+                    i2=conA[i][j]*b
+                    E[(i,j)]=[i1,i2]
+
+        return E
+
     @staticmethod
     def stableSystem1():
         A=Benchmarks.StableSystem1.A
@@ -694,6 +749,30 @@ class DriverBloat:
         vrfy.plotTime(0,20,0.01)
 
 class DriverDecomp:
+
+    @staticmethod
+    def bpcP2bpc(A,B,mode,h,b,p,c):
+        '''
+        Given error matrices B, P, C in percent error,
+        converts it into E dictionary with absolute value.
+
+        [0.9,1.1] means +-10% ([90%,110%]) perturbation.
+        '''
+        E={}
+        conA=DriverBloat.createMatrix(A,B,mode,h)
+        n=conA.shape[0]
+        ErP=np.matmul(np.matmul(b,p),c)
+
+        for i in range(n):
+            for j in range(n):
+                a=float(nstr(ErP[i][j]).split(',')[0][1:])
+                b=float(nstr(ErP[i][j]).split(',')[1][:-1])
+                if b>a:
+                    i1=conA[i][j]*a
+                    i2=conA[i][j]*b
+                    E[(i,j)]=[i1,i2]
+
+        return E
 
     @staticmethod
     def formatize(mat):
