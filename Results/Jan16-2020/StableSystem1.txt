@@ -1,0 +1,19 @@
+Stable System 1 (Marginal System)
+
+Reachable Set (Without perturbation)
+[[mpi('1.0', '3.0')]
+ [mpi('1.0', '3.0')]
+ [mpi('2.0611536224385579e-9', '6.183460867315674e-9')]]
+-----
+
+Unsafe Set
+[[[-200000. -100000.]]
+
+ [[-200000. -100000.]]
+
+ [[-200000. -100000.]]]
+-----
+
+Safe Bloating Factor:  99999.99958777135
+Robustness Metric:  (230.25870921595967, 'Kagstrom2')
+

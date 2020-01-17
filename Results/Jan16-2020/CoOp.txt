@@ -1,0 +1,45 @@
+Co Op Vehicles
+
+
+Reachable Set (Without perturbation)
+[[mpi('2.2275491909418625', '6.6829450061708977')]
+ [mpi('-0.00020929038305910619', '0.00028471759991953335')]
+ [mpi('0.99990134154413712', '3.000134214474802')]
+ [mpi('2.7121864417104611', '8.1453413173258955')]
+ [mpi('-0.0012986872371891023', '0.00084914237450253965')]
+ [mpi('0.99986962775884658', '2.9999555419975721')]
+ [mpi('-1.3407056271284412', '-0.44646609591269448')]
+ [mpi('-0.00018753646994163289', '0.00020052105050467336')]
+ [mpi('0.99984314055148016', '2.9999910163072849')]
+ [mpi('1.0', '3.0')]]
+-----
+Unsafe Set
+[[[-200000. -100000.]]
+
+ [[-200000. -100000.]]
+
+ [[-200000. -100000.]]
+
+ [[-200000. -100000.]]
+
+ [[-200000. -100000.]]
+
+ [[-200000. -100000.]]
+
+ [[-200000. -100000.]]
+
+ [[-200000. -100000.]]
+
+ [[-200000. -100000.]]
+
+ [[-200000. -100000.]]]
+-----
+Safe Bloating Factor:  52810.09388159683
+Started...
+/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:228: ComplexWarning: Casting complex values to real discards the imaginary part
+  N=N.astype('float')
+BINGO!!
+...Done
+Robustness Metric:  (0.2493140076738325, 'Kagstrom2')
+(base) bineet@bineet-lt:~/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine$ 
+

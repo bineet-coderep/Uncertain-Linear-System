@@ -1,0 +1,16 @@
+Stable System 2
+
+
+Reachable Set (Without perturbation)
+[[mpi('-6.1834608673156633e-9', '6.1834608673156567e-9')]
+ [mpi('-1.030576811219278e-8', '1.0305768112192762e-8')]]
+-----
+
+Unsafe Set
+[[[-200000. -100000.]]
+
+ [[-200000. -100000.]]]
+-----
+
+Safe Bloating Factor:  100000.0000000103
+Robustness Metric:  (22.705677601705435, 'Kagstrom2')

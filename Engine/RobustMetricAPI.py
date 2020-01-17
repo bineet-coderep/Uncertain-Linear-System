@@ -95,7 +95,7 @@ class RobustMetric:
         a2=self.unsafe[ind][0][0]
         b2=self.unsafe[ind][0][1]
         c=abs(b1-a1)/2
-        rad=(b1-c)+1
+        rad=abs(b1-c)+1
         #print(rad,c,ind)
         if a2>b1:
             return abs(a2-c)/rad
@@ -137,7 +137,6 @@ class RobustMetric:
     def getMaxSafeBloat(self):
         beta=self.getSafeBloat()
         reachSet=np.matmul(SLA.expm(self.A*self.t),self.initialSet)
-        print(SLA.expm(self.A*self.t))
         print("Reachable Set (Without perturbation)")
         print(reachSet)
         print("-----")
