@@ -10,6 +10,7 @@ Documentation: Not yet available. (TODO)
 from VerificationEngine import *
 from Benchmarks import *
 from VisualizeAPI import *
+from RobustMetricAPI import *
 
 class DriverBloat:
 
@@ -1651,6 +1652,357 @@ class DriverInterval:
         print("")
         print(vrfy.computePerturbFreeReachSet())
 
+class DriverRobustMetric:
+
+    @staticmethod
+    def illustExample():
+        A=Benchmarks.IllustExample.A
+        B=Benchmarks.IllustExample.B
+        mode='.'
+        t=20
+        U=np.array([
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)]
+        ])
+        IS=np.array([
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)]
+        ])
+        t=20
+        method='Loan'
+
+        rM=RobustMetric(A,B,U,method,IS,t,mode,0)
+        print("Robustness Metric: ",rM.getMaxSafeBloat())
+
+    def stableSystem1():
+        A=Benchmarks.StableSystem1.A
+        B=Benchmarks.StableSystem1.B
+        mode='.'
+        U=np.array([
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)]
+        ])
+        IS=np.array([
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)]
+        ])
+        t=20
+        method='Loan'
+        rM=RobustMetric(A,B,U,method,IS,t,mode,0)
+        print("Robustness Metric: ",rM.getMaxSafeBloat())
+
+    def stableSystem2():
+        A=Benchmarks.StableSystem2.A
+        B=Benchmarks.StableSystem2.B
+        mode='.'
+        U=np.array([
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)]
+        ])
+        IS=np.array([
+        [mpi(1,3)],
+        [mpi(1,3)]
+        ])
+        t=20
+        method='Loan'
+        rM=RobustMetric(A,B,U,method,IS,t,mode,0)
+        print("Robustness Metric: ",rM.getMaxSafeBloat())
+
+    def stableSystem3():
+        A=Benchmarks.StableSystem3.A
+        B=Benchmarks.StableSystem3.B
+        mode='.'
+        U=np.array([
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)]
+        ])
+        IS=np.array([
+        [mpi(1,3)],
+        [mpi(1,3)]
+        ])
+        t=20
+        method='Loan'
+        rM=RobustMetric(A,B,U,method,IS,t,mode,0)
+        print("Robustness Metric: ",rM.getMaxSafeBloat())
+
+    def stableSystem4():
+        A=Benchmarks.StableSystem4.A
+        B=Benchmarks.StableSystem4.B
+        mode='.'
+        U=np.array([
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)]
+        ])
+        IS=np.array([
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)]
+        ])
+        t=20
+        method='Loan'
+        rM=RobustMetric(A,B,U,method,IS,t,mode,0)
+        print("Robustness Metric: ",rM.getMaxSafeBloat())
+
+    def flightEnvelope():
+        A=Benchmarks.FlightEnvelope.A
+        B=Benchmarks.FlightEnvelope.B
+        mode='.'
+        U=np.array([
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)]
+        ])
+        IS=np.array([
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)]
+        ])
+        t=20
+        method='Loan'
+        rM=RobustMetric(A,B,U,method,IS,t,mode,0)
+        print("Robustness Metric: ",rM.getMaxSafeBloat())
+
+    def coOPVehiclesI():
+        A=Benchmarks.CoOPVehiclesI.A
+        B=Benchmarks.CoOPVehiclesI.B
+        mode='.'
+        U=np.array([
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)]
+        ])
+        IS=np.array([
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)]
+        ])
+        t=20
+        method='Loan'
+        rM=RobustMetric(A,B,U,method,IS,t,mode,0)
+        print("Robustness Metric: ",rM.getMaxSafeBloat())
+
+    def coOPVehiclesII():
+        A=Benchmarks.CoOPVehiclesII.A
+        B=Benchmarks.CoOPVehiclesII.B
+        mode='.'
+        U=np.array([
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)]
+        ])
+        IS=np.array([
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)]
+        ])
+        t=20
+        method='Loan'
+        rM=RobustMetric(A,B,U,method,IS,t,mode,0)
+        print("Robustness Metric: ",rM.getMaxSafeBloat())
+
+    def pkpd2():
+        A=Benchmarks.PKPD2.A
+        B=Benchmarks.PKPD2.B
+        mode='.'
+        U=np.array([
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)]
+        ])
+        IS=np.array([
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)]
+
+
+        ])
+        t=20
+        method='Loan'
+        rM=RobustMetric(A,B,U,method,IS,t,mode,0)
+        print("Robustness Metric: ",rM.getMaxSafeBloat())
+
+    def spaceCraftRndzvs():
+        A=Benchmarks.SpaceCraftRndzvs.A
+        B=Benchmarks.SpaceCraftRndzvs.B
+        mode='.'
+        U=np.array([
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)]
+        ])
+        IS=np.array([
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)]
+        ])
+        t=20
+        method='Loan'
+        rM=RobustMetric(A,B,U,method,IS,t,mode,0)
+        print("Robustness Metric: ",rM.getMaxSafeBloat())
+
+    def holesCXc():
+        A=Benchmarks.HolesCXc.A
+        B=Benchmarks.HolesCXc.B
+        mode='.'
+        U=np.array([
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)]
+        ])
+        IS=np.array([
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)]
+        ])
+        t=20
+        method='Loan'
+        rM=RobustMetric(A,B,U,method,IS,t,mode,0)
+        print("Robustness Metric: ",rM.getMaxSafeBloat())
+
+    def motorTransmission1():
+        A=Benchmarks.MotorTransmission1.A
+        B=Benchmarks.MotorTransmission1.B
+        mode='.'
+        U=np.array([
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)]
+        ])
+        IS=np.array([
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)]
+        ])
+        t=20
+        method='Loan'
+        rM=RobustMetric(A,B,U,method,IS,t,mode,0)
+        print("Robustness Metric: ",rM.getMaxSafeBloat())
+
+    def motorTransmission2():
+        A=Benchmarks.MotorTransmission2.A
+        B=Benchmarks.MotorTransmission2.B
+        mode='.'
+        U=np.array([
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)],
+        [(-2e5,-1e5)]
+        ])
+        IS=np.array([
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)],
+        [mpi(1,3)]
+        ])
+        t=20
+        method='Loan'
+        rM=RobustMetric(A,B,U,method,IS,t,mode,0)
+        print("Robustness Metric: ",rM.getMaxSafeBloat())
 
 
 
@@ -1659,12 +2011,4 @@ class DriverInterval:
 
 
 # Write your driver code Where
-print("+++++++++Interval+++++++++")
-DriverInterval.motorTransmission1()
-print("**************************")
-print("\n+++++++++Bloat+++++++++")
-DriverBloat.motorTransmission1()
-print("**************************")
-print("\n+++++++++Eigen+++++++++")
-DriverDecomp.motorTransmission1()
-print("**************************")
+DriverRobustMetric.flightEnvelope()
