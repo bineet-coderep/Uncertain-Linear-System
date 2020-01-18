@@ -57,7 +57,7 @@ class DriverBloat:
         conA=DriverBloat.createMatrix(A,B,mode,h)
         n=conA.shape[0]
         (bN,pN,cN)=DriverDecomp.bpCP2bpcA(A,B,mode,h,b,p,c)
-        ErA=np.matmul(np.matmul(b,p),c)
+        ErA=np.matmul(np.matmul(bN,pN),cN)
 
         Er={}
         for i in range(n):
@@ -225,7 +225,7 @@ class DriverBloat:
         [0],
         [0]
         ])
-        q=np.array([[mpi(0.9,1.1),0,mpi(0.95,1.05),0,0,mpi(0.8,1.2),0,0]])
+        q=np.array([[mpi(-0.01,0.01),0,mpi(-0.01,0.01),0,0,mpi(-0.01,0.01),0,0]])
         C=np.array([
         [1,0,0,1,0,0,0,0],
         [0,0,0,0,0,0,1,0],
@@ -253,7 +253,7 @@ class DriverBloat:
         t=20
         U=[5,5,5,5,5,5,5,5]
         method='Kagstrom2'
-
+        print()
         vrfy=VerifyBloat(A,B,E,IS,t,U,method)
         #vrfy.plotTime(0,3,0.01)
         vrfy.plotTimeCompare(0,20,1,['Kagstrom1','Kagstrom2','Loan'],'fast')
@@ -784,15 +784,13 @@ class DriverDecomp:
         '''
         conA=DriverBloat.createMatrix(A,B,mode,h)
         n=conA.shape[0]
-        smallest=np.amin(conA)
+        largest=np.amax(conA)
         pNew=np.zeros((1,n),dtype=object)
-
         for i in range(n):
             if (not(isinstance(p[0][i],int)) or (isinstance(p[0][i],float))):
                 i1=float(nstr(p[0][i]).split(',')[0][1:])
                 i2=float(nstr(p[0][i]).split(',')[1][:-1])
-                pNew[0][i]=mpi(i1*smallest,i2*smallest)
-
+                pNew[0][i]=mpi(i1*largest,i2*largest)
 
         return (b,pNew,c)
 
@@ -2017,4 +2015,4 @@ class DriverRobustMetric:
 
 
 # Write your driver code Where
-DriverDecomp.illustExample()
+DriverBloat.illustExample()
