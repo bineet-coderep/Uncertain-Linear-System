@@ -14,7 +14,6 @@ from RobustMetricAPI import *
 
 class DriverBloat:
 
-
     @staticmethod
     def createMatrix(A,B,mode,h=0):
         ''' Creates a single matrix based on
@@ -53,21 +52,43 @@ class DriverBloat:
 
         [0.9,1.1] means +-10% ([90%,110%]) perturbation.
         '''
+
         E={}
         conA=DriverBloat.createMatrix(A,B,mode,h)
         n=conA.shape[0]
-        ErP=np.matmul(np.matmul(b,p),c)
+        (bN,pN,cN)=DriverDecomp.bpCP2bpcA(A,B,mode,h,b,p,c)
+        ErA=np.matmul(np.matmul(b,p),c)
 
+        Er={}
         for i in range(n):
             for j in range(n):
-                a=float(nstr(ErP[i][j]).split(',')[0][1:])
-                b=float(nstr(ErP[i][j]).split(',')[1][:-1])
+                a=float(nstr(ErA[i][j]).split(',')[0][1:])
+                b=float(nstr(ErA[i][j]).split(',')[1][:-1])
                 if b>a:
-                    i1=conA[i][j]*a
-                    i2=conA[i][j]*b
-                    E[(i,j)]=[i1,i2]
+                    Er[(i,j)]=[a,b]
 
-        return E
+        return Er
+
+        if False:
+            '''
+            This implementation chooses the absolute
+            value as per individual cells
+            '''
+            E={}
+            conA=DriverBloat.createMatrix(A,B,mode,h)
+            n=conA.shape[0]
+            ErP=np.matmul(np.matmul(b,p),c)
+
+            for i in range(n):
+                for j in range(n):
+                    a=float(nstr(ErP[i][j]).split(',')[0][1:])
+                    b=float(nstr(ErP[i][j]).split(',')[1][:-1])
+                    if b>a:
+                        i1=conA[i][j]*a
+                        i2=conA[i][j]*b
+                        E[(i,j)]=[i1,i2]
+
+            return E
 
     @staticmethod
     def stableSystem1():
@@ -204,7 +225,7 @@ class DriverBloat:
         [0],
         [0]
         ])
-        q=np.array([[mpi(-0.1,0.1),0,mpi(-0.1,0.1),0,0,mpi(-0.1,0.1),0,0]])
+        q=np.array([[mpi(0.9,1.1),0,mpi(0.95,1.05),0,0,mpi(0.8,1.2),0,0]])
         C=np.array([
         [1,0,0,1,0,0,0,0],
         [0,0,0,0,0,0,1,0],
@@ -215,7 +236,7 @@ class DriverBloat:
         [0,0,0,1,0,0,0,0],
         [0,0,0,0,0,0,0,0]
         ])
-        E=DriverInterval.bpcToE(b,q,C)
+        E=DriverBloat.bpcP2E(A,B,mode,0.01,b,q,C)
         IS_C=np.array([0,0,0,0,0,0,0,0])
         IS_V=np.array([
         [0,1,0,0,0,0,0,0,0],
@@ -752,28 +773,28 @@ class DriverBloat:
 class DriverDecomp:
 
     @staticmethod
-    def bpcP2bpc(A,B,mode,h,b,p,c):
+    def bpCP2bpcA(A,B,mode,h,b,p,c):
         '''
         Given error matrices B, P, C in percent error,
-        converts it into E dictionary with absolute value.
+        converts it into B P C dictionary with absolute value.
+        The absolute value is takes as per the smallest element
+        in the matrix A.
 
         [0.9,1.1] means +-10% ([90%,110%]) perturbation.
         '''
-        E={}
         conA=DriverBloat.createMatrix(A,B,mode,h)
         n=conA.shape[0]
-        ErP=np.matmul(np.matmul(b,p),c)
+        smallest=np.amin(conA)
+        pNew=np.zeros((1,n),dtype=object)
 
         for i in range(n):
-            for j in range(n):
-                a=float(nstr(ErP[i][j]).split(',')[0][1:])
-                b=float(nstr(ErP[i][j]).split(',')[1][:-1])
-                if b>a:
-                    i1=conA[i][j]*a
-                    i2=conA[i][j]*b
-                    E[(i,j)]=[i1,i2]
+            if (not(isinstance(p[0][i],int)) or (isinstance(p[0][i],float))):
+                i1=float(nstr(p[0][i]).split(',')[0][1:])
+                i2=float(nstr(p[0][i]).split(',')[1][:-1])
+                pNew[0][i]=mpi(i1*smallest,i2*smallest)
 
-        return E
+
+        return (b,pNew,c)
 
     @staticmethod
     def formatize(mat):
@@ -1207,19 +1228,6 @@ class DriverDecomp:
         print(vP)
 
 class DriverInterval:
-
-    @staticmethod
-    def bpcToE(b,q,C):
-        Er=np.matmul(np.matmul(b,q),C)
-        n=Er.shape[0]
-        E={}
-        for i in range(n):
-            for j in range(n):
-                a=float(nstr(Er[i][j]).split(',')[0][1:])
-                b=float(nstr(Er[i][j]).split(',')[1][:-1])
-                if (a!=0 or b!=0):
-                    E[(i,j)]=[a,b]
-        return E
 
     @staticmethod
     def illustExample():
@@ -2009,4 +2017,4 @@ class DriverRobustMetric:
 
 
 # Write your driver code Where
-DriverRobustMetric.motorTransmission1()
+DriverDecomp.illustExample()
