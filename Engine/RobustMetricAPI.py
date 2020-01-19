@@ -119,6 +119,11 @@ class RobustMetric:
         robMet=math.log((beta/Mfac)+1)/(Mfac*self.t)
         return robMet
 
+    @staticmethod
+    def getRobustMetricKagstrom1Test(beta,Mfac,t):
+        robMet=math.log((beta/Mfac)+1)/(Mfac*t)
+        return robMet
+
     def getRobustMetricKagstrom2(self,beta):
         kag2=BloatKagstrom(self.A,[])
         (S,N,l,ep)=BloatKagstrom.JNFDecomp(self.A)
@@ -128,10 +133,22 @@ class RobustMetric:
         robMet=math.log((beta/(KSD*e_ep))+1)/KSD*self.t
         return robMet
 
+    @staticmethod
+    def getRobustMetricKagstrom2Test(beta,KSD,t,ep):
+        e_ep=np.exp(ep*t)
+        robMet=math.log((beta/(KSD*e_ep))+1)/KSD*t
+        return robMet
+
     def getRobustMetricLoan(self,beta):
         loan=BloatLoan(self.A,{})
         e_pow=np.exp(math.log(beta)-(loan.computeMu()*self.t)+(loan.computeAlpha()*self.t))
         robMet=SP.lambertw(e_pow.real)/self.t
+        return robMet.real
+
+    @staticmethod
+    def getRobustMetricLoanTest(beta,mu,alpha,t):
+        e_pow=np.exp(math.log(beta)-(mu*t)+(alpha*t))
+        robMet=SP.lambertw(e_pow.real)/t
         return robMet.real
 
     def getMaxSafeBloat(self):
@@ -149,6 +166,7 @@ class RobustMetric:
         b2=self.getRobustMetricKagstrom2(beta)
         b3=self.getRobustMetricLoan(beta)
         print("...Done")
+        print("Kagstrom1: ",b1,". Kagstrom2: ",b2,". Loan: ",b3)
         b=max(b1,b2,b3)
         if (b1==b):
             return (b,'Kagstrom1')
@@ -193,3 +211,11 @@ if False:
     rM=RobustMetric(A,[],U,method,IS,t,'.',0)
     #print(rM.getRobustMetric())
     print(rM.getMaxSafeBloat())
+
+if False:
+    q=RobustMetric.getRobustMetricLoanTest(3.721622826e134,14.102002,0,20)
+    print("Loan: ",q)
+    w=RobustMetric.getRobustMetricKagstrom1Test(3.721622826e134,2.50566e19,20)
+    print("Kagstrom1: ",w)
+    e=RobustMetric.getRobustMetricKagstrom2Test(3.721622826e134,2218.6657,0.05,20)
+    print("Kagstrom2: ",e)

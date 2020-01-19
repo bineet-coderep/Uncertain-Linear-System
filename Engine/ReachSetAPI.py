@@ -19,7 +19,7 @@ from gurobipy import *
 from EigenDecomposition import *
 import math
 
-TAYLOR_PRECISION=50000
+TAYLOR_PRECISION=50
 TAYLOR_EPSILON=0.001
 
 

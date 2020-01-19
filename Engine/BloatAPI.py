@@ -117,6 +117,7 @@ class BloatKagstrom:
         (Q,lam,M)=self.decompose()
         normE=self.intervalNorm(p)
         normM=IntervalNorm.spectralNorm(M)
+        print("p(n-1): ",BloatKagstrom.computeP(normM*20,self.n))
 
         print("Norm of E: ",normE)
         print("Norm of M: ", normM)
@@ -167,6 +168,7 @@ class BloatKagstrom:
         D=BloatKagstrom.getD(l,ep,N)
         K=BloatKagstrom.computeK(np.matmul(S,D))
         print("K(SD): ",K)
+        print("epsilon: ",ep)
         normE=self.intervalNorm(p)
         #print("Norm E: ",normE)
 
@@ -365,6 +367,19 @@ class BloatLoan:
 
         return bloatFactor
 
+    @staticmethod
+    def computeBloatingFactorTest(normE,alphaA,muA,t):
+        '''
+        Computes the Relative Error Bound
+        as per Theorem 2 in the paper
+        'The Sensitivity of the Matrix Exponential'
+        '''
+
+        ePow=(muA-alphaA+normE)*t
+        bloatFactor=t*normE*np.exp(ePow)
+
+        return bloatFactor.real
+
     def computeBloatingFactorWithTime(self,start,n,step,p='slow'):
         '''
         Computes the Relative Error Bound
@@ -383,7 +398,7 @@ class BloatLoan:
         t=start
         it=0
         while True:
-            bloatFactor=t*normE*np.exp(ePow*t)
+            bloatFactor=(t*normE*np.exp(ePow*t)).real
             timeAxis.append(t)
             print("Time ",t,": ",bloatFactor)
             fAxis.append(bloatFactor)
@@ -399,6 +414,8 @@ class BloatLoan:
         Computes alpha(A) as per the paper 'The Sensitivity of the Matrix Exponential'
         by Chales Van Loan
         '''
+
+        print("Alpha(A): ",max(LA.eig(self.A)[0].real))
         return max(LA.eig(self.A)[0].real)
 
     def conjugateFactor(self):
@@ -407,13 +424,14 @@ class BloatLoan:
         (A*+(A/2))
         '''
         AStar=self.A.conjugate().transpose()
-        return (AStar+(self.A/2))
+        return ((AStar+self.A)/2)
 
     def computeMu(self):
         '''
         Computes mu(A) as per the paper 'The Sensitivity of the Matrix Exponential'
         by Chales Van Loan
         '''
+        print("Mu(A): ",max(LA.eig(self.conjugateFactor())[0]))
         return (max(LA.eig(self.conjugateFactor())[0]))
 
 
@@ -531,3 +549,7 @@ if False:
     print()
     print("-----Kagstrom (4.12) Illustration-------")
     print(b.computeBloatingFactor2WithTime(0,5,1))
+
+if False:
+    q=BloatLoan.computeBloatingFactorTest(4.8714495e-122,0,14.102002,20)
+    print(q)
