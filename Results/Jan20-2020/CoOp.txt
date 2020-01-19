@@ -1,0 +1,121 @@
+CoOP Vehicles II
+
+Percentage Error Norm:  0.19519221295943137
+Norm E:  0.9501956926865119
+
+
++++++++++++++Interval+++++++++++++
+
+Reach Set (Without Perturbation)
+[[ 2.22762355e+00]
+ [ 1.88568042e-05]
+ [ 1.00000889e+00]
+ [ 2.71438194e+00]
+ [-1.12386216e-04]
+ [ 9.99956292e-01]
+ [-4.46792931e-01]
+ [ 3.24614514e-06]
+ [ 9.99958539e-01]
+ [ 1.00000000e+00]]
+
+Reach Set (With Perturbation)
+
+[[mpi('-2.0022242174256788e+43', '2.0022242174256788e+43')]
+ [mpi('-1.0387789464002675e+44', '1.0387789464002675e+44')]
+ [mpi('-5.3893149932524927e+44', '5.3893149932524927e+44')]
+ [mpi('-1.9857423484366825e+43', '1.9857423484366825e+43')]
+ [mpi('-1.0302279467916095e+44', '1.0302279467916095e+44')]
+ [mpi('-1.3409807772042548e+44', '1.3409807772042548e+44')]
+ [mpi('-2.8055743702785747e+44', '2.8055743702785747e+44')]
+ [mpi('-1.4167674832948748e+44', '1.4167674832948748e+44')]
+ [mpi('-6.3750237697402594e+44', '6.3750237697402594e+44')]
+ [mpi('1.0', '1.0')]]
+
+
+
+
++++++++++++++Bloat+++++++++++++
+
+++++Kagstrom1++++
+p(n-1):  8902890042434.78
+Norm of E:  0.9501956926865119
+Norm of M:  7.771458016773899
+
+Time  0 :  0.0
+/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:131: RuntimeWarning: overflow encountered in exp
+  bloatFactor=BloatKagstrom.computeP(normM*t,self.n)*(np.exp(BloatKagstrom.computeP(normM*t,self.n)*normE*t)-1)
+Time  1 :  inf
+Time  2 :  inf
+Time  3 :  inf
+Time  4 :  inf
+Time  5 :  inf
+Time  6 :  inf
+Time  7 :  inf
+Time  8 :  inf
+Time  9 :  inf
+Time  10 :  inf
+Time  11 :  inf
+Time  12 :  inf
+Time  13 :  inf
+Time  14 :  inf
+Time  15 :  inf
+Time  16 :  inf
+Time  17 :  inf
+Time  18 :  inf
+Time  19 :  inf
+Time  20 :  inf
+++++Kagstrom2++++
+Start...
+/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:230: ComplexWarning: Casting complex values to real discards the imaginary part
+  N=N.astype('float')
+BINGO!!
+...End
+K(SD):  393.6032207133146
+epsilon:  0
+Time  0 :  0.0
+Time  1 :  1.0501026834645465e+165
+/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:180: RuntimeWarning: overflow encountered in exp
+  bloatFactor=K*np.exp(ep*t)*(np.exp(K*normE*t)-1)
+Time  2 :  inf
+Time  3 :  inf
+Time  4 :  inf
+Time  5 :  inf
+Time  6 :  inf
+Time  7 :  inf
+Time  8 :  inf
+Time  9 :  inf
+Time  10 :  inf
+Time  11 :  inf
+Time  12 :  inf
+Time  13 :  inf
+Time  14 :  inf
+Time  15 :  inf
+Time  16 :  inf
+Time  17 :  inf
+Time  18 :  inf
+Time  19 :  inf
+Time  20 :  inf
+++++Loan++++
+Alpha(A):  0.0
+Mu(A):  2.427706830485554
+Time  0 :  0.0
+Time  1 :  27.849505207351243
+Time  2 :  1632.4951718133452
+Time  3 :  71770.76754555077
+Time  4 :  2804728.022349742
+Time  5 :  102755527.44665411
+Time  6 :  3614022608.69289
+Time  7 :  123578261412.30255
+Time  8 :  4139410091995.2305
+Time  9 :  136488293174381.58
+Time  10 :  4444852150818413.5
+Time  11 :  1.4330271909268707e+17
+Time  12 :  4.5819191129689723e+18
+Time  13 :  1.4548357032483786e+20
+Time  14 :  4.5920124848958053e+21
+Time  15 :  1.4420180938362489e+23
+Time  16 :  4.508207109755085e+24
+Time  17 :  1.4039033958148765e+26
+Time  18 :  4.356776028592021e+27
+Time  19 :  1.3478785329047056e+29
+Time  20 :  4.158450894841763e+30
