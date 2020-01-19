@@ -1,0 +1,114 @@
+Co-Op Vehicles
+
+Percentage Error Norm:  0.19519221295943137
+Norm E:  0.9501956926865119
+
++++++++++++++Interval+++++++++++++
+
+Reach Set (Without Perturbation)
+[[ 2.22762355e+00]
+ [ 1.88568042e-05]
+ [ 1.00000889e+00]
+ [ 2.71438194e+00]
+ [-1.12386216e-04]
+ [ 9.99956292e-01]
+ [-4.46792931e-01]
+ [ 3.24614514e-06]
+ [ 9.99958539e-01]
+ [ 1.00000000e+00]]
+
+Reach Set (With Perturbation)
+
+[[mpi('-2.0022242174256788e+43', '2.0022242174256788e+43')]
+ [mpi('-1.0387789464002675e+44', '1.0387789464002675e+44')]
+ [mpi('-5.3893149932524927e+44', '5.3893149932524927e+44')]
+ [mpi('-1.9857423484366825e+43', '1.9857423484366825e+43')]
+ [mpi('-1.0302279467916095e+44', '1.0302279467916095e+44')]
+ [mpi('-1.3409807772042548e+44', '1.3409807772042548e+44')]
+ [mpi('-2.8055743702785747e+44', '2.8055743702785747e+44')]
+ [mpi('-1.4167674832948748e+44', '1.4167674832948748e+44')]
+ [mpi('-6.3750237697402594e+44', '6.3750237697402594e+44')]
+ [mpi('1.0', '1.0')]]
+
+
+
+
++++++++++++++Bloat+++++++++++++
+
+++++Kagstrom1++++
+Norm of E:  0.9501956926865119
+Norm of M:  7.771458016773899
+
+Time  0 :  0.0
+/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:130: RuntimeWarning: overflow encountered in exp
+  bloatFactor=BloatKagstrom.computeP(normM*t,self.n)*(np.exp(BloatKagstrom.computeP(normM*t,self.n)*normE*t)-1)
+Time  1 :  inf
+Time  2 :  inf
+Time  3 :  inf
+Time  4 :  inf
+Time  5 :  inf
+Time  6 :  inf
+Time  7 :  inf
+Time  8 :  inf
+Time  9 :  inf
+Time  10 :  inf
+Time  11 :  inf
+Time  12 :  inf
+Time  13 :  inf
+Time  14 :  inf
+Time  15 :  inf
+Time  16 :  inf
+Time  17 :  inf
+Time  18 :  inf
+Time  19 :  inf
+Time  20 :  inf
+++++Kagstrom2++++
+K(SD):  393.6032207133146
+Time  0 :  0.0
+Time  1 :  1.0501026834645465e+165
+/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:178: RuntimeWarning: overflow encountered in exp
+  bloatFactor=K*np.exp(ep*t)*(np.exp(K*normE*t)-1)
+Time  2 :  inf
+Time  3 :  inf
+Time  4 :  inf
+Time  5 :  inf
+Time  6 :  inf
+Time  7 :  inf
+Time  8 :  inf
+Time  9 :  inf
+Time  10 :  inf
+Time  11 :  inf
+Time  12 :  inf
+Time  13 :  inf
+Time  14 :  inf
+Time  15 :  inf
+Time  16 :  inf
+Time  17 :  inf
+Time  18 :  inf
+Time  19 :  inf
+Time  20 :  inf
+++++Loan++++
+Time  0 :  0.0
+Time  1 :  66.5997409222488
+Time  2 :  9336.025252587684
+Time  3 :  981550.749784942
+Time  4 :  91729912.25683357
+Time  5 :  8036750269.111763
+Time  6 :  675960318363.0653
+Time  7 :  55274837411987.516
+Time  8 :  4427707296197170.0
+Time  9 :  3.491330061906696e+17
+Time  10 :  2.7189916934038254e+19
+Time  11 :  2.0963319252932344e+21
+Time  12 :  1.602906136487979e+23
+Time  13 :  1.217109578100374e+25
+Time  14 :  9.187002738902904e+26
+Time  15 :  6.8991653167444505e+28
+Time  16 :  5.158040615130843e+30
+Time  17 :  3.8412553538506106e+32
+Time  18 :  2.850731040632052e+34
+Time  19 :  2.1090983058202272e+36
+Time  20 :  1.5560827913030895e+38
+
+
+
