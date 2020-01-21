@@ -3,7 +3,6 @@ Holes
 Percentage Error Norm:  0.024617067250182343
 Norm E:  1.2308533041666678
 
-
 +++++++++++++Interval+++++++++++++
 
 Reach Set (Without Perturbation)
@@ -37,11 +36,12 @@ Reach Set (With Perturbation)
 +++++++++++++Bloat+++++++++++++
 
 ++++Kagstrom1++++
-p(n-1):  2.5056633951342215e+19
 Norm of E:  1.2308533041666678
 Norm of M:  50.01380896353688
 
 Time  0 :  0.0
+/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:130: RuntimeWarning: overflow encountered in exp
+  bloatFactor=BloatKagstrom.computeP(normM*t,self.n)*(np.exp(BloatKagstrom.computeP(normM*t,self.n)*normE*t)-1)
 Time  1 :  inf
 Time  2 :  inf
 Time  3 :  inf
@@ -64,8 +64,9 @@ Time  19 :  inf
 Time  20 :  inf
 ++++Kagstrom2++++
 K(SD):  2218.6657600345884
-epsilon:  0.05
 Time  0 :  0.0
+/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:178: RuntimeWarning: overflow encountered in exp
+  bloatFactor=K*np.exp(ep*t)*(np.exp(K*normE*t)-1)
 Time  1 :  inf
 Time  2 :  inf
 Time  3 :  inf
@@ -87,26 +88,25 @@ Time  18 :  inf
 Time  19 :  inf
 Time  20 :  inf
 ++++Loan++++
-Alpha(A):  0.0
-Mu(A):  10.397780880731863
 Time  0 :  0.0
-Time  1 :  138184.06185201198
-Time  2 :  31026987351.427002
-Time  3 :  5224954661214406.0
-Time  4 :  7.821191533115931e+20
-Time  5 :  1.097575977281304e+26
-Time  6 :  1.4786571841030958e+31
-Time  7 :  1.9367160241061682e+36
-Time  8 :  2.48490363516956e+41
-Time  9 :  3.138439292588286e+46
-Time  10 :  3.9149199074397156e+51
-Time  11 :  4.8346743359619355e+56
-Time  12 :  5.921168836552207e+61
-Time  13 :  7.201470891301473e+66
-Time  14 :  8.706779609913624e+71
-Time  15 :  1.0473032071751198e+77
-Time  16 :  1.2541596255167506e+82
-Time  17 :  1.4960062673221328e+87
-Time  18 :  1.7783148505221084e+92
-Time  19 :  2.1073729911309074e+97
-Time  20 :  2.4904020373158043e+102
+Time  1 :  5612819.796252571
+Time  2 :  51190090579533.23
+Time  3 :  3.501482501661243e+20
+Time  4 :  2.128950188190736e+27
+Time  5 :  1.213529439400045e+34
+Time  6 :  6.640585393312755e+40
+Time  7 :  3.5328724551878108e+47
+Time  8 :  1.84117347227905e+54
+Time  9 :  9.445436542583721e+60
+Time  10 :  4.7857976098544985e+67
+Time  11 :  2.400611138790376e+74
+Time  12 :  1.1942223121851288e+81
+Time  13 :  5.899593528563317e+87
+Time  14 :  2.897220684770616e+94
+Time  15 :  1.4155317138708697e+101
+Time  16 :  6.885304169775113e+107
+Time  17 :  3.3360063811050476e+114
+Time  18 :  1.6107393171507247e+121
+Time  19 :  7.753203065201539e+127
+Time  20 :  3.721622826206047e+134
+

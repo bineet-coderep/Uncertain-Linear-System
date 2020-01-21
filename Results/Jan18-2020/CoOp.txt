@@ -1,8 +1,7 @@
-CoOP Vehicles II
+Co-Op Vehicles
 
 Percentage Error Norm:  0.19519221295943137
 Norm E:  0.9501956926865119
-
 
 +++++++++++++Interval+++++++++++++
 
@@ -37,12 +36,11 @@ Reach Set (With Perturbation)
 +++++++++++++Bloat+++++++++++++
 
 ++++Kagstrom1++++
-p(n-1):  8902890042434.78
 Norm of E:  0.9501956926865119
 Norm of M:  7.771458016773899
 
 Time  0 :  0.0
-/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:131: RuntimeWarning: overflow encountered in exp
+/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:130: RuntimeWarning: overflow encountered in exp
   bloatFactor=BloatKagstrom.computeP(normM*t,self.n)*(np.exp(BloatKagstrom.computeP(normM*t,self.n)*normE*t)-1)
 Time  1 :  inf
 Time  2 :  inf
@@ -65,16 +63,10 @@ Time  18 :  inf
 Time  19 :  inf
 Time  20 :  inf
 ++++Kagstrom2++++
-Start...
-/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:230: ComplexWarning: Casting complex values to real discards the imaginary part
-  N=N.astype('float')
-BINGO!!
-...End
 K(SD):  393.6032207133146
-epsilon:  0
 Time  0 :  0.0
 Time  1 :  1.0501026834645465e+165
-/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:180: RuntimeWarning: overflow encountered in exp
+/home/bineet/My_Research/UncertainLinearSystems/MatrixExponential/Uncertain-Linear-System/Engine/BloatAPI.py:178: RuntimeWarning: overflow encountered in exp
   bloatFactor=K*np.exp(ep*t)*(np.exp(K*normE*t)-1)
 Time  2 :  inf
 Time  3 :  inf
@@ -96,26 +88,27 @@ Time  18 :  inf
 Time  19 :  inf
 Time  20 :  inf
 ++++Loan++++
-Alpha(A):  0.0
-Mu(A):  2.427706830485554
 Time  0 :  0.0
-Time  1 :  27.849505207351243
-Time  2 :  1632.4951718133452
-Time  3 :  71770.76754555077
-Time  4 :  2804728.022349742
-Time  5 :  102755527.44665411
-Time  6 :  3614022608.69289
-Time  7 :  123578261412.30255
-Time  8 :  4139410091995.2305
-Time  9 :  136488293174381.58
-Time  10 :  4444852150818413.5
-Time  11 :  1.4330271909268707e+17
-Time  12 :  4.5819191129689723e+18
-Time  13 :  1.4548357032483786e+20
-Time  14 :  4.5920124848958053e+21
-Time  15 :  1.4420180938362489e+23
-Time  16 :  4.508207109755085e+24
-Time  17 :  1.4039033958148765e+26
-Time  18 :  4.356776028592021e+27
-Time  19 :  1.3478785329047056e+29
-Time  20 :  4.158450894841763e+30
+Time  1 :  66.5997409222488
+Time  2 :  9336.025252587684
+Time  3 :  981550.749784942
+Time  4 :  91729912.25683357
+Time  5 :  8036750269.111763
+Time  6 :  675960318363.0653
+Time  7 :  55274837411987.516
+Time  8 :  4427707296197170.0
+Time  9 :  3.491330061906696e+17
+Time  10 :  2.7189916934038254e+19
+Time  11 :  2.0963319252932344e+21
+Time  12 :  1.602906136487979e+23
+Time  13 :  1.217109578100374e+25
+Time  14 :  9.187002738902904e+26
+Time  15 :  6.8991653167444505e+28
+Time  16 :  5.158040615130843e+30
+Time  17 :  3.8412553538506106e+32
+Time  18 :  2.850731040632052e+34
+Time  19 :  2.1090983058202272e+36
+Time  20 :  1.5560827913030895e+38
+
+
+
