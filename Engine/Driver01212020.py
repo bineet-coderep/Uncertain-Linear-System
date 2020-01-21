@@ -1,10 +1,5 @@
 '''
-Author: Bineet Ghosh, under supervision of Dr. Sridhar Duggirala
-Email: ghosh.bineet22@gmail.com
-
-- Linear Dynamical System: dot{x} = (A+E)x; where E is the perturbation.
-
-Documentation: Not yet available. (TODO)
+The Driver Code for the experiments as per Jan 19, 2020.
 '''
 
 from VerificationEngine import *
@@ -1023,7 +1018,7 @@ class DriverDecomp:
         v=DriverDecomp.formatize(vrfy.computeReachSetPertFree())
         print(v)
         print("\n\n\n\n")
-        print("Reachable Set (With Perturbation)")
+        print("Reachable Set (Without Perturbation)")
         vP=DriverDecomp.formatize(vrfy.computeReachSet())
         print(vP)
 
@@ -1241,6 +1236,7 @@ class DriverDecomp:
         [0,1,0,0,0,0],
         [0,0,0,0,0,0]
         ])
+        (b,q,c)=DriverDecomp.bpCP2bpcA(A,B,'.',0.01,b,q,C)
         IS=np.array([
         [1],
         [1],
@@ -1250,13 +1246,15 @@ class DriverDecomp:
         [1]
         ])
         U=[]
-        (b,q,c)=DriverDecomp.bpCP2bpcA(A,B,'.',0.01,b,q,C)
+        print(np.matmul(np.matmul(b,q),C))
+        print("\n\n\n\n")
         t=20
         vrfy=VerifyDecomp(A,B,b,C,q,IS,t,U)
         v=DriverDecomp.formatize(vrfy.computeReachSetPertFree())
-        print("Reach Set (Without Perturbation): \n",v)
+        print(v)
+        print("\n\n\n\n")
         vP=DriverDecomp.formatize(vrfy.computeReachSet())
-        print("Reach Set with Pert: \n",vP)
+        print(vP)
 
     @staticmethod
     def holesCXc():
@@ -1757,7 +1755,6 @@ class DriverInterval:
         [0,1,0,0,0,0],
         [0,0,0,0,0,0]
         ])
-        E=DriverBloat.bpcP2E(A,B,'.',0,b,q,C)
         IS=np.array([
         [1],
         [1],
@@ -1767,15 +1764,12 @@ class DriverInterval:
         [1]
         ])
         U=[]
+        E=DriverBloat.bpcP2E(A,B,'.',0,b,q,C)
         t=20
-        print("Percentage Error Norm: ",IntervalNorm(DriverBloat.bpcP2EP(A,B,'.',0.01,b,q,C),C.shape[0]).getNorm())
-        print("Norm E: ", IntervalNorm(E,C.shape[0]).getNorm())
         vrfy=VerifyInterval(A,B,E,IS,t,U)
-        print("Reach Set (Without Perturbation)")
-        print(vrfy.computePerturbFreeReachSet())
-        print("")
-        print("Reach Set (With Perturbation)")
         print(vrfy.computeReachSet())
+        print("")
+        print(vrfy.computePerturbFreeReachSet())
 
     @staticmethod
     def holesCXc():
@@ -2246,5 +2240,10 @@ class DriverRobustMetric:
 
 # Write your driver code Where
 # Write your driver code Where
-print("PKPD")
-DriverDecomp.motorTransmission1()
+print("Space Craft")
+print("+++++++++++++Interval+++++++++++++\n")
+DriverInterval.spaceCraftRndzvs()
+print("\n\n\n\n+++++++++++++Bloat+++++++++++++\n")
+DriverBloat.spaceCraftRndzvs()
+print("\n\n\n\n+++++++++++++Eigen Decomposition+++++++++++++\n")
+DriverDecomp.spaceCraftRndzvs()
