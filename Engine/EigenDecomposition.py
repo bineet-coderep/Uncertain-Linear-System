@@ -42,13 +42,17 @@ class IntervalMatrix:
     @staticmethod
     def formatize(mat):
         n=mat.shape[0]
+        #print("n: ",n)
+        #print(mat)
         ret=np.zeros((n,n),dtype=object)
         for i in range(n):
             for j in range(n):
-                if (isinstance(mat[i][0],int)) or (isinstance(mat[i][0],float)):
+                if (isinstance(mat[i][j],int)) or (isinstance(mat[i][j],float)):
                     ret[i][j]=(mat[i][j],mat[i][j])
                 else:
+                    #print("i: ",mat[i][j],type(mat[i][j]))
                     ret[i][j]=(float(nstr(mat[i][j]).split(',')[0][1:]),float(nstr(mat[i][j]).split(',')[1][:-1]))
+        #print("Ret: ",ret)
         return ret
 
     @staticmethod
@@ -276,9 +280,10 @@ class EigenDecompose:
         evects=evects.transpose()
 
         #print("evects: \n",evects)
-        evects=self.unionEvects(evects)
+        #evects1=self.unionEvects(evects)
         #print("")
-        #print("evects after union: \n",evects)
+        #print("evects after union: \n",evects1)
+        #print("Is Same: ",evects==evects1)
         return (evals,evects)
 
     def unionEvects(self,vec):
@@ -308,7 +313,7 @@ class EigenDecompose:
     def getLamdaI(e,n):
         lI=np.zeros((n,n),dtype=object)
         for i in range(n):
-            lI[i]=e
+            lI[i][i]=e
         return lI
 
     @staticmethod
@@ -321,7 +326,7 @@ class EigenDecompose:
 
 
 # Tester ------------------------
-if False:
+if True:
     A=np.array([
     [3,0,0,0,0,2,4],
     [1,2,3,0,0,2.9,2.9],
