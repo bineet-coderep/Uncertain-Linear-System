@@ -11,6 +11,7 @@ Documentation: Not yet available. (TODO)
 import numpy as np
 import numpy.linalg as LA
 from IntervalNormAPI import *
+import mpmath as mp
 
 PACE='fast'
 
@@ -61,6 +62,8 @@ class RevEigenDecomp:
         n=mat.shape[0]
         for i in range(n):
             for j in range(n):
+                if isinstance(mat[i][j],mp.ctx_iv.ivmpc):
+                    return {}
                 a=float(nstr(mat[i][j]).split(',')[0][1:])
                 b=float(nstr(mat[i][j]).split(',')[1][:-1])
                 if (a!=0 and b!=0):
@@ -77,6 +80,14 @@ class RevEigenDecomp:
             Q[i][i]=q[i]
         return Q
 
+    @staticmethod
+    def getEigenValMat(r):
+        n=r.shape[0]
+        Q=np.zeros((r.shape[0],r.shape[0]))
+        for i in range(n):
+            Q[i][i]=r[i]
+        return Q
+
 
     def getUncertainty(self):
         '''
@@ -90,7 +101,10 @@ class RevEigenDecomp:
         pEVec=(eigVec.real+RevEigenDecomp.matrixify(self.dEigVec,self.n))
         print("Started: Inverting.....")
         pA=np.matmul(np.matmul(pEVec,pEVal),IntervalMatrix(pEVec).inverse())
-        print(".....Started: Inverting")
+        print(".....Ended: Inverting")
+        #print(RevEigenDecomp.getEigenValMat(eigVal))
+        #print(np.matmul(np.matmul(eigVec,RevEigenDecomp.getEigenValMat(eigVal)),LA.inv(eigVec)))
+        #print(self.A)
         Er=pA-self.A
         print("Started: Norm.....")
         normEr=IntervalNorm(RevEigenDecomp.dictionarify(Er),self.n,PACE).getNorm()
@@ -136,13 +150,13 @@ class RevEigenDecomp:
 
 if False:
     A=np.array([
-    [1,0,0,0,0],
-    [0,1,0,0,0],
-    [0,0,1,0,0],
-    [0,0,0,1,0],
-    [0,0,0,0,1],
+    [1,3,1,0,1],
+    [0,1,0,0,1],
+    [1,0,1,0,1],
+    [1,0,1,1,0],
+    [1,0,0,0,1],
     ])
-    dEVal={0: [-0.1,0.1]}
+    dEVal={2: [-0.1,0.1]}
     dEVec={(3,0): [-0.1,0.1]}
     eig=RevEigenDecomp(A,dEVal,dEVec)
     eig.printReport()

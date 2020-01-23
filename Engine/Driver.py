@@ -217,4 +217,4 @@ class DriverDec:
 
 
 # Write your driver code Where
-DriverDec.motorTransmission2()
+DriverDec.dcConv()
