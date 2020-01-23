@@ -1,0 +1,16 @@
+Stable System 1
+-------Report-------
+Norm of A:  1.0
+Norm of E:  0.22255810726889091
+Percentage of Error (Norm):  22.25581072688909
+Average Perturbation in Eigenvalue:  0.006666666666666667
+Norm of Perturbation in Eigenvector:  0.1004987562112089
+Error Matrix E: 
+[[mpi('-0.012222222222222226', '0.012222222222222226') mpi('0.0', '0.0')
+  mpi('0.0', '0.0')]
+ [mpi('-0.00011111111111111113', '0.00011111111111111113')
+  mpi('0.0', '0.0') mpi('0.0', '0.0')]
+ [mpi('0.0', '0.0') mpi('0.0', '0.0')
+  mpi('-0.22222222222222232', '0.18181818181818188')]]
+------End of Report------
+
