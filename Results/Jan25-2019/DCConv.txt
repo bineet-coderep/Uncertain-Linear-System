@@ -1,0 +1,26 @@
+DC Converter
+------------Comparing Various Approaches-----------
+
+-------Reach Set (without Perturbation)-------
+[[1.00000000e+00]
+ [1.38879439e-11]
+ [1.00000000e+00]]
+-------
+
+
+-------Reach Set (with Perturbation) using Interval Arithmetic-------
+[[mpi('-1.2444139989443373e+31', '1.2444139989443373e+31')]
+ [mpi('-7.8225455596602202e+17', '7.8225455596602214e+17')]
+ [mpi('-3.9112727798301101e+17', '3.9112727798301107e+17')]]
+-------
+
+
+-------Reach Set (with Perturbation) using Reverse Eigen Decomposition-------
+[[mpi('1.0', '1.0')]
+ [mpi('-1.1971629548874716e-5', '1.1884529120571778e-5')]
+ [mpi('1.0', '1.0000000000000002')]]
+-------
+
+------------End of Report-----------
+
+

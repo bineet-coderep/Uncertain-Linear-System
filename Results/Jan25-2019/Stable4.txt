@@ -1,0 +1,32 @@
+Stable System 4
+------------Comparing Various Approaches-----------
+
+-------Reach Set (without Perturbation)-------
+[[4.53999298e-05]
+ [3.05902321e-07]
+ [6.73794700e-03]]
+-------
+
+
+-------Reach Set (with Perturbation) using Interval Arithmetic-------
+Started: Eigen Decomposition.....
+.....Ended: Eigen Decomposition
+Started: Inverting.....
+.....Ended: Inverting
+Started: Norm.....
+.....Ended: Norm
+Progress: 99.998%
+[[mpi('-536251954013.54114', '536251954050.16608')]
+ [mpi('-742703453222.77771', '742703453314.23169')]
+ [mpi('-356698664235.35077', '356698664222.05383')]]
+-------
+
+
+-------Reach Set (with Perturbation) using Reverse Eigen Decomposition-------
+[[mpi('-11477.887871143757', '11477.88797353203')]
+ [mpi('-2688167.6823839704', '2688167.6823847601')]
+ [mpi('0.0067379469990523537', '0.0067379469991151828')]]
+-------
+
+------------End of Report-----------
+

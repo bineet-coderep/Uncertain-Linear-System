@@ -1,0 +1,75 @@
+Motor Transmission 2
+------------Comparing Various Approaches-----------
+
+-------Reach Set (without Perturbation)-------
+[[1.00000000e+00]
+ [1.00000000e+00]
+ [1.48413159e+02]
+ [2.95826318e+02]
+ [1.09185738e+03]]
+-------
+
+
+-------Reach Set (with Perturbation) using Interval Arithmetic-------
+Started: Eigen Decomposition.....
+.....Ended: Eigen Decomposition
+Started: Inverting.....
+.....Ended: Inverting
+Started: Norm.....
+.....Ended: Norm
+Progress: 99.998%
+[[mpi('1.0', '1.0')]
+ [mpi('-20.310020890715734', '22.310020890715734')]
+ [mpi('80.290693817635486', '298.98830298488355')]
+ [mpi('-43.654165779745959', '793.59339196638757')]
+ [mpi('483.40945103752455', '2132.0020890658016')]]
+-------
+
+
+-------Reach Set (with Perturbation) using Reverse Eigen Decomposition-------
+[[mpi('0.87713074431092897', '1.140080890432813')]
+ [mpi('-11.221932401376387', '13.232788748343523')]
+ [mpi('130.17774470917897', '169.20300658323183')]
+ [mpi('256.79292798612585', '339.01450991574632')]
+ [mpi('992.82813615855162', '1202.6217468651971')]]
+-------
+
+------------End of Report-----------
+
+********************
+
+Started: Eigen Decomposition.....
+.....Ended: Eigen Decomposition
+Started: Inverting.....
+.....Ended: Inverting
+Started: Norm.....
+.....Ended: Norm
+Started: Norm.....
+.....Ended: Norm
+Started: Norm.....
+.....Ended: Norm
+-------Report-------
+Norm of A:  4.947726750741193
+Norm of E:  0.5192460246466423
+Percentage of Error (Norm):  10.494638261275377
+Average Perturbation in Eigenvalue:  0.004
+Norm of Perturbation in Eigenvector:  0.01414213562373095
+Error Matrix E: 
+[[mpi('0.0', '0.0') mpi('0.0', '0.0') mpi('0.0', '0.0') mpi('0.0', '0.0')
+  mpi('0.0', '0.0')]
+ [mpi('-0.034546644323120525', '0.034546644323120525')
+  mpi('-0.035704858894174921', '0.035704858894174921') mpi('0.0', '0.0')
+  mpi('0.0', '0.0') mpi('-0.011157768404429665', '0.011157768404429665')]
+ [mpi('0.0', '0.0') mpi('0.0', '0.0')
+  mpi('-0.12286925568907103', '0.14008089043281302') mpi('0.0', '0.0')
+  mpi('0.0', '0.0')]
+ [mpi('-0.034204598339723287', '0.034204598339723287')
+  mpi('-0.093873198025899773', '0.10472954499303588') mpi('0.0', '0.0')
+  mpi('-0.12286925568907103', '0.14008089043281302')
+  mpi('-0.011047295449930359', '0.011047295449930359')]
+ [mpi('-0.2298114247427927', '0.25466443231205194')
+  mpi('-0.32939029134605136', '0.37048588941749161') mpi('0.0', '0.0')
+  mpi('0.0', '0.0') mpi('-0.10293446604564083', '0.11577684044296643')]]
+------End of Report------
+(base) bineet@bineet-lt:~/My_Research/UncertainLinearSystems/RevEigenDecomp/Uncertain-Linear-System/Engine$ 
+

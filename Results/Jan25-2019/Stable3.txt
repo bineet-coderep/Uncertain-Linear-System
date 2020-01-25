@@ -1,0 +1,22 @@
+Stable System 3
+------------Comparing Various Approaches-----------
+
+-------Reach Set (without Perturbation)-------
+[[5.44799157e-05]
+ [2.72399579e-05]]
+-------
+
+
+-------Reach Set (with Perturbation) using Interval Arithmetic-------
+[[mpi('-1.9032001023489182e+24', '1.9032001023489185e+24')]
+ [mpi('-4.8377814975073808e+24', '4.8377814975073808e+24')]]
+-------
+
+
+-------Reach Set (with Perturbation) using Reverse Eigen Decomposition-------
+[[mpi('-3058291347871504.5', '3058291347871505.0')]
+ [mpi('-5560529723383781.0', '5560529723383781.0')]]
+-------
+
+------------End of Report-----------
+

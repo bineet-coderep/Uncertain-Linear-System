@@ -1,0 +1,54 @@
+Stable System 3
+------------Comparing Various Approaches-----------
+
+-------Reach Set (without Perturbation)-------
+[[5.44799157e-05]
+ [2.72399579e-05]]
+-------
+
+
+-------Reach Set (with Perturbation) using Interval Arithmetic-------
+Started: Eigen Decomposition.....
+.....Ended: Eigen Decomposition
+Started: Inverting.....
+.....Ended: Inverting
+Started: Norm.....
+.....Ended: Norm
+Progress: 99.998%
+[[mpi('-70931774623459944.0', '70931774623459944.0')]
+ [mpi('-1.043413910678211e+17', '1.0434139106782109e+17')]]
+-------
+
+
+-------Reach Set (with Perturbation) using Reverse Eigen Decomposition-------
+[[mpi('-24651043822231.199', '24651043822231.215')]
+ [mpi('-40292427056396.773', '40292427056396.742')]]
+-------
+
+------------End of Report-----------
+
+********************
+
+Started: Eigen Decomposition.....
+.....Ended: Eigen Decomposition
+Started: Inverting.....
+.....Ended: Inverting
+Started: Norm.....
+.....Ended: Norm
+Started: Norm.....
+.....Ended: Norm
+Started: Norm.....
+.....Ended: Norm
+-------Report-------
+Norm of A:  7.280109889280518
+Norm of E:  1.2604133831624744
+Percentage of Error (Norm):  17.313109311967256
+Average Perturbation in Eigenvalue:  0.02
+Norm of Perturbation in Eigenvector:  0.1004987562112089
+Error Matrix E: 
+[[mpi('-0.53470828635498702', '0.47512300092843329')
+  mpi('-0.96950616767385278', '1.0213880974028315')]
+ [mpi('-0.26448724346633989', '0.27514031939283123')
+  mpi('-0.42871097966651472', '0.39522814687147356')]]
+------End of Report------
+

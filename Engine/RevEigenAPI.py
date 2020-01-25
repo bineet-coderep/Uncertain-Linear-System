@@ -42,7 +42,7 @@ class RevEigenDecomp:
         Ac=np.zeros((n,n),dtype=object)
         for i in range(n):
             for j in range(n):
-                Ac[i][j]=mpi(0,0)
+                Ac[i][j]=mpi(1,1)
         for key in mat:
             Ac[key[0]][key[1]]=mpi(mat[key][0],mat[key][1])
         return Ac
@@ -51,7 +51,7 @@ class RevEigenDecomp:
     def matrixify2(mat,n):
         Ac=np.zeros(n,dtype=object)
         for i in range(n):
-            Ac[i]=mpi(0,0)
+            Ac[i]=mpi(1,1)
         for key in mat:
             Ac[key]=mpi(mat[key][0],mat[key][1])
         return Ac
@@ -74,10 +74,16 @@ class RevEigenDecomp:
     @staticmethod
     def getPertEigValues(r,d):
         n=r.shape[0]
-        q=r+RevEigenDecomp.matrixify2(d,n)
+        q=r*RevEigenDecomp.matrixify2(d,n)
         Q=np.zeros((r.shape[0],r.shape[0]),dtype=object)
         for i in range(n):
             Q[i][i]=q[i]
+        return Q
+
+    @staticmethod
+    def getPertEigVectors(V,d):
+        n=V.shape[0]
+        Q=V*RevEigenDecomp.matrixify(d,n)
         return Q
 
     @staticmethod
@@ -87,6 +93,14 @@ class RevEigenDecomp:
         for i in range(n):
             Q[i][i]=r[i]
         return Q
+
+    def isZero(di):
+        if not(di):
+            return True
+        for key in di:
+            if (di[key][0]!=0 or di[key][1]!=0):
+                return False
+        return True
 
 
     def getUncertainty(self):
@@ -98,18 +112,29 @@ class RevEigenDecomp:
         (eigVal,eigVec)=LA.eig(self.A)
         print(".....Ended: Eigen Decomposition")
         pEVal=RevEigenDecomp.getPertEigValues(eigVal,self.dEigVal)
+        pEVec=RevEigenDecomp.getPertEigVectors(eigVec,self.dEigVec)
+        #print(pEVal,pEVec)
+        #exit(0)
         pEVec=(eigVec.real+RevEigenDecomp.matrixify(self.dEigVec,self.n))
-        print("Started: Inverting.....")
-        pA=np.matmul(np.matmul(pEVec,pEVal),IntervalMatrix(pEVec).inverse())
-        print(".....Ended: Inverting")
+        if RevEigenDecomp.isZero(self.dEigVal) and RevEigenDecomp.isZero(self.dEigVec):
+            pA=self.A
+            normEr=0
+            Er=np.zeros((self.n,self.n),dtype=object)
+            for i in range(self.n):
+                for j in range(self.n):
+                    Er[i][j]=mpi(0,0)
+        else:
+            print("Started: Inverting.....")
+            pA=np.matmul(np.matmul(pEVec,pEVal),IntervalMatrix(pEVec).inverse())
+            print(".....Ended: Inverting")
+            Er=pA-self.A
+            print("Started: Norm.....")
+            normEr=IntervalNorm(RevEigenDecomp.dictionarify(Er),self.n,PACE).getNorm()
+            print(".....Ended: Norm")
         #print(RevEigenDecomp.getEigenValMat(eigVal))
         #print(np.matmul(np.matmul(eigVec,RevEigenDecomp.getEigenValMat(eigVal)),LA.inv(eigVec)))
         #print(self.A)
-        Er=pA-self.A
-        print("Started: Norm.....")
-        normEr=IntervalNorm(RevEigenDecomp.dictionarify(Er),self.n,PACE).getNorm()
         return (normEr,Er)
-        print(".....Ended: Norm")
 
     def getReport(self):
         (normE,E)=self.getUncertainty()
@@ -150,13 +175,14 @@ class RevEigenDecomp:
 
 if False:
     A=np.array([
-    [1,3,1,0,1],
+    [1,0,0,0,1],
     [0,1,0,0,1],
     [1,0,1,0,1],
     [1,0,1,1,0],
     [1,0,0,0,1],
     ])
-    dEVal={2: [-0.1,0.1]}
-    dEVec={(3,0): [-0.1,0.1]}
+    dEVal={2: [0.9,1.1]}
+    dEVec={(3,0): [0.9,1.1]}
+    (eigVal,eigVec)=LA.eig(A)
     eig=RevEigenDecomp(A,dEVal,dEVec)
     eig.printReport()

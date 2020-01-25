@@ -49,15 +49,10 @@ class DriverDec:
         A=Benchmarks.StableSystem1.A
         B=Benchmarks.StableSystem1.B
         mode='.'
-        '''dVal={0:[-0.01,0.01]}
+        dVal={0:[-0.01,0.01]}
         dVec={
         (0,0): [-0.1,0.1],
         (1,0): [-0.01,0.01]
-        }'''
-        dVal={0:[0.95,1.05]}
-        dVec={
-        (0,0): [0.90,1.10],
-        (1,0): [0.95,1.05]
         }
         IS=np.array([
         [1],
@@ -73,9 +68,9 @@ class DriverDec:
     def stableSystem2():
         A=Benchmarks.StableSystem2.A
         B=Benchmarks.StableSystem2.B
-        dVal={0:[0.95,1.05]}
+        dVal={0:[-0.01,0.01]}
         dVec={
-        (1,0): [0.95,1.05]
+        (1,0): [-0.01,0.01]
         }
         IS=np.array([
         [1],
@@ -92,10 +87,10 @@ class DriverDec:
         A=Benchmarks.StableSystem3.A
         B=Benchmarks.StableSystem3.B
         mode='.'
-        dVal={0:[0.95,1.05], 1:[0.95,1.05]}
+        dVal={0:[-0.01,0.01], 1:[-0.02,0.02]}
         dVec={
-        (0,1): [0.90,1.10],
-        (1,0): [0.95,1.05]
+        (0,1): [-0.1,0.1],
+        (1,0): [-0.01,0.01]
         }
         IS=np.array([
         [1],
@@ -112,10 +107,10 @@ class DriverDec:
         A=Benchmarks.StableSystem4.A
         B=Benchmarks.StableSystem4.B
         mode='.'
-        dVal={0:[0.95,1.05], 1:[0.95,1.05]}
+        dVal={0:[-0.01,0.01], 1:[-0.02,0.02]}
         dVec={
-        (0,1): [0.95,1.05],
-        (1,0): [0.95,1.05]
+        (0,1): [-0.1,0.1],
+        (1,0): [-0.01,0.01]
         }
         IS=np.array([
         [1],
@@ -139,10 +134,10 @@ class DriverDec:
         A=Benchmarks.FlightEnvelope.A
         B=Benchmarks.FlightEnvelope.B
         mode='.'
-        dVal={0:[0.95,1.05], 1:[0.95,1.05]}
+        dVal={0:[-0.01,0.01], 1:[-0.02,0.02]}
         dVec={
-        (0,1): [0.95,1.05],
-        (1,0): [0.95,1.05]
+        (0,1): [-0.1,0.1],
+        (1,0): [-0.01,0.01]
         }
         IS=np.array([
         [1],
@@ -172,10 +167,10 @@ class DriverDec:
         A=Benchmarks.CoOPVehiclesI.A
         B=Benchmarks.CoOPVehiclesI.B
         mode='.'
-        dVal={0:[0.95,1.05], 1:[0.95,1.05]}
+        dVal={0:[-0.01,0.01], 1:[-0.02,0.02]}
         dVec={
-        (0,1): [0.95,1.05],
-        (1,0): [0.95,1.05]
+        (0,1): [-0.1,0.1],
+        (1,0): [-0.01,0.01]
         }
         IS=np.array([
         [1],
@@ -197,10 +192,10 @@ class DriverDec:
     def coOPVehiclesII():
         A=Benchmarks.CoOPVehiclesII.A
         B=Benchmarks.CoOPVehiclesII.B
-        dVal={0:[0.95,1.05], 1:[0.95,1.05]}
+        dVal={0:[-0.01,0.01], 1:[-0.02,0.02]}
         dVec={
-        (0,1): [0.95,1.05],
-        (1,0): [0.95,1.05]
+        (0,1): [-0.1,0.1],
+        (1,0): [-0.01,0.01]
         }
         IS=np.array([
         [1],
@@ -224,9 +219,9 @@ class DriverDec:
         A=Benchmarks.PKPD2.A
         B=Benchmarks.PKPD2.B
         mode='.'
-        dVal={0: [0.95,1.05]}
+        dVal={0: [-0.01,0.01]}
         dVec={
-        (0,1): [0.95,1.05]
+        (0,1): [-0.1,0.1]
         }
         IS=np.array([
         [1],
@@ -247,9 +242,9 @@ class DriverDec:
         A=Benchmarks.DCConv.A
         B=Benchmarks.DCConv.B
         mode='.'
-        dVal={0: [0.95,1.05]}
+        dVal={0: [-0.01,0.01]}
         dVec={
-        (0,1): [0.95,1.05]
+        (0,1): [-0.1,0.1]
         }
         IS=np.array([
         [1],
@@ -272,10 +267,10 @@ class DriverDec:
         dVec={}
         print("Space Craft Rndzvs")
         #r=RevEigenDecomp(DriverDec.createMatrix(A,B,'.',0),dVal,dVec).printReport()
-        dVal={0:[0.95,1.05], 1:[0.95,1.05]}
+        dVal={0:[-0.01,0.01], 1:[-0.02,0.02]}
         dVec={
-        (0,1): [0.95,1.05],
-        (1,0): [0.95,1.05]
+        (0,1): [-0.1,0.1],
+        (1,0): [-0.01,0.01]
         }
         IS=np.array([
         [1],
@@ -293,10 +288,10 @@ class DriverDec:
         A=Benchmarks.HolesCXc.A
         B=Benchmarks.HolesCXc.B
         mode='.'
-        dVal={0:[1.05,1.1], 1:[1.05,1.1]}
+        dVal={0:[-0.01,0.01], 1:[-0.02,0.02]}
         dVec={
-        (0,1): [1.1,1.1],
-        (1,0): [1.1,1.1]
+        (0,1): [-0.1,0.1],
+        (1,0): [-0.01,0.01]
         }
         IS=np.array([
         [1],
@@ -329,10 +324,10 @@ class DriverDec:
     def motorTransmission1():
         A=Benchmarks.MotorTransmission1.A
         B=Benchmarks.MotorTransmission1.B
-        dVal={0:[0.95,1.05], 1:[0.95,1.05]}
+        dVal={0:[-0.01,0.01], 1:[-0.02,0.02]}
         dVec={
-        (0,1): [0.95,1.05],
-        (1,0): [0.95,1.05]
+        (0,1): [-0.1,0.1],
+        (1,0): [-0.01,0.01]
         }
         IS=np.array([
         [1],
@@ -353,10 +348,10 @@ class DriverDec:
         A=Benchmarks.MotorTransmission2.A
         B=Benchmarks.MotorTransmission2.B
         mode='.'
-        dVal={0:[0.95,1.05]}
+        dVal={0:[-0.01,0.01]}
         dVec={
-        (0,1): [0.95,1.05],
-        (1,0): [0.95,1.05]
+        (0,1): [-0.01,0.01],
+        (1,0): [-0.01,0.01]
         }
         IS=np.array([
         [1],
@@ -379,4 +374,5 @@ class DriverDec:
 
 
 # Write your driver code Where
-DriverDec.holesCXc()
+DriverDec.pkpd2()
+
